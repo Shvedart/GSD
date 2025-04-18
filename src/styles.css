@@ -27,4 +27,56 @@
     width: 14px;
     height: 14px;
     vertical-align: middle;
+}
+
+.day-card {
+    background: #FFFFFF;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.day-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #E0E0E0;
+    gap: 8px;
+}
+
+.day-header h2 {
+    flex-grow: 1;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: #212121;
+}
+
+.calendar-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-btn img {
+    width: 16px;
+    height: 16px;
+}
+
+.toggle-btn:hover {
+    background-color: #F5F5F5;
+    border-radius: 4px;
+}
+
+.entries-container {
+    padding: 8px 16px;
 } 

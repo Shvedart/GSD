@@ -141,6 +141,13 @@ img.insulin-icon {
     cursor: pointer;
 }
 
+button.toggle-btn {
+    margin: 0px;
+    border: 0px;
+    background: none;
+    display: flex;
+}
+
 .submit-btn:hover {
     background-color: var(--color-black-70);
 }
