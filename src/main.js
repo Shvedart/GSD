@@ -60,7 +60,7 @@ class GSDTracker {
         const entry = {
             date: this.dateInput.value,
             time: this.timeInput.value,
-            sugar: parseFloat(this.sugarInput.value),
+            sugar: this.sugarInput.value ? parseFloat(this.sugarInput.value) : '',
             insulin: parseInt(this.unitsValue.textContent),
             breadUnits: parseFloat(this.breadUnitsValue.textContent),
             comment: this.foodInput.value
@@ -98,8 +98,14 @@ class GSDTracker {
                 const date = dayCard.querySelector('h2').textContent;
                 const entryIndex = Array.from(dayCard.querySelectorAll('.entry')).indexOf(entryElement);
                 
-                deleteEntry(date, entryIndex);
-                this.loadAndDisplayEntries();
+                // Получаем исходную дату из данных
+                const entries = loadEntries();
+                const originalDate = entries.find(group => formatDate(group.date) === date)?.date;
+                
+                if (originalDate) {
+                    deleteEntry(originalDate, entryIndex);
+                    this.loadAndDisplayEntries();
+                }
             });
         });
     }

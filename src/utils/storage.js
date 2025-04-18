@@ -28,15 +28,15 @@ function addEntry(entry) {
 
 function deleteEntry(date, entryIndex) {
     const entries = loadEntries();
-    const dayGroup = entries.find(group => group.date === date);
+    const dayGroupIndex = entries.findIndex(group => group.date === date);
     
-    if (dayGroup) {
+    if (dayGroupIndex !== -1) {
+        const dayGroup = entries[dayGroupIndex];
         dayGroup.entries.splice(entryIndex, 1);
         
         // Если это была последняя запись в дне, удаляем весь день
         if (dayGroup.entries.length === 0) {
-            const dayIndex = entries.findIndex(group => group.date === date);
-            entries.splice(dayIndex, 1);
+            entries.splice(dayGroupIndex, 1);
         }
         
         saveEntries(entries);
@@ -56,8 +56,8 @@ function getDayStats(entries) {
         if (entry.breadUnits) {
             totalBreadUnits += entry.breadUnits;
         }
-        if (entry.sugar) {
-            averageSugar += entry.sugar;
+        if (entry.sugar !== undefined && entry.sugar !== null && entry.sugar !== '') {
+            averageSugar += parseFloat(entry.sugar);
             sugarReadings++;
         }
     });
@@ -65,6 +65,6 @@ function getDayStats(entries) {
     return {
         totalInsulin,
         totalBreadUnits,
-        averageSugar: sugarReadings ? (averageSugar / sugarReadings).toFixed(1) : 0
+        averageSugar: sugarReadings ? (averageSugar / sugarReadings).toFixed(1) : '-'
     };
 } 

@@ -19,21 +19,24 @@ class Entry {
         timeElement.className = 'entry-time';
         timeElement.textContent = this.time;
 
-        const sugarBadge = document.createElement('span');
-        sugarBadge.className = `sugar-badge ${this.sugar > 7 ? 'high' : 'normal'}`;
-        sugarBadge.textContent = `${this.sugar} ммоль/л`;
+        entryHeader.appendChild(timeElement);
+
+        // Добавляем бейдж сахара только если он указан
+        if (this.sugar !== undefined && this.sugar !== null && this.sugar !== '') {
+            const sugarBadge = document.createElement('span');
+            sugarBadge.className = `sugar-badge ${this.sugar > 7 ? 'high' : 'normal'}`;
+            sugarBadge.textContent = `${this.sugar} ммоль/л`;
+            entryHeader.appendChild(sugarBadge);
+        }
 
         const insulinBadge = document.createElement('span');
         insulinBadge.className = 'insulin-badge';
         insulinBadge.textContent = `${this.insulin} ед.`;
+        entryHeader.appendChild(insulinBadge);
 
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-btn';
         deleteButton.innerHTML = '<img src="icons/delete.svg" alt="Delete">';
-
-        entryHeader.appendChild(timeElement);
-        entryHeader.appendChild(sugarBadge);
-        entryHeader.appendChild(insulinBadge);
         entryHeader.appendChild(deleteButton);
 
         const foodElement = document.createElement('div');
