@@ -195,6 +195,13 @@ img.insulin-icon {
     min-width: 40px;
 }
 
+span.time-container {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+}
+
 .food-row {
     display: flex;
     flex-direction: column;

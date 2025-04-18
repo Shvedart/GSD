@@ -1,11 +1,12 @@
 class Entry {
-    constructor(entryData) {
+    constructor(entryData, dayEntries) {
         this.date = entryData.date;
         this.time = entryData.time;
         this.sugar = entryData.sugar;
         this.insulin = entryData.insulin;
         this.breadUnits = entryData.breadUnits;
         this.comment = entryData.comment;
+        this.dayEntries = dayEntries;
     }
 
     getInsulinTypeInRussian(type) {
@@ -23,15 +24,30 @@ class Entry {
         const entryHeader = document.createElement('div');
         entryHeader.className = 'entry-header';
 
+        // Создаем контейнер для времени с иконкой
+        const timeContainer = document.createElement('span');
+        timeContainer.className = 'time-container';
+
+        // Добавляем иконку таймера
+        const timerIcon = document.createElement('img');
+        timerIcon.src = 'icons/timer-14.svg';
+        timerIcon.alt = 'Время';
+        timerIcon.className = 'timer-icon';
+        timeContainer.appendChild(timerIcon);
+
+        // Добавляем время
         const timeElement = document.createElement('span');
         timeElement.className = 'entry-time';
         timeElement.textContent = this.time;
-        entryHeader.appendChild(timeElement);
+        timeContainer.appendChild(timeElement);
+
+        entryHeader.appendChild(timeContainer);
 
         // Добавляем бейдж сахара только если он указан
         if (this.sugar !== undefined && this.sugar !== null && this.sugar !== '') {
             const sugarBadge = document.createElement('span');
-            sugarBadge.className = `sugar-badge ${this.sugar > 7 ? 'high' : 'normal'}`;
+            const sugarColor = getSugarColor(this.sugar, this.time, this.dayEntries);
+            sugarBadge.className = `sugar-badge ${sugarColor}`;
             sugarBadge.textContent = `${this.sugar} ммоль/л`;
             entryHeader.appendChild(sugarBadge);
         }
