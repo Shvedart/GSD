@@ -12,7 +12,7 @@ class DayCard {
         dayHeader.className = 'day-header';
 
         const dateElement = document.createElement('h2');
-        dateElement.textContent = this.date;
+        dateElement.textContent = formatDate(this.date);
 
         const dayEntries = document.createElement('div');
         dayEntries.className = 'day-entries';

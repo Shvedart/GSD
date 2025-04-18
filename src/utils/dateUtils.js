@@ -1,9 +1,14 @@
 function formatDate(date) {
-    return date.toISOString().split('T')[0];
+    const d = new Date(date);
+    const months = [
+        'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+        'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+    ];
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
 }
 
 function getCurrentDate() {
-    return formatDate(new Date());
+    return new Date().toISOString().split('T')[0];
 }
 
 function formatTime(date) {
@@ -29,6 +34,6 @@ function sortDayEntriesByTime(entries) {
     return entries.sort((a, b) => {
         const timeA = a.time.split(':').map(Number);
         const timeB = b.time.split(':').map(Number);
-        return (timeB[0] * 60 + timeB[1]) - (timeA[0] * 60 + timeA[1]);
+        return (timeA[0] * 60 + timeA[1]) - (timeB[0] * 60 + timeB[1]);
     });
 } 

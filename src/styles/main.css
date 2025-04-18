@@ -239,8 +239,8 @@ input:focus, select:focus, textarea:focus {
 }
 
 .delete-btn img {
-    width: var(--icon-size-small);
-    height: var(--icon-size-small);
+    width: var(--icon-size);
+    height: var(--icon-size);
     opacity: 0.3;
 }
 
