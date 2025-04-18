@@ -24,7 +24,6 @@ body {
 .form {
     background-color: var(--color-white);
     border-radius: var(--border-radius-20);
-    /* padding: var(--spacing-16); */
     margin-bottom: var(--spacing-16);
 }
 
@@ -237,10 +236,15 @@ input:focus, select:focus, textarea:focus {
     border: none;
     padding: var(--spacing-4);
     cursor: pointer;
-    opacity: 0.11;
 }
 
-.delete-btn:hover {
+.delete-btn img {
+    width: var(--icon-size-small);
+    height: var(--icon-size-small);
+    opacity: 0.3;
+}
+
+.delete-btn:hover img {
     opacity: 1;
 }
 

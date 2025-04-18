@@ -29,7 +29,7 @@ class Entry {
 
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-btn';
-        deleteButton.innerHTML = '<img src="icons/delete-24.svg" alt="Delete">';
+        deleteButton.innerHTML = '<img src="icons/delete.svg" alt="Delete">';
 
         entryHeader.appendChild(timeElement);
         entryHeader.appendChild(sugarBadge);
