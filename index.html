@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSD Tracker</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="stylesheet" href="src/styles/variables.css">
+</head>
+<body>
+    <div class="container">
+        <form id="gsdForm" class="form">
+            <div class="form-row">
+                <div class="input-group">
+                    <img src="icons/calendar-24.svg" alt="Calendar" class="input-icon">
+                    <input type="date" id="date" required>
+                </div>
+                <div class="input-group">
+                    <img src="icons/timer-24.svg" alt="Timer" class="input-icon">
+                    <input type="time" id="time" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <img src="icons/sugar-24.svg" alt="Sugar" class="input-icon">
+                    <input type="number" id="sugar" step="0.1" placeholder="Сахар">
+                </div>
+                <div class="input-group">
+                    <img src="icons/insulin-24.svg" alt="Insulin" class="input-icon">
+                    <select id="insulin">
+                        <option value="">Нет</option>
+                        <option value="novorapid" selected>Новорапид</option>
+                        <option value="levemir">Левемир</option>
+                    </select>
+                    <div id="insulinUnits" class="insulin-units">
+                        <button type="button" class="units-btn" id="decreaseUnits">
+                            <img src="icons/minus-24.svg" alt="Decrease">
+                        </button>
+                        <span id="unitsValue">5</span>
+                        <button type="button" class="units-btn" id="increaseUnits">
+                            <img src="icons/plus-24.svg" alt="Increase">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group food-group">
+                    <img src="icons/bread-units-24.svg" alt="Food" class="input-icon">
+                    <textarea id="food" placeholder="Еда"></textarea>
+                    <div id="breadUnits" class="bread-units">
+                        <button type="button" class="units-btn" id="decreaseBreadUnits">
+                            <img src="icons/minus-24.svg" alt="Decrease">
+                        </button>
+                        <span id="breadUnitsValue">1.5</span>
+                        <button type="button" class="units-btn" id="increaseBreadUnits">
+                            <img src="icons/plus-24.svg" alt="Increase">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Добавить</button>
+        </form>
+
+        <div id="entries" class="entries"></div>
+    </div>
+
+    <!-- Утилиты -->
+    <script src="src/utils/dateUtils.js"></script>
+    <script src="src/utils/validation.js"></script>
+    <script src="src/utils/storage.js"></script>
+
+    <!-- Компоненты -->
+    <script src="src/components/Entry.js"></script>
+    <script src="src/components/DayCard.js"></script>
+
+    <!-- Основной скрипт -->
+    <script src="src/main.js"></script>
+</body>
+</html> 

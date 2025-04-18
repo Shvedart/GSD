@@ -1,0 +1,53 @@
+:root {
+  --bg-daybg: rgba(255, 255, 255, 1);
+  --tone-day900: rgba(0, 0, 0, 0.98);
+  --text-font-family: "Inter", Helvetica;
+  --text-font-weight: 700;
+  --text-font-size: 11px;
+  --text-letter-spacing: 0px;
+  --text-line-height: 139.9999976158142%;
+  --text-font-style: normal;
+  --20-600-auto-font-family: "Inter", Helvetica;
+  --20-600-auto-font-weight: 600;
+  --20-600-auto-font-size: 20px;
+  --20-600-auto-letter-spacing: -0.2px;
+  --20-600-auto-line-height: normal;
+  --20-600-auto-font-style: normal;
+  --collection-1-black: rgba(0, 0, 0, 1);
+  --collection-1-white: rgba(255, 255, 255, 1);
+  --collection-1-bg: rgba(255, 255, 255, 1);
+  --collection-1-border-defolt: rgba(0, 0, 0, 0.11);
+  --collection-1-border-hover: rgba(0, 0, 0, 0.5);
+  --collection-1-border-focus: rgba(0, 0, 0, 0.7);
+  --collection-1-green: rgba(22, 184, 164, 1);
+  --collection-1-green-bg: rgba(22, 184, 164, 0.1);
+  --collection-1-red: rgba(241, 107, 121, 1);
+}
+
+/*
+
+To enable a theme in your HTML, simply add one of the following data attributes to an HTML element, like so:
+
+<body data-collection-1-mode="day">
+    <!-- the rest of your content -->
+</body>
+
+You can apply the theme on any DOM node, not just the `body`
+
+*/
+
+[data-collection-1-mode="day"] {
+  --collection-1-black: rgba(0, 0, 0, 1);
+  --collection-1-bg: rgba(255, 255, 255, 1);
+  --collection-1-border-defolt: rgba(0, 0, 0, 0.11);
+  --collection-1-border-hover: rgba(0, 0, 0, 0.5);
+  --collection-1-border-focus: rgba(0, 0, 0, 0.7);
+}
+
+[data-collection-1-mode="night"] {
+  --collection-1-black: rgba(255, 255, 255, 1);
+  --collection-1-bg: rgba(27, 27, 27, 1);
+  --collection-1-border-defolt: rgba(255, 255, 255, 0.15);
+  --collection-1-border-hover: rgba(255, 255, 255, 0.5);
+  --collection-1-border-focus: rgba(255, 255, 255, 0.7);
+}

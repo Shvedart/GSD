@@ -1,0 +1,265 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-13);
+    line-height: var(--line-height-normal);
+    color: var(--color-black);
+    background-color: var(--color-white);
+}
+
+/* Container */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--spacing-16);
+}
+
+/* Form Styles */
+.form {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-20);
+    padding: var(--spacing-16);
+    margin-bottom: var(--spacing-16);
+}
+
+.form-row {
+    display: flex;
+    gap: var(--spacing-8);
+    margin-bottom: var(--spacing-16);
+}
+
+.form-row:last-child {
+    margin-bottom: 0;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: var(--spacing-8);
+}
+
+.input-group.food-group {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.input-icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+}
+
+/* Input Styles */
+input, select, textarea {
+    font-family: var(--font-family);
+    font-size: var(--font-size-13);
+    font-weight: var(--font-weight-medium);
+    padding: var(--spacing-8) var(--spacing-12);
+    border: 1px solid var(--color-black-11);
+    border-radius: var(--border-radius-8);
+    width: 100%;
+    height: var(--input-height);
+}
+
+textarea {
+    height: auto;
+    resize: vertical;
+    min-height: var(--input-height);
+}
+
+input:hover, select:hover, textarea:hover {
+    border-color: var(--color-black-50);
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--color-black-70);
+    outline: none;
+}
+
+/* Units Controls */
+.insulin-units,
+.bread-units {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-black-11);
+    border-radius: var(--border-radius-8);
+    overflow: hidden;
+}
+
+.units-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--input-height);
+    height: var(--input-height);
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: var(--spacing-10);
+}
+
+.units-btn:hover {
+    background-color: var(--color-black-11);
+}
+
+.units-btn img {
+    width: var(--icon-size);
+    height: var(--icon-size);
+}
+
+#unitsValue,
+#breadUnitsValue {
+    min-width: 40px;
+    text-align: center;
+    font-weight: var(--font-weight-medium);
+    border-left: 1px solid var(--color-black-11);
+    border-right: 1px solid var(--color-black-11);
+    padding: var(--spacing-10);
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    height: var(--input-height);
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--border-radius-8);
+    font-size: var(--font-size-15);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    margin-top: var(--spacing-16);
+}
+
+.submit-btn:hover {
+    background-color: var(--color-black-70);
+}
+
+/* Entries Section */
+.entries {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-10);
+}
+
+.day-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-black-11);
+    border-radius: var(--border-radius-20);
+    overflow: hidden;
+}
+
+.day-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    padding: var(--spacing-8) var(--spacing-16);
+    cursor: pointer;
+}
+
+.day-header h2 {
+    font-size: var(--font-size-20);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: -0.01em;
+    flex-grow: 1;
+}
+
+.day-entries {
+    border-top: 1px solid var(--color-black-11);
+}
+
+.entry {
+    padding: var(--spacing-2) var(--spacing-16);
+}
+
+.entry-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-2) 0;
+}
+
+.entry-time {
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-medium);
+    min-width: 40px;
+}
+
+.sugar-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: 0 var(--spacing-4);
+    height: 19px;
+    border-radius: var(--border-radius-4);
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-medium);
+}
+
+.sugar-badge.high {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+.sugar-badge.normal {
+    background-color: var(--color-green-10);
+    color: var(--color-green);
+}
+
+.insulin-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: 0 var(--spacing-4);
+    height: 19px;
+    border-radius: var(--border-radius-4);
+    border: 1px solid var(--color-black-11);
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-medium);
+}
+
+.delete-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    padding: var(--spacing-4);
+    cursor: pointer;
+    opacity: 0.11;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+}
+
+.entry-food {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+    padding: var(--spacing-2) 0;
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-medium);
+}
+
+.food-divider {
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--color-black-11);
+    margin: 0 var(--spacing-8);
+    margin-top: 0.7em;
+}
+
+.day-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-10);
+    padding: var(--spacing-8) var(--spacing-16);
+    font-size: var(--font-size-15);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: -0.01em;
+} 
