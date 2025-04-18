@@ -7,12 +7,14 @@ class GSDTracker {
         this.timeInput = document.getElementById('time');
         this.sugarInput = document.getElementById('sugar');
         this.insulinInput = document.getElementById('insulin');
+        this.insulinUnits = document.getElementById('insulinUnits');
         this.unitsValue = document.getElementById('unitsValue');
         this.foodInput = document.getElementById('food');
         this.breadUnitsValue = document.getElementById('breadUnitsValue');
 
         this.initializeForm();
         this.initializeUnitsControls();
+        this.initializeInsulinControl();
         this.loadAndDisplayEntries();
     }
 
@@ -25,6 +27,13 @@ class GSDTracker {
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
             this.handleFormSubmit();
+        });
+    }
+
+    initializeInsulinControl() {
+        // Показываем/скрываем контрол единиц инсулина при изменении типа
+        this.insulinInput.addEventListener('change', () => {
+            this.insulinUnits.style.display = this.insulinInput.value ? 'flex' : 'none';
         });
     }
 
@@ -61,10 +70,17 @@ class GSDTracker {
             date: this.dateInput.value,
             time: this.timeInput.value,
             sugar: this.sugarInput.value ? parseFloat(this.sugarInput.value) : '',
-            insulin: parseInt(this.unitsValue.textContent),
             breadUnits: parseFloat(this.breadUnitsValue.textContent),
             comment: this.foodInput.value
         };
+
+        // Добавляем инсулин только если выбран его тип и он не равен "Нет"
+        if (this.insulinInput.value && this.insulinInput.value !== 'Нет') {
+            entry.insulin = {
+                type: this.insulinInput.value,
+                units: parseInt(this.unitsValue.textContent)
+            };
+        }
 
         if (validateEntry(entry)) {
             addEntry(entry);
@@ -74,6 +90,7 @@ class GSDTracker {
             this.timeInput.value = getCurrentTime();
             this.unitsValue.textContent = '5';
             this.breadUnitsValue.textContent = '1.5';
+            this.insulinUnits.style.display = 'none';
         } else {
             alert('Пожалуйста, проверьте введенные данные');
         }

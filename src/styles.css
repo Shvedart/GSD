@@ -1,0 +1,16 @@
+.insulin-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: #E3F2FD;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 14px;
+    color: #1976D2;
+}
+
+.insulin-icon {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+} 

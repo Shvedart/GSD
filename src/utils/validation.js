@@ -9,8 +9,18 @@ function validateSugar(value) {
 }
 
 function validateInsulin(value) {
-    const insulin = parseFloat(value);
-    return !isNaN(insulin) && insulin >= 0 && insulin <= 100;
+    // Если инсулин не указан - это ок
+    if (!value) {
+        return true;
+    }
+    // Если указан - проверяем его структуру
+    return (
+        typeof value === 'object' &&
+        typeof value.type === 'string' &&
+        typeof value.units === 'number' &&
+        value.units >= 0 &&
+        value.units <= 100
+    );
 }
 
 function validateBreadUnits(value) {
@@ -31,6 +41,6 @@ function validateEntry(entry) {
         validateInsulin(entry.insulin) &&
         validateBreadUnits(entry.breadUnits) &&
         validateComment(entry.comment) &&
-        validateSugar(entry.sugar) // Теперь может быть пустым
+        validateSugar(entry.sugar)
     );
 } 

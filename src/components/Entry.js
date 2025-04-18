@@ -8,6 +8,14 @@ class Entry {
         this.comment = entryData.comment;
     }
 
+    getInsulinTypeInRussian(type) {
+        const types = {
+            'novorapid': 'Новорапид',
+            'levemir': 'Левемир'
+        };
+        return types[type.toLowerCase()] || type;
+    }
+
     createElement() {
         const entryElement = document.createElement('div');
         entryElement.className = 'entry';
@@ -18,7 +26,6 @@ class Entry {
         const timeElement = document.createElement('span');
         timeElement.className = 'entry-time';
         timeElement.textContent = this.time;
-
         entryHeader.appendChild(timeElement);
 
         // Добавляем бейдж сахара только если он указан
@@ -29,10 +36,26 @@ class Entry {
             entryHeader.appendChild(sugarBadge);
         }
 
-        const insulinBadge = document.createElement('span');
-        insulinBadge.className = 'insulin-badge';
-        insulinBadge.textContent = `${this.insulin} ед.`;
-        entryHeader.appendChild(insulinBadge);
+        // Добавляем бейдж инсулина только если он указан
+        if (this.insulin && this.insulin.type) {
+            const insulinBadge = document.createElement('span');
+            insulinBadge.className = 'insulin-badge';
+            
+            // Добавляем иконку инсулина
+            const insulinIcon = document.createElement('img');
+            insulinIcon.src = 'icons/insulin-14.svg';
+            insulinIcon.alt = 'Инсулин';
+            insulinIcon.className = 'insulin-icon';
+            insulinBadge.appendChild(insulinIcon);
+
+            // Добавляем текст с типом и количеством
+            const insulinText = document.createElement('span');
+            const insulinType = this.getInsulinTypeInRussian(this.insulin.type);
+            insulinText.innerHTML = `${insulinType} <strong>${this.insulin.units}</strong> ед.`;
+            insulinBadge.appendChild(insulinText);
+
+            entryHeader.appendChild(insulinBadge);
+        }
 
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-btn';
