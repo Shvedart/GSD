@@ -13,6 +13,9 @@ class GSDTracker {
         this.breadUnits = document.getElementById('breadUnits');
         this.breadUnitsValue = document.getElementById('breadUnitsValue');
 
+        // Создаем instance приложения глобально доступным
+        window.gsdTracker = this;
+
         this.initializeForm();
         this.initializeUnitsControls();
         this.initializeInsulinControl();
@@ -161,4 +164,29 @@ class GSDTracker {
 // Инициализация приложения при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     new GSDTracker();
-}); 
+});
+
+// Функция для удаления записи
+window.deleteEntry = function(date, time) {
+    if (confirm('Вы уверены, что хотите удалить эту запись?')) {
+        const entries = loadEntries();
+        const dayGroup = entries.find(group => group.date === date);
+        
+        if (dayGroup) {
+            const entryIndex = dayGroup.entries.findIndex(entry => entry.time === time);
+            if (entryIndex !== -1) {
+                dayGroup.entries.splice(entryIndex, 1);
+                
+                // Если в дне не осталось записей, удаляем весь день
+                if (dayGroup.entries.length === 0) {
+                    const dayIndex = entries.findIndex(group => group.date === date);
+                    entries.splice(dayIndex, 1);
+                }
+                
+                saveEntries(entries);
+                // Используем метод класса для обновления отображения
+                window.gsdTracker.loadAndDisplayEntries();
+            }
+        }
+    }
+}; 

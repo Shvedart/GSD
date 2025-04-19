@@ -139,6 +139,7 @@ img.insulin-icon {
     font-size: var(--font-size-15);
     font-weight: var(--font-weight-medium);
     cursor: pointer;
+    height: 50px;
 }
 
 button.toggle-btn {

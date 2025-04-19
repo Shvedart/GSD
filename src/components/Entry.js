@@ -1,11 +1,12 @@
 class Entry {
-    constructor(entryData) {
+    constructor(entryData, dayEntries = []) {
         this.time = entryData.time;
         this.sugar = entryData.sugar;
         this.insulin = entryData.insulin;
         this.comment = entryData.comment; // еда/комментарий
         this.breadUnits = entryData.breadUnits;
         this.date = entryData.date;
+        this.dayEntries = dayEntries;
     }
 
     getInsulinTypeInRussian(type) {
@@ -21,12 +22,12 @@ class Entry {
         
         // Находим индекс текущей записи
         const currentIndex = this.dayEntries.findIndex(entry => 
-            entry.time === this.time && entry.sugar === this.sugar
+            entry.time === this.time
         );
         
         if (currentIndex === -1) return false;
         
-        // Если это первая запись за день
+        // Если это первая запись за день (натощак)
         if (currentIndex === 0) {
             return parseFloat(this.sugar) > 5.0;
         }
@@ -73,28 +74,29 @@ class Entry {
     }
 
     shouldShowDivider() {
-        // Показываем разделитель только если в текущей записи есть еда
         if (!this.comment) {
             return false;
         }
 
-        // Находим текущую запись
+        // Находим индекс текущей записи
         const currentIndex = this.dayEntries.findIndex(entry => 
             entry.time === this.time
         );
 
         // Если это первая запись дня, не показываем разделитель
-        if (currentIndex === 0) {
-            return false;
-        }
-
-        // Если есть еда и это не первая запись - показываем разделитель
-        return true;
+        return currentIndex > 0;
     }
 
     createElement() {
         const note = document.createElement('div');
         note.classList.add('note');
+
+        // Добавляем divider если нужно
+        if (this.shouldShowDivider()) {
+            const divider = document.createElement('div');
+            divider.classList.add('entry-divider');
+            note.appendChild(divider);
+        }
 
         // Основная запись (data)
         const data = document.createElement('div');
@@ -124,10 +126,11 @@ class Entry {
         if (hasBadges) {
             if (this.sugar !== undefined && this.sugar !== null && this.sugar !== '') {
                 const sugarBadge = document.createElement('div');
-                sugarBadge.classList.add('sugar-badge', parseFloat(this.sugar) > 8 ? 'high' : 'normal');
+                const isHigh = this.isHighSugar();
+                sugarBadge.classList.add('sugar-badge', isHigh ? 'high' : 'normal');
                 
                 const sugarIcon = document.createElement('img');
-                sugarIcon.src = `icons/sugar-14-${parseFloat(this.sugar) > 8 ? 'red' : 'green'}.svg`;
+                sugarIcon.src = `icons/sugar-14-${isHigh ? 'red' : 'green'}.svg`;
                 sugarIcon.classList.add('sugar-icon');
                 sugarBadge.appendChild(sugarIcon);
                 
