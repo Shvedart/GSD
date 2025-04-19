@@ -299,12 +299,23 @@ img.sugar-icon {
 .day-footer {
     display: flex;
     align-items: center;
-    gap: var(--spacing-10);
+    gap: var(--spacing-16);
     padding: var(--spacing-8) var(--spacing-16);
-    font-size: var(--font-size-15);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: -0.01em;
-} 
+    border-top: 1px solid var(--color-black-11);
+}
+
+.footer-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+}
+
+.bread-units-icon,
+.insulin-icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+}
+
 .data {
     display: flex;
     flex-direction: column;

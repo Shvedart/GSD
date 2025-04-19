@@ -11,6 +11,12 @@ class DayCard {
         }, 0);
     }
 
+    calculateTotalInsulin() {
+        return this.entries.reduce((total, entry) => {
+            return total + (entry.insulin?.units || 0);
+        }, 0);
+    }
+
     createElement() {
         const card = document.createElement('div');
         card.classList.add('day-card');
@@ -54,18 +60,43 @@ class DayCard {
         card.appendChild(entriesContainer);
 
         const totalBreadUnits = this.calculateTotalBreadUnits();
-        if (totalBreadUnits > 0) {
+        const totalInsulin = this.calculateTotalInsulin();
+        
+        if (totalBreadUnits > 0 || totalInsulin > 0) {
             const footer = document.createElement('div');
             footer.classList.add('day-footer');
 
-            const icon = document.createElement('img');
-            icon.src = 'icons/bread-units-24.svg';
-            icon.classList.add('bread-units-icon');
-            footer.appendChild(icon);
+            if (totalBreadUnits > 0) {
+                const breadUnitsContainer = document.createElement('div');
+                breadUnitsContainer.classList.add('footer-item');
+                
+                const breadUnitsIcon = document.createElement('img');
+                breadUnitsIcon.src = 'icons/bread-units-24.svg';
+                breadUnitsIcon.classList.add('bread-units-icon');
+                breadUnitsContainer.appendChild(breadUnitsIcon);
 
-            const total = document.createElement('span');
-            total.textContent = `Всего ${totalBreadUnits}ХЕ`;
-            footer.appendChild(total);
+                const breadUnitsText = document.createElement('span');
+                breadUnitsText.textContent = `Всего ${totalBreadUnits}ХЕ`;
+                breadUnitsContainer.appendChild(breadUnitsText);
+                
+                footer.appendChild(breadUnitsContainer);
+            }
+
+            if (totalInsulin > 0) {
+                const insulinContainer = document.createElement('div');
+                insulinContainer.classList.add('footer-item');
+                
+                const insulinIcon = document.createElement('img');
+                insulinIcon.src = 'icons/insulin-24.svg';
+                insulinIcon.classList.add('insulin-icon');
+                insulinContainer.appendChild(insulinIcon);
+
+                const insulinText = document.createElement('span');
+                insulinText.textContent = `Всего ${totalInsulin} ед.`;
+                insulinContainer.appendChild(insulinText);
+                
+                footer.appendChild(insulinContainer);
+            }
 
             card.appendChild(footer);
         }
