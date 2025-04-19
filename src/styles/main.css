@@ -193,7 +193,7 @@ button.toggle-btn {
     display: flex;
     align-items: center;
     gap: var(--spacing-4);
-    padding: var(--spacing-2) 0;
+    /* padding: var(--spacing-2) 0; */
 }
 
 .entry-time {
@@ -253,7 +253,6 @@ span.time-container {
     margin-left: auto;
     background: none;
     border: none;
-    padding: var(--spacing-4);
     cursor: pointer;
 }
 

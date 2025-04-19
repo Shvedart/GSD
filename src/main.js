@@ -10,12 +10,17 @@ class GSDTracker {
         this.insulinUnits = document.getElementById('insulinUnits');
         this.unitsValue = document.getElementById('unitsValue');
         this.foodInput = document.getElementById('food');
+        this.breadUnits = document.getElementById('breadUnits');
         this.breadUnitsValue = document.getElementById('breadUnitsValue');
 
         this.initializeForm();
         this.initializeUnitsControls();
         this.initializeInsulinControl();
+        this.initializeFoodControl();
         this.loadAndDisplayEntries();
+
+        // Инициализируем начальное состояние контрола хлебных единиц
+        this.updateBreadUnitsVisibility();
     }
 
     initializeForm() {
@@ -28,12 +33,30 @@ class GSDTracker {
             e.preventDefault();
             this.handleFormSubmit();
         });
+
+        // Сбрасываем значения при загрузке
+        this.breadUnitsValue.textContent = '0';
     }
 
     initializeInsulinControl() {
         // Показываем/скрываем контрол единиц инсулина при изменении типа
         this.insulinInput.addEventListener('change', () => {
             this.insulinUnits.style.display = this.insulinInput.value ? 'flex' : 'none';
+        });
+    }
+
+    updateBreadUnitsVisibility() {
+        const hasFood = this.foodInput.value.trim() !== '';
+        this.breadUnits.style.display = hasFood ? 'flex' : 'none';
+        if (!hasFood) {
+            this.breadUnitsValue.textContent = '0';
+        }
+    }
+
+    initializeFoodControl() {
+        // Показываем/скрываем контрол хлебных единиц при вводе еды
+        this.foodInput.addEventListener('input', () => {
+            this.updateBreadUnitsVisibility();
         });
     }
 
@@ -70,16 +93,22 @@ class GSDTracker {
             date: this.dateInput.value,
             time: this.timeInput.value,
             sugar: this.sugarInput.value ? parseFloat(this.sugarInput.value) : '',
-            breadUnits: parseFloat(this.breadUnitsValue.textContent),
             comment: this.foodInput.value
         };
 
-        // Добавляем инсулин только если выбран его тип и он не равен "Нет"
+        // Добавляем инсулин только если выбран его тип
         if (this.insulinInput.value && this.insulinInput.value !== 'Нет') {
             entry.insulin = {
                 type: this.insulinInput.value,
                 units: parseInt(this.unitsValue.textContent)
             };
+        }
+
+        // Добавляем хлебные единицы только если указана еда
+        if (this.foodInput.value.trim()) {
+            entry.breadUnits = parseFloat(this.breadUnitsValue.textContent);
+        } else {
+            entry.breadUnits = 0;
         }
 
         if (validateEntry(entry)) {
@@ -89,8 +118,9 @@ class GSDTracker {
             this.dateInput.value = getCurrentDate();
             this.timeInput.value = getCurrentTime();
             this.unitsValue.textContent = '5';
-            this.breadUnitsValue.textContent = '1.5';
+            this.breadUnitsValue.textContent = '0';
             this.insulinUnits.style.display = 'none';
+            this.breadUnits.style.display = 'none';
         } else {
             alert('Пожалуйста, проверьте введенные данные');
         }

@@ -23,7 +23,12 @@ function validateInsulin(value) {
     );
 }
 
-function validateBreadUnits(value) {
+function validateBreadUnits(value, hasFood) {
+    // Если еда не указана, хлебные единицы должны быть пустыми
+    if (!hasFood) {
+        return value === 0 || value === undefined || value === null;
+    }
+    // Если еда указана - проверяем значение хлебных единиц
     const breadUnits = parseFloat(value);
     return !isNaN(breadUnits) && breadUnits >= 0 && breadUnits <= 50;
 }
@@ -33,13 +38,15 @@ function validateComment(value) {
 }
 
 function validateEntry(entry) {
+    const hasFood = entry.comment && entry.comment.trim() !== '';
+    
     return (
         entry &&
         typeof entry === 'object' &&
         typeof entry.date === 'string' &&
         typeof entry.time === 'string' &&
         validateInsulin(entry.insulin) &&
-        validateBreadUnits(entry.breadUnits) &&
+        validateBreadUnits(entry.breadUnits, hasFood) &&
         validateComment(entry.comment) &&
         validateSugar(entry.sugar)
     );

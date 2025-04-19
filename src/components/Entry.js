@@ -78,24 +78,29 @@ class Entry {
         deleteButton.innerHTML = '<img src="icons/delete.svg" alt="Delete">';
         entryHeader.appendChild(deleteButton);
 
-        const foodElement = document.createElement('div');
-        foodElement.className = 'entry-food';
+        // Добавляем информацию о еде только если она указана
+        if (this.comment && this.comment.trim() !== '') {
+            const foodElement = document.createElement('div');
+            foodElement.className = 'entry-food';
 
-        const breadUnitsText = document.createElement('span');
-        breadUnitsText.textContent = `${this.breadUnits} ХЕ`;
+            const breadUnitsText = document.createElement('span');
+            breadUnitsText.textContent = `${this.breadUnits} ХЕ`;
 
-        const foodDivider = document.createElement('div');
-        foodDivider.className = 'food-divider';
+            const foodDivider = document.createElement('div');
+            foodDivider.className = 'food-divider';
 
-        const commentText = document.createElement('span');
-        commentText.textContent = this.comment;
+            const commentText = document.createElement('span');
+            commentText.textContent = this.comment;
 
-        foodElement.appendChild(breadUnitsText);
-        foodElement.appendChild(foodDivider);
-        foodElement.appendChild(commentText);
+            foodElement.appendChild(breadUnitsText);
+            foodElement.appendChild(foodDivider);
+            foodElement.appendChild(commentText);
 
-        entryElement.appendChild(entryHeader);
-        entryElement.appendChild(foodElement);
+            entryElement.appendChild(entryHeader);
+            entryElement.appendChild(foodElement);
+        } else {
+            entryElement.appendChild(entryHeader);
+        }
 
         return entryElement;
     }
