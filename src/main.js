@@ -45,7 +45,7 @@ class GSDTracker {
         });
 
         // Устанавливаем начальные значения
-        this.breadUnitsValue.textContent = '0';
+        this.breadUnitsValue.textContent = '1.0';
         this.unitsValue.textContent = '5';
         
         // Устанавливаем начальное состояние поля инсулина
@@ -67,7 +67,7 @@ class GSDTracker {
         const hasFood = this.foodInput.value.trim() !== '';
         this.breadUnits.style.display = hasFood ? 'flex' : 'none';
         if (!hasFood) {
-            this.breadUnitsValue.textContent = '0';
+            this.breadUnitsValue.textContent = '1.0';
         }
     }
 
@@ -76,6 +76,9 @@ class GSDTracker {
         this.foodInput.addEventListener('input', () => {
             this.updateBreadUnitsVisibility();
         });
+
+        // Устанавливаем начальное значение
+        this.breadUnitsValue.textContent = '1.0';
     }
 
     initializeUnitsControls() {
@@ -141,7 +144,7 @@ class GSDTracker {
             this.dateInput.value = getCurrentDate();
             this.timeInput.value = getCurrentTime();
             this.unitsValue.textContent = '5';
-            this.breadUnitsValue.textContent = '0';
+            this.breadUnitsValue.textContent = '1.0';
             this.breadUnits.style.display = 'none';
             
             // Восстанавливаем значение инсулина и обновляем видимость поля единиц
