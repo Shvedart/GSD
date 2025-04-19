@@ -119,4 +119,29 @@
 .bread-units-text {
     color: #666;
     font-weight: bold;
+}
+
+.sugar-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 14px;
+}
+
+.sugar-badge.high {
+    background-color: #FFEBEE;
+    color: #D32F2F;
+}
+
+.sugar-badge.normal {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+}
+
+.sugar-icon {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
 } 

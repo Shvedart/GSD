@@ -227,6 +227,11 @@ span.time-container {
     font-weight: var(--font-weight-medium);
 }
 
+img.sugar-icon {
+    width: 14px;
+    height: 14px;
+}
+
 .sugar-badge.high {
     background-color: var(--color-red);
     color: var(--color-white);

@@ -46,8 +46,21 @@ class Entry {
         // Добавляем бейдж сахара только если он указан
         if (this.sugar !== undefined && this.sugar !== null && this.sugar !== '') {
             const sugarBadge = document.createElement('span');
-            sugarBadge.className = 'sugar-badge ' + (this.sugar > 8 ? 'high' : 'normal');
-            sugarBadge.textContent = this.sugar;
+            const isHigh = this.sugar > 8;
+            sugarBadge.className = 'sugar-badge ' + (isHigh ? 'high' : 'normal');
+
+            // Добавляем иконку сахара
+            const sugarIcon = document.createElement('img');
+            sugarIcon.src = isHigh ? 'icons/sugar-14-red.svg' : 'icons/sugar-14-green.svg';
+            sugarIcon.alt = 'Сахар';
+            sugarIcon.className = 'sugar-icon';
+            sugarBadge.appendChild(sugarIcon);
+
+            // Добавляем значение сахара
+            const sugarValue = document.createElement('span');
+            sugarValue.textContent = this.sugar;
+            sugarBadge.appendChild(sugarValue);
+
             entryHeader.appendChild(sugarBadge);
         }
 
