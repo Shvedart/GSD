@@ -5,13 +5,18 @@ class DayCard {
         this.isExpanded = true; // По умолчанию записи развернуты
     }
 
-    createElement() {
-        const cardElement = document.createElement('div');
-        cardElement.className = 'day-card';
+    calculateTotalBreadUnits() {
+        return this.entries.reduce((total, entry) => {
+            return total + (entry.breadUnits || 0);
+        }, 0);
+    }
 
-        // Создаем заголовок с иконками
+    createElement() {
+        const card = document.createElement('div');
+        card.classList.add('day-card');
+
         const header = document.createElement('div');
-        header.className = 'day-header';
+        header.classList.add('day-header');
 
         // Добавляем иконку календаря
         const calendarIcon = document.createElement('img');
@@ -31,11 +36,11 @@ class DayCard {
         toggleButton.innerHTML = `<img src="icons/arrow_up.svg" alt="Свернуть">`;
         header.appendChild(toggleButton);
 
-        cardElement.appendChild(header);
+        card.appendChild(header);
 
         // Создаем контейнер для записей
         const entriesContainer = document.createElement('div');
-        entriesContainer.className = 'entries-container';
+        entriesContainer.classList.add('entries-container');
 
         // Сортируем записи по времени для отображения
         const sortedEntries = sortDayEntriesByTime([...this.entries]);
@@ -46,7 +51,24 @@ class DayCard {
             entriesContainer.appendChild(entry.createElement());
         });
 
-        cardElement.appendChild(entriesContainer);
+        card.appendChild(entriesContainer);
+
+        const totalBreadUnits = this.calculateTotalBreadUnits();
+        if (totalBreadUnits > 0) {
+            const footer = document.createElement('div');
+            footer.classList.add('day-footer');
+
+            const icon = document.createElement('img');
+            icon.src = 'icons/bread-units-24.svg';
+            icon.classList.add('bread-units-icon');
+            footer.appendChild(icon);
+
+            const total = document.createElement('span');
+            total.textContent = `Всего ${totalBreadUnits}ХЕ`;
+            footer.appendChild(total);
+
+            card.appendChild(footer);
+        }
 
         // Добавляем обработчик клика для сворачивания/разворачивания
         toggleButton.addEventListener('click', () => {
@@ -55,6 +77,6 @@ class DayCard {
             toggleButton.innerHTML = `<img src="icons/${this.isExpanded ? 'arrow_up' : 'arrow_down'}.svg" alt="${this.isExpanded ? 'Свернуть' : 'Развернуть'}">`;
         });
 
-        return cardElement;
+        return card;
     }
 } 

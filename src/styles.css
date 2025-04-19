@@ -162,4 +162,21 @@
     background-color: var(--color-black-11);
     border-top: 1px solid var(--color-black-11);
     border-bottom: 1px solid var(--color-black-11);
+}
+
+.day-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    border-top: 1px solid var(--color-black-11);
+    margin-top: 16px;
+    color: var(--color-black-100);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.bread-units-icon {
+    width: 24px;
+    height: 24px;
 } 
