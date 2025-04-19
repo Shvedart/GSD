@@ -73,7 +73,37 @@ class Entry {
         return hours * 60 + minutes;
     }
 
+    shouldShowDivider() {
+        // Показываем разделитель только если в текущей записи есть еда
+        if (!this.comment) {
+            return false;
+        }
+
+        // Находим текущую запись
+        const currentIndex = this.dayEntries.findIndex(entry => 
+            entry.time === this.time
+        );
+
+        // Если это первая запись дня, не показываем разделитель
+        if (currentIndex === 0) {
+            return false;
+        }
+
+        // Если есть еда и это не первая запись - показываем разделитель
+        return true;
+    }
+
     createElement() {
+        const container = document.createElement('div');
+        container.className = 'entry-container';
+
+        // Добавляем разделитель
+        if (this.shouldShowDivider()) {
+            const divider = document.createElement('div');
+            divider.className = 'entry-divider';
+            container.appendChild(divider);
+        }
+
         const entryElement = document.createElement('div');
         entryElement.className = 'entry';
 
@@ -163,6 +193,7 @@ class Entry {
             entryElement.appendChild(foodElement);
         }
 
-        return entryElement;
+        container.appendChild(entryElement);
+        return container;
     }
 } 

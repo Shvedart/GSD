@@ -37,9 +37,10 @@ class DayCard {
         const entriesContainer = document.createElement('div');
         entriesContainer.className = 'entries-container';
 
-        // Сортируем записи по времени
-        const sortedEntries = sortDayEntriesByTime(this.entries);
+        // Сортируем записи по времени для отображения
+        const sortedEntries = sortDayEntriesByTime([...this.entries]);
         
+        // Создаем компоненты Entry, передавая отсортированные записи
         sortedEntries.forEach(entryData => {
             const entry = new Entry(entryData, sortedEntries);
             entriesContainer.appendChild(entry.createElement());

@@ -78,7 +78,7 @@
 }
 
 .entries-container {
-    padding: 8px 16px;
+    padding: 0;
 }
 
 .bread-units {
@@ -144,4 +144,22 @@
     width: 14px;
     height: 14px;
     vertical-align: middle;
+}
+
+.entry-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.entry {
+    padding: 12px 16px;
+    position: relative;
+}
+
+.entry-divider {
+    height: 8px;
+    margin: 0;
+    background-color: var(--color-black-11);
+    border-top: 1px solid var(--color-black-11);
+    border-bottom: 1px solid var(--color-black-11);
 } 

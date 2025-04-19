@@ -288,6 +288,12 @@ img.sugar-icon {
     margin-top: 0.7em;
 }
 
+.entry-divider {
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-black-11);
+}
+
 .day-footer {
     display: flex;
     align-items: center;
