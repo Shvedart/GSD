@@ -91,6 +91,7 @@ input:focus, select:focus, textarea:focus {
     border: 1px solid var(--color-black-11);
     border-radius: var(--border-radius-8);
     width: 122px;
+    height: 40px;
 }
 
 img.insulin-icon {
@@ -341,4 +342,25 @@ img.sugar-icon {
     background: var(--color-black-11);
     width: 1px;
     height: auto;
+}
+
+select#insulin {
+    appearance: none;
+}
+
+.insulin-select {
+    appearance: none;
+    background: url('../../icons/arrow_down.svg') no-repeat right 12px center;
+    padding: 8px 36px 8px 12px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    width: 100%;
+}
+
+.insulin-select:focus {
+    outline: none;
+    border-color: var(--color-black-70);
 }
