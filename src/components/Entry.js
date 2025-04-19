@@ -1,12 +1,11 @@
 class Entry {
-    constructor(entryData, dayEntries) {
-        this.date = entryData.date;
+    constructor(entryData) {
         this.time = entryData.time;
         this.sugar = entryData.sugar;
         this.insulin = entryData.insulin;
+        this.comment = entryData.comment; // еда/комментарий
         this.breadUnits = entryData.breadUnits;
-        this.comment = entryData.comment;
-        this.dayEntries = dayEntries || [];
+        this.date = entryData.date;
     }
 
     getInsulinTypeInRussian(type) {
@@ -94,106 +93,109 @@ class Entry {
     }
 
     createElement() {
-        const container = document.createElement('div');
-        container.className = 'entry-container';
+        const note = document.createElement('div');
+        note.classList.add('note');
 
-        // Добавляем разделитель
-        if (this.shouldShowDivider()) {
-            const divider = document.createElement('div');
-            divider.className = 'entry-divider';
-            container.appendChild(divider);
+        // Основная запись (data)
+        const data = document.createElement('div');
+        data.classList.add('data');
+
+        // Контейнер для времени, сахара и инсулина
+        const dataRow = document.createElement('div');
+        dataRow.classList.add('data-row');
+
+        // Время
+        const timeContainer = document.createElement('div');
+        timeContainer.classList.add('time-container');
+        
+        const timeIcon = document.createElement('img');
+        timeIcon.src = 'icons/timer-14.svg';
+        timeIcon.classList.add('timer-icon');
+        timeContainer.appendChild(timeIcon);
+        
+        const timeText = document.createElement('span');
+        timeText.textContent = this.time;
+        timeContainer.appendChild(timeText);
+        
+        dataRow.appendChild(timeContainer);
+
+        // Сахар и инсулин
+        const hasBadges = this.sugar !== undefined || (this.insulin && this.insulin.type);
+        if (hasBadges) {
+            if (this.sugar !== undefined && this.sugar !== null && this.sugar !== '') {
+                const sugarBadge = document.createElement('div');
+                sugarBadge.classList.add('sugar-badge', parseFloat(this.sugar) > 8 ? 'high' : 'normal');
+                
+                const sugarIcon = document.createElement('img');
+                sugarIcon.src = `icons/sugar-14-${parseFloat(this.sugar) > 8 ? 'red' : 'green'}.svg`;
+                sugarIcon.classList.add('sugar-icon');
+                sugarBadge.appendChild(sugarIcon);
+                
+                const sugarText = document.createElement('span');
+                sugarText.textContent = this.sugar;
+                sugarBadge.appendChild(sugarText);
+                
+                dataRow.appendChild(sugarBadge);
+            }
+
+            if (this.insulin && this.insulin.type) {
+                const insulinBadge = document.createElement('div');
+                insulinBadge.classList.add('insulin-badge');
+                
+                const insulinIcon = document.createElement('img');
+                insulinIcon.src = 'icons/insulin-14.svg';
+                insulinIcon.classList.add('insulin-icon');
+                insulinBadge.appendChild(insulinIcon);
+                
+                const insulinText = document.createElement('span');
+                const insulinType = this.getInsulinTypeInRussian(this.insulin.type);
+                insulinText.textContent = `${insulinType} ${this.insulin.units} ед.`;
+                insulinBadge.appendChild(insulinText);
+                
+                dataRow.appendChild(insulinBadge);
+            }
         }
 
-        const entryElement = document.createElement('div');
-        entryElement.className = 'entry';
-
-        const entryHeader = document.createElement('div');
-        entryHeader.className = 'entry-header';
-
-        // Создаем контейнер для времени с иконкой
-        const timeContainer = document.createElement('span');
-        timeContainer.className = 'time-container';
-
-        // Добавляем иконку таймера
-        const timerIcon = document.createElement('img');
-        timerIcon.src = 'icons/timer-14.svg';
-        timerIcon.alt = 'Время';
-        timerIcon.className = 'timer-icon';
-        timeContainer.appendChild(timerIcon);
-
-        // Добавляем время
-        const timeElement = document.createElement('span');
-        timeElement.className = 'entry-time';
-        timeElement.textContent = this.time;
-        timeContainer.appendChild(timeElement);
-
-        entryHeader.appendChild(timeContainer);
-
-        // Добавляем бейдж сахара только если он указан
-        if (this.sugar !== undefined && this.sugar !== null && this.sugar !== '') {
-            const sugarBadge = document.createElement('span');
-            const isHigh = this.isHighSugar();
-            sugarBadge.className = 'sugar-badge ' + (isHigh ? 'high' : 'normal');
-
-            // Добавляем иконку сахара
-            const sugarIcon = document.createElement('img');
-            sugarIcon.src = isHigh ? 'icons/sugar-14-red.svg' : 'icons/sugar-14-green.svg';
-            sugarIcon.alt = 'Сахар';
-            sugarIcon.className = 'sugar-icon';
-            sugarBadge.appendChild(sugarIcon);
-
-            // Добавляем значение сахара
-            const sugarValue = document.createElement('span');
-            sugarValue.textContent = this.sugar;
-            sugarBadge.appendChild(sugarValue);
-
-            entryHeader.appendChild(sugarBadge);
-        }
-
-        // Добавляем информацию об инсулине только если он указан
-        if (this.insulin && this.insulin.type) {
-            const insulinBadge = document.createElement('span');
-            insulinBadge.className = 'insulin-badge';
-            
-            // Добавляем иконку инсулина
-            const insulinIcon = document.createElement('img');
-            insulinIcon.src = 'icons/insulin-14.svg';
-            insulinIcon.alt = 'Инсулин';
-            insulinIcon.className = 'insulin-icon';
-            insulinBadge.appendChild(insulinIcon);
-
-            // Добавляем текст с типом и количеством
-            const insulinText = document.createElement('span');
-            const insulinType = this.getInsulinTypeInRussian(this.insulin.type);
-            insulinText.innerHTML = `${insulinType} <strong>${this.insulin.units}</strong> ед.`;
-            insulinBadge.appendChild(insulinText);
-
-            entryHeader.appendChild(insulinBadge);
-        }
-
-        // Добавляем кнопку удаления
+        // Кнопка удаления
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-btn';
-        deleteButton.innerHTML = '<img src="icons/delete.svg" alt="Delete">';
-        entryHeader.appendChild(deleteButton);
-
-        entryElement.appendChild(entryHeader);
-
-        // Добавляем информацию о еде и хлебных единицах
-        if (this.comment || this.breadUnits) {
-            const foodElement = document.createElement('div');
-            foodElement.className = 'entry-food';
-            
-            let foodText = this.comment || '';
-            if (this.breadUnits) {
-                foodText += ` (${this.breadUnits} ХЕ)`;
+        deleteButton.innerHTML = '<img src="icons/delete.svg" alt="Удалить">';
+        deleteButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (typeof window.deleteEntry === 'function') {
+                window.deleteEntry(this.date, this.time);
             }
-            foodElement.textContent = foodText;
+        });
+        dataRow.appendChild(deleteButton);
+
+        data.appendChild(dataRow);
+
+        // Еда (если есть)
+        if (this.comment) {
+            const foodContainer = document.createElement('div');
+            foodContainer.classList.add('food-container');
+
+            if (hasBadges) {
+                // Для записи с сахаром/инсулином добавляем вертикальную линию
+                const line = document.createElement('div');
+                line.classList.add('food-line');
+                foodContainer.appendChild(line);
+            }
+
+            const foodText = document.createElement('div');
+            foodText.classList.add('entry-food');
             
-            entryElement.appendChild(foodElement);
+            let foodContent = this.comment;
+            if (this.breadUnits) {
+                foodContent += ` (${this.breadUnits}ХЕ)`;
+            }
+            foodText.textContent = foodContent;
+            
+            foodContainer.appendChild(foodText);
+            data.appendChild(foodContainer);
         }
 
-        container.appendChild(entryElement);
-        return container;
+        note.appendChild(data);
+        return note;
     }
 } 
