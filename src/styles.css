@@ -107,4 +107,16 @@
     min-width: 40px;
     text-align: center;
     font-weight: 500;
+}
+
+.entry-food {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.bread-units-text {
+    color: #666;
+    font-weight: bold;
 } 

@@ -46,13 +46,12 @@ class Entry {
         // Добавляем бейдж сахара только если он указан
         if (this.sugar !== undefined && this.sugar !== null && this.sugar !== '') {
             const sugarBadge = document.createElement('span');
-            const sugarColor = getSugarColor(this.sugar, this.time, this.dayEntries);
-            sugarBadge.className = `sugar-badge ${sugarColor}`;
-            sugarBadge.textContent = `${this.sugar} ммоль/л`;
+            sugarBadge.className = 'sugar-badge ' + (this.sugar > 8 ? 'high' : 'normal');
+            sugarBadge.textContent = this.sugar;
             entryHeader.appendChild(sugarBadge);
         }
 
-        // Добавляем бейдж инсулина только если он указан
+        // Добавляем информацию об инсулине только если он указан
         if (this.insulin && this.insulin.type) {
             const insulinBadge = document.createElement('span');
             insulinBadge.className = 'insulin-badge';
@@ -73,33 +72,26 @@ class Entry {
             entryHeader.appendChild(insulinBadge);
         }
 
+        // Добавляем кнопку удаления
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-btn';
         deleteButton.innerHTML = '<img src="icons/delete.svg" alt="Delete">';
         entryHeader.appendChild(deleteButton);
 
-        // Добавляем информацию о еде только если она указана
-        if (this.comment && this.comment.trim() !== '') {
+        entryElement.appendChild(entryHeader);
+
+        // Добавляем информацию о еде и хлебных единицах
+        if (this.comment || this.breadUnits) {
             const foodElement = document.createElement('div');
             foodElement.className = 'entry-food';
-
-            const breadUnitsText = document.createElement('span');
-            breadUnitsText.textContent = `${this.breadUnits} ХЕ`;
-
-            const foodDivider = document.createElement('div');
-            foodDivider.className = 'food-divider';
-
-            const commentText = document.createElement('span');
-            commentText.textContent = this.comment;
-
-            foodElement.appendChild(breadUnitsText);
-            foodElement.appendChild(foodDivider);
-            foodElement.appendChild(commentText);
-
-            entryElement.appendChild(entryHeader);
+            
+            let foodText = this.comment || '';
+            if (this.breadUnits) {
+                foodText += ` (${this.breadUnits} ХЕ)`;
+            }
+            foodElement.textContent = foodText;
+            
             entryElement.appendChild(foodElement);
-        } else {
-            entryElement.appendChild(entryHeader);
         }
 
         return entryElement;
