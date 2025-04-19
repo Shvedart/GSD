@@ -89,7 +89,7 @@ class Entry {
 
     createElement() {
         const note = document.createElement('div');
-        note.classList.add('note');
+        note.classList.add('note', 'entry');  // Добавляем класс entry для идентификации
 
         // Добавляем divider если нужно
         if (this.shouldShowDivider()) {
@@ -163,12 +163,6 @@ class Entry {
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-btn';
         deleteButton.innerHTML = '<img src="icons/delete.svg" alt="Удалить">';
-        deleteButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (typeof window.deleteEntry === 'function') {
-                window.deleteEntry(this.date, this.time);
-            }
-        });
         dataRow.appendChild(deleteButton);
 
         data.appendChild(dataRow);

@@ -69,6 +69,18 @@
         <div id="entries" class="entries"></div>
     </div>
 
+    <!-- Модальное окно подтверждения удаления -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h3>Удалить запись?</h3>
+            <p>Вы уверены, что хотите удалить эту запись? Это действие нельзя отменить.</p>
+            <div class="modal-buttons">
+                <button id="cancelDelete" class="modal-btn cancel">Отмена</button>
+                <button id="confirmDelete" class="modal-btn confirm">Удалить</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Утилиты -->
     <script src="src/utils/dateUtils.js"></script>
     <script src="src/utils/validation.js"></script>

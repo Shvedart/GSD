@@ -13,6 +13,12 @@ class GSDTracker {
         this.breadUnits = document.getElementById('breadUnits');
         this.breadUnitsValue = document.getElementById('breadUnitsValue');
 
+        // Элементы модального окна
+        this.deleteModal = document.getElementById('deleteModal');
+        this.cancelDeleteBtn = document.getElementById('cancelDelete');
+        this.confirmDeleteBtn = document.getElementById('confirmDelete');
+        this.pendingDelete = null;
+
         // Создаем instance приложения глобально доступным
         window.gsdTracker = this;
 
@@ -20,6 +26,7 @@ class GSDTracker {
         this.initializeUnitsControls();
         this.initializeInsulinControl();
         this.initializeFoodControl();
+        this.initializeDeleteModal();
         this.loadAndDisplayEntries();
 
         // Инициализируем начальное состояние контрола хлебных единиц
@@ -145,6 +152,62 @@ class GSDTracker {
         }
     }
 
+    initializeDeleteModal() {
+        // Обработчик закрытия модального окна по кнопке отмены
+        this.cancelDeleteBtn.addEventListener('click', () => {
+            this.hideDeleteModal();
+        });
+
+        // Обработчик подтверждения удаления
+        this.confirmDeleteBtn.addEventListener('click', () => {
+            if (this.pendingDelete) {
+                const { date, entryIndex } = this.pendingDelete;
+                const entries = loadEntries();
+                const dayGroup = entries.find(group => group.date === date);
+                
+                if (dayGroup) {
+                    dayGroup.entries.splice(entryIndex, 1);
+                    
+                    // Если в дне не осталось записей, удаляем весь день
+                    if (dayGroup.entries.length === 0) {
+                        const dayIndex = entries.findIndex(group => group.date === date);
+                        entries.splice(dayIndex, 1);
+                    }
+                    
+                    saveEntries(entries);
+                    this.loadAndDisplayEntries();
+                }
+                this.hideDeleteModal();
+            }
+        });
+
+        // Закрытие модального окна при клике вне его области
+        this.deleteModal.addEventListener('click', (e) => {
+            if (e.target === this.deleteModal) {
+                this.hideDeleteModal();
+            }
+        });
+
+        // Закрытие модального окна по клавише Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.deleteModal.style.display === 'flex') {
+                this.hideDeleteModal();
+            }
+        });
+    }
+
+    showDeleteModal(date, entryIndex) {
+        this.pendingDelete = { date, entryIndex };
+        this.deleteModal.style.display = 'flex';
+        // Фокус на кнопку отмены для удобства использования клавиатуры
+        this.cancelDeleteBtn.focus();
+    }
+
+    hideDeleteModal() {
+        this.pendingDelete = null;
+        this.deleteModal.style.display = 'none';
+    }
+
     loadAndDisplayEntries() {
         const entries = loadEntries();
         const sortedEntries = sortEntriesByDate(entries);
@@ -159,18 +222,26 @@ class GSDTracker {
         // Добавляем обработчики для кнопок удаления
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', (e) => {
-                const entryElement = e.target.closest('.entry');
-                const dayCard = entryElement.closest('.day-card');
-                const date = dayCard.querySelector('h2').textContent;
-                const entryIndex = Array.from(dayCard.querySelectorAll('.entry')).indexOf(entryElement);
+                e.preventDefault();
+                e.stopPropagation();
                 
-                // Получаем исходную дату из данных
+                const entryElement = button.closest('.entry');
+                if (!entryElement) return;
+                
+                const dayCard = entryElement.closest('.day-card');
+                if (!dayCard) return;
+                
+                const dateText = dayCard.querySelector('h2').textContent;
                 const entries = loadEntries();
-                const originalDate = entries.find(group => formatDate(group.date) === date)?.date;
+                const originalDate = entries.find(group => formatDate(group.date) === dateText)?.date;
                 
                 if (originalDate) {
-                    deleteEntry(originalDate, entryIndex);
-                    this.loadAndDisplayEntries();
+                    const dayGroup = entries.find(group => group.date === originalDate);
+                    const entryIndex = Array.from(dayCard.querySelectorAll('.entry')).indexOf(entryElement);
+                    
+                    if (dayGroup && entryIndex !== -1) {
+                        this.showDeleteModal(originalDate, entryIndex);
+                    }
                 }
             });
         });
@@ -182,27 +253,4 @@ document.addEventListener('DOMContentLoaded', () => {
     new GSDTracker();
 });
 
-// Функция для удаления записи
-window.deleteEntry = function(date, time) {
-    if (confirm('Вы уверены, что хотите удалить эту запись?')) {
-        const entries = loadEntries();
-        const dayGroup = entries.find(group => group.date === date);
-        
-        if (dayGroup) {
-            const entryIndex = dayGroup.entries.findIndex(entry => entry.time === time);
-            if (entryIndex !== -1) {
-                dayGroup.entries.splice(entryIndex, 1);
-                
-                // Если в дне не осталось записей, удаляем весь день
-                if (dayGroup.entries.length === 0) {
-                    const dayIndex = entries.findIndex(group => group.date === date);
-                    entries.splice(dayIndex, 1);
-                }
-                
-                saveEntries(entries);
-                // Используем метод класса для обновления отображения
-                window.gsdTracker.loadAndDisplayEntries();
-            }
-        }
-    }
-}; 
+// Удаляем старую функцию deleteEntry, так как теперь используем модальное окно 
