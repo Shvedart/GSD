@@ -88,7 +88,7 @@ class DayCard {
                 
                 const insulinIcon = document.createElement('img');
                 insulinIcon.src = 'icons/insulin-24.svg';
-                insulinIcon.classList.add('insulin-icon');
+                insulinIcon.classList.add('footer-insulin-icon');
                 insulinContainer.appendChild(insulinIcon);
 
                 const insulinText = document.createElement('span');

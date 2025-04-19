@@ -310,10 +310,15 @@ img.sugar-icon {
     gap: var(--spacing-8);
 }
 
-.bread-units-icon,
-.insulin-icon {
+.bread-units-icon {
     width: var(--icon-size);
     height: var(--icon-size);
+}
+
+.footer-insulin-icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    opacity: 0.7;
 }
 
 .data {
