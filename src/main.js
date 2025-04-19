@@ -37,15 +37,23 @@ class GSDTracker {
             this.handleFormSubmit();
         });
 
-        // Сбрасываем значения при загрузке
+        // Устанавливаем начальные значения
         this.breadUnitsValue.textContent = '0';
+        this.unitsValue.textContent = '5';
+        
+        // Устанавливаем начальное состояние поля инсулина
+        this.updateInsulinUnitsVisibility();
     }
 
     initializeInsulinControl() {
-        // Показываем/скрываем контрол единиц инсулина при изменении типа
         this.insulinInput.addEventListener('change', () => {
-            this.insulinUnits.style.display = this.insulinInput.value ? 'flex' : 'none';
+            this.updateInsulinUnitsVisibility();
         });
+    }
+
+    updateInsulinUnitsVisibility() {
+        const selectedValue = this.insulinInput.value;
+        this.insulinUnits.style.display = selectedValue && selectedValue !== 'Нет' ? 'flex' : 'none';
     }
 
     updateBreadUnitsVisibility() {
@@ -99,7 +107,6 @@ class GSDTracker {
             comment: this.foodInput.value
         };
 
-        // Добавляем инсулин только если выбран его тип
         if (this.insulinInput.value && this.insulinInput.value !== 'Нет') {
             entry.insulin = {
                 type: this.insulinInput.value,
@@ -107,7 +114,6 @@ class GSDTracker {
             };
         }
 
-        // Добавляем хлебные единицы только если указана еда
         if (this.foodInput.value.trim()) {
             entry.breadUnits = parseFloat(this.breadUnitsValue.textContent);
         } else {
@@ -117,13 +123,23 @@ class GSDTracker {
         if (validateEntry(entry)) {
             addEntry(entry);
             this.loadAndDisplayEntries();
+            
+            // Сохраняем текущее значение инсулина
+            const currentInsulin = this.insulinInput.value;
+            
+            // Сбрасываем форму
             this.form.reset();
+            
+            // Восстанавливаем значения после сброса
             this.dateInput.value = getCurrentDate();
             this.timeInput.value = getCurrentTime();
             this.unitsValue.textContent = '5';
             this.breadUnitsValue.textContent = '0';
-            this.insulinUnits.style.display = 'none';
             this.breadUnits.style.display = 'none';
+            
+            // Восстанавливаем значение инсулина и обновляем видимость поля единиц
+            this.insulinInput.value = currentInsulin;
+            this.updateInsulinUnitsVisibility();
         } else {
             alert('Пожалуйста, проверьте введенные данные');
         }
