@@ -6,7 +6,7 @@ class Entry {
         this.insulin = entryData.insulin;
         this.breadUnits = entryData.breadUnits;
         this.comment = entryData.comment;
-        this.dayEntries = dayEntries;
+        this.dayEntries = dayEntries || [];
     }
 
     getInsulinTypeInRussian(type) {
@@ -15,6 +15,62 @@ class Entry {
             'levemir': 'Левемир'
         };
         return types[type.toLowerCase()] || type;
+    }
+
+    isHighSugar() {
+        if (!this.sugar) return false;
+        
+        // Находим индекс текущей записи
+        const currentIndex = this.dayEntries.findIndex(entry => 
+            entry.time === this.time && entry.sugar === this.sugar
+        );
+        
+        if (currentIndex === -1) return false;
+        
+        // Если это первая запись за день
+        if (currentIndex === 0) {
+            return parseFloat(this.sugar) > 5.0;
+        }
+
+        // Ищем последнюю запись с едой перед текущей
+        let lastFoodIndex = -1;
+        for (let i = currentIndex - 1; i >= 0; i--) {
+            if (this.dayEntries[i].comment) {
+                lastFoodIndex = i;
+                break;
+            }
+        }
+
+        // Если нет предыдущей записи с едой или текущая запись содержит еду
+        if (lastFoodIndex === -1 || this.comment) {
+            return parseFloat(this.sugar) > 5.0;
+        }
+
+        // Вычисляем разницу во времени
+        const prevTime = this.timeToMinutes(this.dayEntries[lastFoodIndex].time);
+        const currentTime = this.timeToMinutes(this.time);
+        let timeDiff = currentTime - prevTime;
+
+        // Если время перешло через полночь
+        if (timeDiff < 0) {
+            timeDiff += 24 * 60;
+        }
+
+        const sugarValue = parseFloat(this.sugar);
+
+        // Применяем правила в зависимости от времени после еды
+        if (timeDiff <= 60) { // До 1 часа после еды
+            return sugarValue > 7.0;
+        } else if (timeDiff <= 120) { // До 2 часов после еды
+            return sugarValue > 6.7;
+        } else { // 3 часа и более после еды
+            return sugarValue > 5.8;
+        }
+    }
+
+    timeToMinutes(timeStr) {
+        const [hours, minutes] = timeStr.split(':').map(Number);
+        return hours * 60 + minutes;
     }
 
     createElement() {
@@ -46,7 +102,7 @@ class Entry {
         // Добавляем бейдж сахара только если он указан
         if (this.sugar !== undefined && this.sugar !== null && this.sugar !== '') {
             const sugarBadge = document.createElement('span');
-            const isHigh = this.sugar > 8;
+            const isHigh = this.isHighSugar();
             sugarBadge.className = 'sugar-badge ' + (isHigh ? 'high' : 'normal');
 
             // Добавляем иконку сахара
