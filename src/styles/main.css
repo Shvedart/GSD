@@ -173,6 +173,7 @@ button.toggle-btn {
     align-items: center;
     gap: var(--spacing-8);
     padding: var(--spacing-8) var(--spacing-16);
+    padding: 8px 9px 8px 16px;
     cursor: pointer;
 }
 
@@ -189,6 +190,7 @@ button.toggle-btn {
 
 .entry {
     padding: var(--spacing-2) var(--spacing-16);
+    overflow: hidden;
 }
 
 .entry-header {
@@ -300,7 +302,8 @@ img.sugar-icon {
 .entry-divider {
     height: 1px;
     width: 100%;
-    background-color: var(--color-black-11);
+    background-color: rgb(0 0 0 / 18%);
+    margin: 2px 0px;
 }
 
 .day-footer {

@@ -358,11 +358,14 @@ class GSDTracker {
                 const entryElement = moreBtn.closest('.entry');
                 const dayCard = entryElement.closest('.day-card');
                 const date = dayCard.querySelector('h2').textContent;
+                const time = entryElement.querySelector('.time-container span').textContent;
                 const entries = loadEntries();
                 const originalDate = entries.find(group => formatDate(group.date) === date)?.date;
                 if (originalDate) {
-                    const entryIndex = Array.from(dayCard.querySelectorAll('.entry')).indexOf(entryElement);
-                    pendingEntry = { date: originalDate, entryIndex, entryElement };
+                    // Находим индекс записи по времени
+                    const dayGroup = entries.find(group => group.date === originalDate);
+                    const entryIndex = dayGroup.entries.findIndex(entry => entry.time === time);
+                    pendingEntry = { date: originalDate, entryIndex, entryElement, time };
                     entryActionsModal.style.display = 'flex';
                 }
             }
@@ -371,17 +374,21 @@ class GSDTracker {
         // Удалить
         deleteEntryBtn.addEventListener('click', () => {
             if (pendingEntry) {
-                const { date, entryIndex } = pendingEntry;
+                const { date, entryIndex, time } = pendingEntry;
                 const entries = loadEntries();
                 const dayGroup = entries.find(group => group.date === date);
                 if (dayGroup) {
-                    dayGroup.entries.splice(entryIndex, 1);
-                    if (dayGroup.entries.length === 0) {
-                        const dayIndex = entries.findIndex(group => group.date === date);
-                        entries.splice(dayIndex, 1);
+                    // Находим индекс по времени для надёжности
+                    const idx = dayGroup.entries.findIndex(entry => entry.time === time);
+                    if (idx !== -1) {
+                        dayGroup.entries.splice(idx, 1);
+                        if (dayGroup.entries.length === 0) {
+                            const dayIndex = entries.findIndex(group => group.date === date);
+                            entries.splice(dayIndex, 1);
+                        }
+                        localStorage.setItem('gsd-entries', JSON.stringify(entries));
+                        this.loadAndDisplayEntries();
                     }
-                    localStorage.setItem('gsd-entries', JSON.stringify(entries));
-                    this.loadAndDisplayEntries();
                 }
                 pendingEntry = null;
                 entryActionsModal.style.display = 'none';
@@ -391,29 +398,33 @@ class GSDTracker {
         // Редактировать
         editEntryBtn.addEventListener('click', () => {
             if (pendingEntry) {
-                const { date, entryIndex } = pendingEntry;
+                const { date, entryIndex, time } = pendingEntry;
                 const entries = loadEntries();
                 const dayGroup = entries.find(group => group.date === date);
                 if (dayGroup) {
-                    const entry = dayGroup.entries[entryIndex];
-                    // Заполняем форму
-                    this.dateInput.value = entry.date;
-                    this.timeInput.value = entry.time;
-                    this.sugarInput.value = entry.sugar !== undefined ? entry.sugar : '';
-                    this.insulinInput.value = entry.insulin ? entry.insulin.type : '';
-                    this.unitsValue.textContent = entry.insulin ? entry.insulin.units : '5';
-                    this.foodInput.value = entry.comment || '';
-                    this.breadUnitsValue.textContent = entry.breadUnits !== undefined ? entry.breadUnits : '1.0';
-                    this.updateInsulinUnitsVisibility();
-                    this.updateBreadUnitsVisibility();
-                    // После редактирования удаляем старую запись
-                    dayGroup.entries.splice(entryIndex, 1);
-                    if (dayGroup.entries.length === 0) {
-                        const dayIndex = entries.findIndex(group => group.date === date);
-                        entries.splice(dayIndex, 1);
+                    // Находим индекс по времени для надёжности
+                    const idx = dayGroup.entries.findIndex(entry => entry.time === time);
+                    if (idx !== -1) {
+                        const entry = dayGroup.entries[idx];
+                        // Заполняем форму
+                        this.dateInput.value = entry.date;
+                        this.timeInput.value = entry.time;
+                        this.sugarInput.value = entry.sugar !== undefined ? entry.sugar : '';
+                        this.insulinInput.value = entry.insulin ? entry.insulin.type : '';
+                        this.unitsValue.textContent = entry.insulin ? entry.insulin.units : '5';
+                        this.foodInput.value = entry.comment || '';
+                        this.breadUnitsValue.textContent = entry.breadUnits !== undefined ? entry.breadUnits : '1.0';
+                        this.updateInsulinUnitsVisibility();
+                        this.updateBreadUnitsVisibility();
+                        // После редактирования удаляем старую запись
+                        dayGroup.entries.splice(idx, 1);
+                        if (dayGroup.entries.length === 0) {
+                            const dayIndex = entries.findIndex(group => group.date === date);
+                            entries.splice(dayIndex, 1);
+                        }
+                        localStorage.setItem('gsd-entries', JSON.stringify(entries));
+                        this.loadAndDisplayEntries();
                     }
-                    localStorage.setItem('gsd-entries', JSON.stringify(entries));
-                    this.loadAndDisplayEntries();
                 }
                 pendingEntry = null;
                 entryActionsModal.style.display = 'none';
