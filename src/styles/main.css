@@ -43,6 +43,7 @@ body {
     align-items: center;
     flex: 1;
     gap: var(--spacing-8);
+    width: 100%;
 }
 
 .input-group.food-group {
@@ -558,4 +559,5 @@ input[type="time"] {
   border: 1px solid #E3E3E3;      /* рамка */
   border-radius: 12px;         /* скругление */
   color: black;                /* цвет текста */
+  padding: 8px 12px;          /* внутренние отступы */
 }
