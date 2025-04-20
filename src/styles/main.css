@@ -455,6 +455,15 @@ select#insulin {
     background-color: var(--color-red-dark);
 }
 
+.modal-btn.black {
+    background-color: #000;
+    color: #fff;
+}
+
+.modal-btn.black:hover {
+    background-color: #222;
+}
+
 .bread-badge {
     display: flex;
     align-items: center;
@@ -491,4 +500,24 @@ select#insulin {
 .action-btn:hover {
     background: #F5F5F7;
     border-color: #BDBDBD;
+}
+
+.banner-success {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #7cf17c7a;
+    color: #1B6B1B;
+    border: 1px solid #B6E2B6;
+    backdrop-filter: blur(9px);
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 500;
+    z-index: 2000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    transition: opacity 0.3s;
+    max-width: 368px;
+    width: 100%;
 }

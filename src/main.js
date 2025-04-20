@@ -254,6 +254,12 @@ class GSDTracker {
     initializeExportImport() {
         const exportBtn = document.getElementById('exportBtn');
         const importBtn = document.getElementById('importBtn');
+        const importConfirmModal = document.getElementById('importConfirmModal');
+        const cancelImportBtn = document.getElementById('cancelImport');
+        const confirmImportBtn = document.getElementById('confirmImport');
+        const importSuccessBanner = document.getElementById('importSuccessBanner');
+        let pendingImportData = null;
+        let bannerTimeout = null;
 
         // Экспорт данных
         exportBtn.addEventListener('click', () => {
@@ -282,17 +288,13 @@ class GSDTracker {
                 reader.onload = (event) => {
                     try {
                         const imported = JSON.parse(event.target.result);
-                        console.log('Импортируемые данные:', imported);
                         if (!Array.isArray(imported)) {
                             alert('Файл не содержит корректных данных.');
                             return;
                         }
-                        if (confirm('Импорт заменит все текущие записи. Продолжить?')) {
-                            localStorage.setItem('gsd-entries', JSON.stringify(imported));
-                            console.log('Содержимое localStorage после импорта:', localStorage.getItem('gsd-entries'));
-                            this.loadAndDisplayEntries();
-                            alert('Данные успешно импортированы!');
-                        }
+                        // Сохраняем данные для подтверждения
+                        pendingImportData = imported;
+                        importConfirmModal.style.display = 'flex';
                     } catch (err) {
                         alert('Ошибка чтения файла: ' + err.message);
                     }
@@ -300,6 +302,44 @@ class GSDTracker {
                 reader.readAsText(file);
             });
             input.click();
+        });
+
+        // Обработка модального окна подтверждения импорта
+        cancelImportBtn.addEventListener('click', () => {
+            pendingImportData = null;
+            importConfirmModal.style.display = 'none';
+        });
+        confirmImportBtn.addEventListener('click', () => {
+            if (pendingImportData) {
+                localStorage.setItem('gsd-entries', JSON.stringify(pendingImportData));
+                this.loadAndDisplayEntries();
+                pendingImportData = null;
+                importConfirmModal.style.display = 'none';
+                // Показываем баннер
+                importSuccessBanner.style.display = 'block';
+                importSuccessBanner.style.opacity = '1';
+                if (bannerTimeout) clearTimeout(bannerTimeout);
+                bannerTimeout = setTimeout(() => {
+                    importSuccessBanner.style.opacity = '0';
+                    setTimeout(() => {
+                        importSuccessBanner.style.display = 'none';
+                    }, 300);
+                }, 5000);
+            }
+        });
+        // Закрытие модального окна по клику вне области
+        importConfirmModal.addEventListener('click', (e) => {
+            if (e.target === importConfirmModal) {
+                pendingImportData = null;
+                importConfirmModal.style.display = 'none';
+            }
+        });
+        // Закрытие модального окна по Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && importConfirmModal.style.display === 'flex') {
+                pendingImportData = null;
+                importConfirmModal.style.display = 'none';
+            }
         });
     }
 }

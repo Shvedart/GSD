@@ -86,6 +86,21 @@
         </div>
     </div>
 
+    <!-- Модальное окно подтверждения импорта -->
+    <div id="importConfirmModal" class="modal">
+        <div class="modal-content">
+            <h3>Импорт данных</h3>
+            <p>Импорт заменит все текущие записи. Продолжить?</p>
+            <div class="modal-buttons">
+                <button id="cancelImport" class="modal-btn cancel">Отмена</button>
+                <button id="confirmImport" class="modal-btn black">Импортировать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Баннер-уведомление -->
+    <div id="importSuccessBanner" class="banner-success" style="display:none;">Данные успешно импортированы!</div>
+
     <!-- Утилиты -->
     <script src="src/utils/dateUtils.js"></script>
     <script src="src/utils/validation.js"></script>
