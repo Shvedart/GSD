@@ -146,7 +146,7 @@ class Entry {
                 
                 const insulinText = document.createElement('span');
                 const insulinType = this.getInsulinTypeInRussian(this.insulin.type);
-                insulinText.textContent = `${insulinType} ${this.insulin.units}ед.`;
+                insulinText.innerHTML = `${insulinType} <b>${this.insulin.units} ед.</b>`;
                 insulinBadge.appendChild(insulinText);
                 
                 dataRow.appendChild(insulinBadge);
@@ -156,7 +156,7 @@ class Entry {
                 const breadBadge = document.createElement('div');
                 breadBadge.classList.add('bread-badge');
                 const breadText = document.createElement('span');
-                breadText.textContent = `${this.breadUnits} ХЕ`;
+                breadText.innerHTML = `<b>${this.breadUnits} ХЕ</b>`;
                 breadBadge.appendChild(breadText);
                 dataRow.appendChild(breadBadge);
             }
