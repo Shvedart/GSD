@@ -101,6 +101,18 @@
     <!-- Баннер-уведомление -->
     <div id="importSuccessBanner" class="banner-success" style="display:none;">Данные успешно импортированы!</div>
 
+    <!-- Модальное окно действий с записью -->
+    <div id="entryActionsModal" class="modal">
+        <div class="modal-content">
+            <h3>Что сделать с записью?</h3>
+            <div class="modal-buttons">
+                <button id="deleteEntryBtn" class="modal-btn confirm">Удалить</button>
+                <button id="editEntryBtn" class="modal-btn black">Редактировать</button>
+                <button id="cancelEntryActionBtn" class="modal-btn cancel">Отмена</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Утилиты -->
     <script src="src/utils/dateUtils.js"></script>
     <script src="src/utils/validation.js"></script>

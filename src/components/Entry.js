@@ -162,11 +162,11 @@ class Entry {
             }
         }
 
-        // Кнопка удаления
-        const deleteButton = document.createElement('button');
-        deleteButton.className = 'delete-btn';
-        deleteButton.innerHTML = '<img src="icons/delete.svg" alt="Удалить">';
-        dataRow.appendChild(deleteButton);
+        // Кнопка "ещё"
+        const moreButton = document.createElement('button');
+        moreButton.className = 'more-btn';
+        moreButton.innerHTML = '<img src="icons/more_vert.svg" alt="Ещё">';
+        dataRow.appendChild(moreButton);
 
         data.appendChild(dataRow);
 

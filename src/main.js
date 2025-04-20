@@ -29,6 +29,7 @@ class GSDTracker {
         this.initializeDeleteModal();
         this.loadAndDisplayEntries();
         this.initializeExportImport();
+        this.initializeEntryActions();
 
         // Инициализируем начальное состояние контрола хлебных единиц
         this.updateBreadUnitsVisibility();
@@ -339,6 +340,103 @@ class GSDTracker {
             if (e.key === 'Escape' && importConfirmModal.style.display === 'flex') {
                 pendingImportData = null;
                 importConfirmModal.style.display = 'none';
+            }
+        });
+    }
+
+    initializeEntryActions() {
+        const entryActionsModal = document.getElementById('entryActionsModal');
+        const deleteEntryBtn = document.getElementById('deleteEntryBtn');
+        const editEntryBtn = document.getElementById('editEntryBtn');
+        const cancelEntryActionBtn = document.getElementById('cancelEntryActionBtn');
+        let pendingEntry = null;
+
+        // Открытие модалки по клику на more-btn
+        this.entriesContainer.addEventListener('click', (e) => {
+            const moreBtn = e.target.closest('.more-btn');
+            if (moreBtn) {
+                const entryElement = moreBtn.closest('.entry');
+                const dayCard = entryElement.closest('.day-card');
+                const date = dayCard.querySelector('h2').textContent;
+                const entries = loadEntries();
+                const originalDate = entries.find(group => formatDate(group.date) === date)?.date;
+                if (originalDate) {
+                    const entryIndex = Array.from(dayCard.querySelectorAll('.entry')).indexOf(entryElement);
+                    pendingEntry = { date: originalDate, entryIndex, entryElement };
+                    entryActionsModal.style.display = 'flex';
+                }
+            }
+        });
+
+        // Удалить
+        deleteEntryBtn.addEventListener('click', () => {
+            if (pendingEntry) {
+                const { date, entryIndex } = pendingEntry;
+                const entries = loadEntries();
+                const dayGroup = entries.find(group => group.date === date);
+                if (dayGroup) {
+                    dayGroup.entries.splice(entryIndex, 1);
+                    if (dayGroup.entries.length === 0) {
+                        const dayIndex = entries.findIndex(group => group.date === date);
+                        entries.splice(dayIndex, 1);
+                    }
+                    localStorage.setItem('gsd-entries', JSON.stringify(entries));
+                    this.loadAndDisplayEntries();
+                }
+                pendingEntry = null;
+                entryActionsModal.style.display = 'none';
+            }
+        });
+
+        // Редактировать
+        editEntryBtn.addEventListener('click', () => {
+            if (pendingEntry) {
+                const { date, entryIndex } = pendingEntry;
+                const entries = loadEntries();
+                const dayGroup = entries.find(group => group.date === date);
+                if (dayGroup) {
+                    const entry = dayGroup.entries[entryIndex];
+                    // Заполняем форму
+                    this.dateInput.value = entry.date;
+                    this.timeInput.value = entry.time;
+                    this.sugarInput.value = entry.sugar !== undefined ? entry.sugar : '';
+                    this.insulinInput.value = entry.insulin ? entry.insulin.type : '';
+                    this.unitsValue.textContent = entry.insulin ? entry.insulin.units : '5';
+                    this.foodInput.value = entry.comment || '';
+                    this.breadUnitsValue.textContent = entry.breadUnits !== undefined ? entry.breadUnits : '1.0';
+                    this.updateInsulinUnitsVisibility();
+                    this.updateBreadUnitsVisibility();
+                    // После редактирования удаляем старую запись
+                    dayGroup.entries.splice(entryIndex, 1);
+                    if (dayGroup.entries.length === 0) {
+                        const dayIndex = entries.findIndex(group => group.date === date);
+                        entries.splice(dayIndex, 1);
+                    }
+                    localStorage.setItem('gsd-entries', JSON.stringify(entries));
+                    this.loadAndDisplayEntries();
+                }
+                pendingEntry = null;
+                entryActionsModal.style.display = 'none';
+            }
+        });
+
+        // Отмена
+        cancelEntryActionBtn.addEventListener('click', () => {
+            pendingEntry = null;
+            entryActionsModal.style.display = 'none';
+        });
+        // Закрытие по клику вне окна
+        entryActionsModal.addEventListener('click', (e) => {
+            if (e.target === entryActionsModal) {
+                pendingEntry = null;
+                entryActionsModal.style.display = 'none';
+            }
+        });
+        // Закрытие по Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && entryActionsModal.style.display === 'flex') {
+                pendingEntry = null;
+                entryActionsModal.style.display = 'none';
             }
         });
     }
