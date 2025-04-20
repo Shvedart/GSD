@@ -116,7 +116,7 @@ class Entry {
         dataRow.appendChild(timeContainer);
 
         // Сахар и инсулин
-        const hasBadges = this.sugar !== undefined || (this.insulin && this.insulin.type);
+        const hasBadges = this.sugar !== undefined || (this.insulin && this.insulin.type) || (this.breadUnits && this.breadUnits > 0);
         if (hasBadges) {
             if (this.sugar !== undefined && this.sugar !== null && this.sugar !== '') {
                 const sugarBadge = document.createElement('div');
@@ -151,6 +151,19 @@ class Entry {
                 
                 dataRow.appendChild(insulinBadge);
             }
+
+            if (this.breadUnits && this.breadUnits > 0) {
+                const breadBadge = document.createElement('div');
+                breadBadge.classList.add('bread-badge');
+                const breadIcon = document.createElement('img');
+                breadIcon.src = 'icons/bread-units-14.svg';
+                breadIcon.classList.add('bread-units-icon');
+                breadBadge.appendChild(breadIcon);
+                const breadText = document.createElement('span');
+                breadText.textContent = `${this.breadUnits} ХЕ`;
+                breadBadge.appendChild(breadText);
+                dataRow.appendChild(breadBadge);
+            }
         }
 
         // Кнопка удаления
@@ -175,13 +188,7 @@ class Entry {
 
             const foodText = document.createElement('div');
             foodText.classList.add('entry-food');
-            
-            let foodContent = this.comment;
-            if (this.breadUnits) {
-                foodContent += ` (${this.breadUnits}ХЕ)`;
-            }
-            foodText.textContent = foodContent;
-            
+            foodText.textContent = this.comment;
             foodContainer.appendChild(foodText);
             data.appendChild(foodContainer);
         }
