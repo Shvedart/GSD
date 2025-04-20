@@ -24,46 +24,40 @@ class Entry {
         const currentIndex = this.dayEntries.findIndex(entry => 
             entry.time === this.time
         );
-        
         if (currentIndex === -1) return false;
-        
-        // Если это первая запись за день (натощак)
+
+        const sugarValue = parseFloat(this.sugar);
+
+        // Первый замер за день
         if (currentIndex === 0) {
-            return parseFloat(this.sugar) > 5.0;
+            return sugarValue > 5.0;
         }
 
-        // Ищем последнюю запись с едой перед текущей
-        let lastFoodIndex = -1;
+        // Ищем предыдущую запись с едой
+        let prevFoodIndex = -1;
         for (let i = currentIndex - 1; i >= 0; i--) {
-            if (this.dayEntries[i].comment) {
-                lastFoodIndex = i;
+            if (this.dayEntries[i].comment && this.dayEntries[i].comment.trim() !== "") {
+                prevFoodIndex = i;
                 break;
             }
         }
 
-        // Если нет предыдущей записи с едой или текущая запись содержит еду
-        if (lastFoodIndex === -1 || this.comment) {
-            return parseFloat(this.sugar) > 5.0;
+        // Если предыдущей записи с едой нет — обычный порог
+        if (prevFoodIndex === -1) {
+            return sugarValue > 5.0;
         }
 
-        // Вычисляем разницу во времени
-        const prevTime = this.timeToMinutes(this.dayEntries[lastFoodIndex].time);
+        // Считаем разницу во времени между предыдущей едой и текущим замером
+        const prevTime = this.timeToMinutes(this.dayEntries[prevFoodIndex].time);
         const currentTime = this.timeToMinutes(this.time);
         let timeDiff = currentTime - prevTime;
+        if (timeDiff < 0) timeDiff += 24 * 60;
 
-        // Если время перешло через полночь
-        if (timeDiff < 0) {
-            timeDiff += 24 * 60;
-        }
-
-        const sugarValue = parseFloat(this.sugar);
-
-        // Применяем правила в зависимости от времени после еды
-        if (timeDiff <= 60) { // До 1 часа после еды
+        if (timeDiff <= 60) {
             return sugarValue > 7.0;
-        } else if (timeDiff <= 120) { // До 2 часов после еды
+        } else if (timeDiff <= 120) {
             return sugarValue > 6.7;
-        } else { // 3 часа и более после еды
+        } else {
             return sugarValue > 5.8;
         }
     }
@@ -143,7 +137,7 @@ class Entry {
 
             if (this.insulin && this.insulin.type) {
                 const insulinBadge = document.createElement('div');
-                insulinBadge.classList.add('insulin-badge');
+                insulinBadge.classList.add('insulin-badge', this.insulin.type.toLowerCase());
                 
                 const insulinIcon = document.createElement('img');
                 insulinIcon.src = 'icons/insulin-14.svg';
