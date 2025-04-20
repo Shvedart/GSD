@@ -555,6 +555,7 @@ input[type="date"],
 input[type="time"] {
   width: 100%;                  /* растягиваем по ширине */
   background-color: white;     /* белый фон */
-  border: 1px solid #ccc;      /* рамка */
+  border: 1px solid #E3E3E3;      /* рамка */
   border-radius: 12px;         /* скругление */
+  color: black;                /* цвет текста */
 }
