@@ -467,3 +467,28 @@ select#insulin {
     padding: 0 var(--spacing-4);
     height: 19px;
 }
+
+.data-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.action-btn {
+    background: #fff;
+    color: #222;
+    border: 1px solid #D1D1D6;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    width: 100%;
+}
+
+.action-btn:hover {
+    background: #F5F5F7;
+    border-color: #BDBDBD;
+}

@@ -28,6 +28,7 @@ class GSDTracker {
         this.initializeFoodControl();
         this.initializeDeleteModal();
         this.loadAndDisplayEntries();
+        this.initializeExportImport();
 
         // Инициализируем начальное состояние контрола хлебных единиц
         this.updateBreadUnitsVisibility();
@@ -247,6 +248,58 @@ class GSDTracker {
                     }
                 }
             });
+        });
+    }
+
+    initializeExportImport() {
+        const exportBtn = document.getElementById('exportBtn');
+        const importBtn = document.getElementById('importBtn');
+
+        // Экспорт данных
+        exportBtn.addEventListener('click', () => {
+            const entries = loadEntries();
+            const dataStr = JSON.stringify(entries, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `gsd-entries-${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Импорт данных
+        importBtn.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json,application/json';
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const imported = JSON.parse(event.target.result);
+                        console.log('Импортируемые данные:', imported);
+                        if (!Array.isArray(imported)) {
+                            alert('Файл не содержит корректных данных.');
+                            return;
+                        }
+                        if (confirm('Импорт заменит все текущие записи. Продолжить?')) {
+                            localStorage.setItem('gsd-entries', JSON.stringify(imported));
+                            console.log('Содержимое localStorage после импорта:', localStorage.getItem('gsd-entries'));
+                            this.loadAndDisplayEntries();
+                            alert('Данные успешно импортированы!');
+                        }
+                    } catch (err) {
+                        alert('Ошибка чтения файла: ' + err.message);
+                    }
+                };
+                reader.readAsText(file);
+            });
+            input.click();
         });
     }
 }

@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'gsd_entries';
+const STORAGE_KEY = 'gsd-entries';
 
 function saveEntries(entries) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
