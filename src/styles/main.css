@@ -111,6 +111,8 @@ img.insulin-icon {
     background: none;
     cursor: pointer;
     padding: var(--spacing-10);
+    font-size: 16px;
+    touch-action: manipulation;
 }
 
 .units-btn:hover {
@@ -433,6 +435,10 @@ select#insulin {
     margin-bottom: var(--spacing-16);
 }
 
+span.modal-text {
+    padding-bottom: 16px;
+}
+
 .modal-buttons {
     display: flex;
     flex-direction: column;
@@ -553,6 +559,7 @@ select#insulin {
     height: 24px;
 }
 
+
 input[type="date"],
 input[type="time"] {
   width: 100%;                  /* растягиваем по ширине */
@@ -560,5 +567,6 @@ input[type="time"] {
   border: 1px solid #E3E3E3;      /* рамка */
   border-radius: 12px;         /* скругление */
   color: black;                /* цвет текста */
-  padding: 8px 12px;          /* внутренние отступы */
+  padding: 8px 12px; 
 }
+
