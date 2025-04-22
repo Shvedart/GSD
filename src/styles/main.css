@@ -478,6 +478,7 @@ span.modal-text {
 .modal-btn.black {
     background-color: #000;
     color: #fff;
+    width: 100%;
 }
 
 .modal-btn.black:hover {
@@ -568,5 +569,32 @@ input[type="time"] {
   border-radius: 12px;         /* скругление */
   color: black;                /* цвет текста */
   padding: 8px 12px; 
+}
+
+.reward-modal-content {
+    align-items: center;
+    text-align: center;
+    padding: 32px 24px 24px 24px;
+    min-width: 320px;
+    min-height: 320px;
+}
+.lottie-reward {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 16px auto;
+}
+.reward-text {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #222;
+    line-height: 135%;
+}
+
+.reward-img {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 16px auto;
+    display: block;
 }
 

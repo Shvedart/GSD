@@ -30,6 +30,7 @@ class GSDTracker {
         this.loadAndDisplayEntries();
         this.initializeExportImport();
         this.initializeEntryActions();
+        this.initializeRewardModal();
 
         // Инициализируем начальное состояние контрола хлебных единиц
         this.updateBreadUnitsVisibility();
@@ -133,6 +134,30 @@ class GSDTracker {
         }
 
         if (validateEntry(entry)) {
+            // Проверка на новый календарный день
+            const entries = loadEntries();
+            const isNewDay = !entries.some(group => group.date === entry.date);
+            let yesterdayDate = null;
+            if (isNewDay) {
+                // Найти вчерашний день
+                const yesterday = new Date(entry.date);
+                yesterday.setDate(yesterday.getDate() - 1);
+                yesterdayDate = yesterday.toISOString().slice(0, 10);
+                const yesterdayGroup = entries.find(group => group.date === yesterdayDate);
+                if (yesterdayGroup && !this.wasRewardShownForDay(yesterdayDate)) {
+                    // Проверить, были ли красные сахара
+                    const hasRed = yesterdayGroup.entries.some(e => {
+                        if (e.sugar === undefined || e.sugar === null || e.sugar === '') return false;
+                        // Используем ту же логику, что и для бейджа
+                        const entryObj = new Entry(e, yesterdayGroup.entries);
+                        return entryObj.isHighSugar();
+                    });
+                    if (!hasRed) {
+                        this.showRewardModal();
+                        this.markRewardShownForDay(yesterdayDate);
+                    }
+                }
+            }
             addEntry(entry);
             this.loadAndDisplayEntries();
             
@@ -450,6 +475,39 @@ class GSDTracker {
                 entryActionsModal.style.display = 'none';
             }
         });
+    }
+
+    initializeRewardModal() {
+        this.rewardModal = document.getElementById('rewardModal');
+        this.closeRewardBtn = document.getElementById('closeRewardBtn');
+        this.rewardShownKey = 'gsd-reward-shown';
+        this.closeRewardBtn.addEventListener('click', () => {
+            this.rewardModal.style.display = 'none';
+        });
+    }
+
+    showRewardModal() {
+        this.rewardModal.style.display = 'flex';
+    }
+
+    wasRewardShownForDay(date) {
+        const shown = localStorage.getItem(this.rewardShownKey);
+        if (!shown) return false;
+        try {
+            const arr = JSON.parse(shown);
+            return arr.includes(date);
+        } catch {
+            return false;
+        }
+    }
+    markRewardShownForDay(date) {
+        let arr = [];
+        const shown = localStorage.getItem(this.rewardShownKey);
+        if (shown) {
+            try { arr = JSON.parse(shown); } catch {}
+        }
+        if (!arr.includes(date)) arr.push(date);
+        localStorage.setItem(this.rewardShownKey, JSON.stringify(arr));
     }
 }
 
