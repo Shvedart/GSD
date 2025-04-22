@@ -275,6 +275,39 @@ class GSDTracker {
                 }
             });
         });
+
+        this.renderFlowers(entries);
+    }
+
+    renderFlowers(entries) {
+        const flowersContainer = document.getElementById('flowersContainer');
+        if (!flowersContainer) return;
+        // Цветочек за каждый день, если предыдущий день был без превышения сахара и сегодня есть запись
+        let count = 0;
+        // Сортируем по дате (на всякий случай)
+        const sorted = [...entries].sort((a, b) => a.date.localeCompare(b.date));
+        for (let i = 1; i < sorted.length; i++) {
+            const prev = sorted[i - 1];
+            const curr = sorted[i];
+            // В предыдущем дне не было превышения
+            const prevHasRed = prev.entries.some(e => {
+                if (e.sugar === undefined || e.sugar === null || e.sugar === '') return false;
+                const entryObj = new Entry(e, prev.entries);
+                return entryObj.isHighSugar();
+            });
+            // В текущем дне есть хотя бы одна запись
+            if (!prevHasRed && curr.entries.length > 0) {
+                count++;
+            }
+        }
+        flowersContainer.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+            const img = document.createElement('img');
+            img.src = 'icons/flowers.svg';
+            img.alt = 'День без превышения';
+            img.className = 'flower-icon';
+            flowersContainer.appendChild(img);
+        }
     }
 
     initializeExportImport() {
