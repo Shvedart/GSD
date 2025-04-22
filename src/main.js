@@ -50,7 +50,7 @@ class GSDTracker {
 
         // Устанавливаем начальные значения
         this.breadUnitsValue.textContent = '1.0';
-        this.unitsValue.textContent = '5';
+        this.unitsValue.textContent = '7';
         
         // Устанавливаем начальное состояние поля инсулина
         this.updateInsulinUnitsVisibility();
