@@ -31,6 +31,7 @@ class GSDTracker {
         this.initializeExportImport();
         this.initializeEntryActions();
         this.initializeRewardModal();
+        this.renderChips();
 
         // Инициализируем начальное состояние контрола хлебных единиц
         this.updateBreadUnitsVisibility();
@@ -541,6 +542,35 @@ class GSDTracker {
         }
         if (!arr.includes(date)) arr.push(date);
         localStorage.setItem(this.rewardShownKey, JSON.stringify(arr));
+    }
+
+    renderChips() {
+        const chips = [
+            "Кофе со сливками", "огурец", "5 черри", "5 редисок", "0.5 ржаного хлеба", "омлет из 2 яиц", "яйцо отварное", "2 куска сыра", "сметана", "ряженка 1 стакан", "гречка 100 г", "запеченная индейка", "макароны", "яблоко", "2 куриные котлеты", "квашеная капуста", "салат", "киви", "кефир", "йогурт"
+        ];
+        const chipsContainer = document.getElementById('chipsContainer');
+        if (!chipsContainer) return;
+        chipsContainer.innerHTML = '';
+        chips.forEach(text => {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'chip';
+            chip.textContent = text;
+            chip.addEventListener('click', () => {
+                const foodInput = document.getElementById('food');
+                if (foodInput.value.trim() === '') {
+                    foodInput.value = text;
+                } else {
+                    // Добавляем через запятую, если такого текста ещё нет
+                    const arr = foodInput.value.split(',').map(s => s.trim());
+                    if (!arr.includes(text)) {
+                        foodInput.value = foodInput.value.replace(/\s*$/, '') + (foodInput.value.trim().endsWith(',') ? ' ' : ', ') + text;
+                    }
+                }
+                foodInput.focus();
+            });
+            chipsContainer.appendChild(chip);
+        });
     }
 }
 

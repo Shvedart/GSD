@@ -627,3 +627,27 @@ video.reward-video {
     height: 32px;
     display: inline-block;
 }
+
+.chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 4px 0;
+}
+.chip {
+    background: #F5F5F7;
+    color: #222;
+    border: 1px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    user-select: none;
+    outline: none;
+}
+.chip:hover, .chip:focus {
+    background: #eaeaea;
+    border-color: #BDBDBD;
+}
