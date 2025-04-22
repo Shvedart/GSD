@@ -1,0 +1,141 @@
+[
+  {
+    "date": "2025-04-20",
+    "entries": [
+      {
+        "date": "2025-04-20",
+        "time": "23:00",
+        "sugar": 7,
+        "comment": "",
+        "insulin": {
+          "type": "levemir",
+          "units": 11
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-20",
+        "time": "11:10",
+        "sugar": 8.2,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-20",
+        "time": "10:10",
+        "sugar": 5.1,
+        "comment": "Овсянка на молоке 180 г, рикотта 2 ч л, кофе со сливками",
+        "insulin": {
+          "type": "novorapid",
+          "units": 6
+        },
+        "breadUnits": 2.5
+      },
+      {
+        "date": "2025-04-20",
+        "time": "12:40",
+        "sugar": 5.6,
+        "comment": "Творог 100 г, сметана 2 ч л, киви, чай",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-04-20",
+        "time": "14:00",
+        "sugar": 5.7,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-20",
+        "time": "15:50",
+        "sugar": 6.2,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-20",
+        "time": "17:00",
+        "sugar": "",
+        "comment": "Какао с молоком без сахара",
+        "breadUnits": 0.5
+      },
+      {
+        "date": "2025-04-20",
+        "time": "18:30",
+        "sugar": "",
+        "comment": "Яблоко",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-04-20",
+        "time": "21:41",
+        "sugar": 7.5,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-20",
+        "time": "14:40",
+        "sugar": 5.7,
+        "comment": "Макароны из твердых сортов 70 г, 2 сосиски, 150 г цветной капуста, 2 огурца, 6 черри, 0,5 кулича (с творогом, без сахара и муки)",
+        "insulin": {
+          "type": "novorapid",
+          "units": 7
+        },
+        "breadUnits": 3
+      },
+      {
+        "date": "2025-04-20",
+        "time": "20:20",
+        "sugar": 6.3,
+        "comment": "Гречка 100 г, 2 сосиски, 5 черри, 6 редисок, 0,5 кулича (с творогом, без сахара и муки), сметана 2 ч л",
+        "insulin": {
+          "type": "novorapid",
+          "units": 6
+        },
+        "breadUnits": 3
+      },
+      {
+        "date": "2025-04-20",
+        "time": "18:09",
+        "sugar": 6.7,
+        "comment": "",
+        "breadUnits": 0
+      }
+    ]
+  },
+  {
+    "date": "2025-04-21",
+    "entries": [
+      {
+        "date": "2025-04-21",
+        "time": "09:40",
+        "sugar": 5.5,
+        "comment": "Овсянка на молоке 170 г, кофе со сливками",
+        "insulin": {
+          "type": "novorapid",
+          "units": 6
+        },
+        "breadUnits": 2.5
+      },
+      {
+        "date": "2025-04-21",
+        "time": "10:43",
+        "sugar": 8.8,
+        "comment": "",
+        "insulin": {
+          "type": "novorapid",
+          "units": 1
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-21",
+        "time": "11:49",
+        "sugar": 5.4,
+        "comment": "",
+        "breadUnits": 0
+      }
+    ]
+  }
+]
