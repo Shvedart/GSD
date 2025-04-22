@@ -568,6 +568,7 @@ class GSDTracker {
                     }
                 }
                 foodInput.focus();
+                this.updateBreadUnitsVisibility();
             });
             chipsContainer.appendChild(chip);
         });

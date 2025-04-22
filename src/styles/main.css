@@ -635,9 +635,9 @@ video.reward-video {
     margin: 8px 0 4px 0;
 }
 .chip {
-    background: #F5F5F7;
+    background: #ececed;
     color: #222;
-    border: 1px solid #E0E0E0;
+    border: 0px solid #E0E0E0;
     border-radius: 16px;
     padding: 6px 14px;
     font-size: 13px;
@@ -648,6 +648,6 @@ video.reward-video {
     outline: none;
 }
 .chip:hover, .chip:focus {
-    background: #eaeaea;
+    background: #e2e2e2;
     border-color: #BDBDBD;
 }
