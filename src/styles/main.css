@@ -598,3 +598,17 @@ input[type="time"] {
     display: block;
 }
 
+.reward-video {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 16px auto;
+    display: block;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #eee;
+}
+
+video.reward-video {
+    width: 60%;
+    margin-bottom: 16px;
+}
