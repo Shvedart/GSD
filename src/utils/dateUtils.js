@@ -89,11 +89,12 @@ function getSugarColor(sugar, time, dayEntries) {
 
     // Вычисляем разницу во времени
     const hoursDiff = getTimeDifferenceInHours(prevFoodEntry.time, time);
+    console.log(hoursDiff);
 
     // Определяем цвет в зависимости от времени после еды
     if (hoursDiff <= 1) {
         return parseFloat(sugar) <= 7.0 ? 'normal' : 'high';
-    } else if (hoursDiff <= 2) {
+    } else if (hoursDiff <= 2.25) {
         return parseFloat(sugar) <= 6.7 ? 'normal' : 'high';
     } else {
         return parseFloat(sugar) <= 5.8 ? 'normal' : 'high';

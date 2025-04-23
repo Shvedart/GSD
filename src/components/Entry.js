@@ -55,7 +55,7 @@ class Entry {
 
         if (timeDiff <= 60) {
             return sugarValue > 7.0;
-        } else if (timeDiff <= 120) {
+        } else if (timeDiff <= 135) {
             return sugarValue > 6.7;
         } else {
             return sugarValue > 5.8;

@@ -64,7 +64,7 @@ input, select, textarea {
     font-size: 16px;
     font-weight: var(--font-weight-medium);
     padding: var(--spacing-8) var(--spacing-12);
-    border: 1px solid var(--color-black-11);
+    border: 1px solid var(--color-black-20);
     border-radius: var(--border-radius-8);
     width: 100%;
     height: var(--input-height);
@@ -171,7 +171,7 @@ button.toggle-btn {
 
 .day-card {
     background-color: var(--color-white);
-    border: 1px solid var(--color-black-11);
+    border: 1px solid var(--color-black-20);
     border-radius: var(--border-radius-20);
     overflow: hidden;
 }
@@ -385,7 +385,7 @@ select#insulin {
     appearance: none;
     background: url('../../icons/arrow_down.svg') no-repeat right 12px center;
     padding: 8px 36px 8px 12px;
-    border: 1px solid #E0E0E0;
+    border: 1px solid var(--color-black-20);
     border-radius: 8px;
     font-size: 16px;
     color: #333;
@@ -565,7 +565,7 @@ input[type="date"],
 input[type="time"] {
   width: 100%;                  /* растягиваем по ширине */
   background-color: white;     /* белый фон */
-  border: 1px solid #E3E3E3;      /* рамка */
+  border: 1px solid var(--color-black-20);      /* рамка */
   border-radius: 12px;         /* скругление */
   color: black;                /* цвет текста */
   padding: 8px 12px; 
