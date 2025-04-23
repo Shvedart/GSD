@@ -31,7 +31,13 @@ class GSDTracker {
         this.initializeExportImport();
         this.initializeEntryActions();
         this.initializeRewardModal();
-        this.renderChips();
+        this.chipsList = [
+            "кофе со сливками", "огурец", "черри", "редисок", "ржаной хлеб", "омлет", "яйцо вареное", "сыр", "сметана", "ряженка", "гречка", "индейка", "макароны", "яблоко", "котлеты куриные", "квашеная капуста", "салат", "киви", "кефир", "запеканка творожная", "говядина", "йогурт"
+        ];
+        this.renderChips("");
+        this.foodInput.addEventListener('input', () => {
+            this.renderChips(this.foodInput.value);
+        });
 
         // Инициализируем начальное состояние контрола хлебных единиц
         this.updateBreadUnitsVisibility();
@@ -544,31 +550,38 @@ class GSDTracker {
         localStorage.setItem(this.rewardShownKey, JSON.stringify(arr));
     }
 
-    renderChips() {
-        const chips = [
-            "Кофе со сливками", "огурец", "5 черри", "5 редисок", "0.5 ржаного хлеба", "омлет из 2 яиц", "яйцо отварное", "2 куска сыра", "сметана", "ряженка 1 стакан", "гречка 100 г", "запеченная индейка", "макароны", "яблоко", "2 куриные котлеты", "квашеная капуста", "салат", "киви", "кефир", "йогурт"
-        ];
+    renderChips(filter) {
         const chipsContainer = document.getElementById('chipsContainer');
         if (!chipsContainer) return;
         chipsContainer.innerHTML = '';
-        chips.forEach(text => {
+        // Фильтруем по последнему слову после запятой
+        let value = (filter || '').trim();
+        let lastWord = value.split(',').pop().trim().toLowerCase();
+        if (!lastWord) {
+            chipsContainer.style.display = 'none';
+            return;
+        }
+        const filtered = this.chipsList.filter(text => text.toLowerCase().startsWith(lastWord));
+        if (filtered.length === 0) {
+            chipsContainer.style.display = 'none';
+            return;
+        }
+        chipsContainer.style.display = 'flex';
+        filtered.forEach(text => {
             const chip = document.createElement('button');
             chip.type = 'button';
             chip.className = 'chip';
             chip.textContent = text;
             chip.addEventListener('click', () => {
                 const foodInput = document.getElementById('food');
-                if (foodInput.value.trim() === '') {
-                    foodInput.value = text;
-                } else {
-                    // Добавляем через запятую, если такого текста ещё нет
-                    const arr = foodInput.value.split(',').map(s => s.trim());
-                    if (!arr.includes(text)) {
-                        foodInput.value = foodInput.value.replace(/\s*$/, '') + (foodInput.value.trim().endsWith(',') ? ' ' : ', ') + text;
-                    }
-                }
+                let current = foodInput.value;
+                let parts = current.split(',');
+                // Заменяем последнее слово на выбранный чипс (без запятой)
+                parts[parts.length - 1] = ' ' + text;
+                foodInput.value = parts.join(',').replace(/^\s+/, '');
                 foodInput.focus();
                 this.updateBreadUnitsVisibility();
+                this.renderChips(foodInput.value); // обновить фильтр после добавления
             });
             chipsContainer.appendChild(chip);
         });

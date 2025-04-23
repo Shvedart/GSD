@@ -53,8 +53,8 @@ class Entry {
         let timeDiff = currentTime - prevTime;
         if (timeDiff < 0) timeDiff += 24 * 60;
 
-        if (timeDiff <= 60) {
-            return sugarValue > 7.0;
+        if (timeDiff <= 70) {
+            return sugarValue > 6.9;
         } else if (timeDiff <= 135) {
             return sugarValue > 6.7;
         } else {
