@@ -41,6 +41,7 @@ class GSDTracker {
 
         // Инициализируем начальное состояние контрола хлебных единиц
         this.updateBreadUnitsVisibility();
+        this.isEditMode = false;
     }
 
     initializeForm() {
@@ -177,13 +178,28 @@ class GSDTracker {
             // Восстанавливаем значения после сброса
             this.dateInput.value = getCurrentDate();
             this.timeInput.value = getCurrentTime();
-            this.unitsValue.textContent = '5';
+            this.unitsValue.textContent = '7';
             this.breadUnitsValue.textContent = '1.0';
             this.breadUnits.style.display = 'none';
             
             // Восстанавливаем значение инсулина и обновляем видимость поля единиц
             this.insulinInput.value = currentInsulin;
             this.updateInsulinUnitsVisibility();
+            // Показываем баннер только если это было редактирование
+            if (this.isEditMode) {
+                const editSuccessBanner = document.getElementById('editSuccessBanner');
+                if (editSuccessBanner) {
+                    editSuccessBanner.style.display = 'block';
+                    editSuccessBanner.style.opacity = '1';
+                    setTimeout(() => {
+                        editSuccessBanner.style.opacity = '0';
+                        setTimeout(() => {
+                            editSuccessBanner.style.display = 'none';
+                        }, 300);
+                    }, 5000);
+                }
+                this.isEditMode = false;
+            }
         } else {
             alert('Пожалуйста, проверьте введенные данные');
         }
@@ -476,11 +492,13 @@ class GSDTracker {
                         this.timeInput.value = entry.time;
                         this.sugarInput.value = entry.sugar !== undefined ? entry.sugar : '';
                         this.insulinInput.value = entry.insulin ? entry.insulin.type : '';
-                        this.unitsValue.textContent = entry.insulin ? entry.insulin.units : '5';
+                        this.unitsValue.textContent = entry.insulin ? entry.insulin.units : '7';
                         this.foodInput.value = entry.comment || '';
                         this.breadUnitsValue.textContent = entry.breadUnits !== undefined ? entry.breadUnits : '1.0';
                         this.updateInsulinUnitsVisibility();
                         this.updateBreadUnitsVisibility();
+                        // Скроллим к форме
+                        this.form.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         // После редактирования удаляем старую запись
                         dayGroup.entries.splice(idx, 1);
                         if (dayGroup.entries.length === 0) {
@@ -489,6 +507,8 @@ class GSDTracker {
                         }
                         localStorage.setItem('gsd-entries', JSON.stringify(entries));
                         this.loadAndDisplayEntries();
+                        // Включаем режим редактирования
+                        this.isEditMode = true;
                     }
                 }
                 pendingEntry = null;
