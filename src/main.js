@@ -312,10 +312,12 @@ class GSDTracker {
         for (let i = 1; i < sorted.length; i++) {
             const prev = sorted[i - 1];
             const curr = sorted[i];
+            // Сортируем записи предыдущего дня по времени
+            const sortedDayEntries = [...prev.entries].sort((a, b) => a.time.localeCompare(b.time));
             // В предыдущем дне не было превышения
-            const prevHasRed = prev.entries.some(e => {
+            const prevHasRed = sortedDayEntries.some(e => {
                 if (e.sugar === undefined || e.sugar === null || e.sugar === '') return false;
-                const entryObj = new Entry(e, prev.entries);
+                const entryObj = new Entry(e, sortedDayEntries);
                 return entryObj.isHighSugar();
             });
             // В текущем дне есть хотя бы одна запись

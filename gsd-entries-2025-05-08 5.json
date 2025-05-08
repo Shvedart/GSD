@@ -4,6 +4,24 @@
     "entries": [
       {
         "date": "2025-04-20",
+        "time": "23:00",
+        "sugar": 7,
+        "comment": "",
+        "insulin": {
+          "type": "levemir",
+          "units": 11
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-20",
+        "time": "11:10",
+        "sugar": 8.2,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-20",
         "time": "10:10",
         "sugar": 5.1,
         "comment": "Овсянка на молоке 180 г, рикотта 2 ч л, кофе со сливками",
@@ -12,13 +30,6 @@
           "units": 6
         },
         "breadUnits": 2.5
-      },
-      {
-        "date": "2025-04-20",
-        "time": "11:10",
-        "sugar": 8.2,
-        "comment": "",
-        "breadUnits": 0
       },
       {
         "date": "2025-04-20",
@@ -36,17 +47,6 @@
       },
       {
         "date": "2025-04-20",
-        "time": "14:40",
-        "sugar": 5.7,
-        "comment": "Макароны из твердых сортов 70 г, 2 сосиски, 150 г цветной капуста, 2 огурца, 6 черри, 0,5 кулича (с творогом, без сахара и муки)",
-        "insulin": {
-          "type": "novorapid",
-          "units": 7
-        },
-        "breadUnits": 3
-      },
-      {
-        "date": "2025-04-20",
         "time": "15:50",
         "sugar": 6.2,
         "comment": "",
@@ -61,17 +61,28 @@
       },
       {
         "date": "2025-04-20",
-        "time": "18:09",
-        "sugar": 6.7,
+        "time": "18:30",
+        "sugar": "",
+        "comment": "Яблоко",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-04-20",
+        "time": "21:41",
+        "sugar": 7.5,
         "comment": "",
         "breadUnits": 0
       },
       {
         "date": "2025-04-20",
-        "time": "18:30",
-        "sugar": "",
-        "comment": "Яблоко",
-        "breadUnits": 1
+        "time": "14:40",
+        "sugar": 5.7,
+        "comment": "Макароны из твердых сортов 70 г, 2 сосиски, 150 г цветной капуста, 2 огурца, 6 черри, 0,5 кулича (с творогом, без сахара и муки)",
+        "insulin": {
+          "type": "novorapid",
+          "units": 7
+        },
+        "breadUnits": 3
       },
       {
         "date": "2025-04-20",
@@ -86,20 +97,9 @@
       },
       {
         "date": "2025-04-20",
-        "time": "21:41",
-        "sugar": 7.5,
+        "time": "18:09",
+        "sugar": 6.7,
         "comment": "",
-        "breadUnits": 0
-      },
-      {
-        "date": "2025-04-20",
-        "time": "23:00",
-        "sugar": 7,
-        "comment": "",
-        "insulin": {
-          "type": "levemir",
-          "units": 11
-        },
         "breadUnits": 0
       }
     ]
@@ -138,24 +138,6 @@
       },
       {
         "date": "2025-04-21",
-        "time": "12:30",
-        "sugar": "",
-        "comment": "Ржаной хлеб 1 кусок, сыр 4 куска, яйцо отварное",
-        "breadUnits": 1.5
-      },
-      {
-        "date": "2025-04-21",
-        "time": "14:27",
-        "sugar": 5.5,
-        "comment": "Гречка 100 г, 2 сосиски, салат (огурцы, помидоры, редис, сметана), яблоко",
-        "insulin": {
-          "type": "novorapid",
-          "units": 7
-        },
-        "breadUnits": 4
-      },
-      {
-        "date": "2025-04-21",
         "time": "15:33",
         "sugar": 8.4,
         "comment": "",
@@ -171,6 +153,17 @@
         "sugar": 6.4,
         "comment": "",
         "breadUnits": 0
+      },
+      {
+        "date": "2025-04-21",
+        "time": "14:27",
+        "sugar": 5.5,
+        "comment": "Гречка 100 г, 2 сосиски, салат (огурцы, помидоры, редис, сметана), яблоко",
+        "insulin": {
+          "type": "novorapid",
+          "units": 7
+        },
+        "breadUnits": 4
       },
       {
         "date": "2025-04-21",
@@ -192,13 +185,6 @@
       },
       {
         "date": "2025-04-21",
-        "time": "21:30",
-        "sugar": "",
-        "comment": "яблоко ",
-        "breadUnits": 1.5
-      },
-      {
-        "date": "2025-04-21",
         "time": "23:08",
         "sugar": 5.9,
         "comment": "",
@@ -207,6 +193,20 @@
           "units": 11
         },
         "breadUnits": 0
+      },
+      {
+        "date": "2025-04-21",
+        "time": "21:30",
+        "sugar": "",
+        "comment": "яблоко ",
+        "breadUnits": 1.5
+      },
+      {
+        "date": "2025-04-21",
+        "time": "12:30",
+        "sugar": "",
+        "comment": "Ржаной хлеб 1 кусок, сыр 4 куска, яйцо отварное",
+        "breadUnits": 1.5
       },
       {
         "date": "2025-04-21",
@@ -220,17 +220,6 @@
   {
     "date": "2025-04-22",
     "entries": [
-      {
-        "date": "2025-04-22",
-        "time": "09:35",
-        "sugar": 5,
-        "comment": "Омлет из 2 яиц, огурец, 3 черри, 0,5 ржаного хлеба, 2 куска сыра, кофе со сливками",
-        "insulin": {
-          "type": "novorapid",
-          "units": 7
-        },
-        "breadUnits": 2
-      },
       {
         "date": "2025-04-22",
         "time": "10:35",
@@ -272,26 +261,8 @@
       },
       {
         "date": "2025-04-22",
-        "time": "18:15",
-        "sugar": 5.3,
-        "comment": "Гречка 100 г, запеченная индейка, квашеная капуста, 8 черри, 5 редисок, творожная запеканка 2 ч л",
-        "insulin": {
-          "type": "novorapid",
-          "units": 7
-        },
-        "breadUnits": 3
-      },
-      {
-        "date": "2025-04-22",
         "time": "19:16",
         "sugar": 7.8,
-        "comment": "",
-        "breadUnits": 0
-      },
-      {
-        "date": "2025-04-22",
-        "time": "20:16",
-        "sugar": 5.9,
         "comment": "",
         "breadUnits": 0
       },
@@ -319,6 +290,35 @@
         "sugar": 6.5,
         "comment": "",
         "breadUnits": 0
+      },
+      {
+        "date": "2025-04-22",
+        "time": "20:16",
+        "sugar": 5.9,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-22",
+        "time": "18:15",
+        "sugar": 5.3,
+        "comment": "Гречка 100 г, запеченная индейка, квашеная капуста, 8 черри, 5 редисок, творожная запеканка 2 ч л",
+        "insulin": {
+          "type": "novorapid",
+          "units": 7
+        },
+        "breadUnits": 3
+      },
+      {
+        "date": "2025-04-22",
+        "time": "09:35",
+        "sugar": 5,
+        "comment": "Омлет из 2 яиц, огурец, 3 черри, 0,5 ржаного хлеба, 2 куска сыра, кофе со сливками",
+        "insulin": {
+          "type": "novorapid",
+          "units": 7
+        },
+        "breadUnits": 2
       }
     ]
   },
@@ -461,13 +461,6 @@
       },
       {
         "date": "2025-04-24",
-        "time": "15:05",
-        "sugar": 7.1,
-        "comment": "",
-        "breadUnits": 0
-      },
-      {
-        "date": "2025-04-24",
         "time": "16:30",
         "sugar": "",
         "comment": "ржаной хлеб 0.5, масло, сыр 5 кусков",
@@ -475,19 +468,8 @@
       },
       {
         "date": "2025-04-24",
-        "time": "20:00",
-        "sugar": 5.2,
-        "comment": "говядина, салат (помидоры, огурцы, айсберг), ржаной хлеб 40 г",
-        "insulin": {
-          "type": "novorapid",
-          "units": 7
-        },
-        "breadUnits": 2
-      },
-      {
-        "date": "2025-04-24",
-        "time": "21:00",
-        "sugar": 6.9,
+        "time": "15:05",
+        "sugar": 7.1,
         "comment": "",
         "breadUnits": 0
       },
@@ -511,6 +493,24 @@
       },
       {
         "date": "2025-04-24",
+        "time": "20:00",
+        "sugar": 5.2,
+        "comment": "говядина, салат (помидоры, огурцы, айсберг), ржаной хлеб 40 г",
+        "insulin": {
+          "type": "novorapid",
+          "units": 7
+        },
+        "breadUnits": 2
+      },
+      {
+        "date": "2025-04-24",
+        "time": "21:00",
+        "sugar": 6.9,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-24",
         "time": "23:59",
         "sugar": 6.5,
         "comment": "",
@@ -521,6 +521,13 @@
   {
     "date": "2025-04-25",
     "entries": [
+      {
+        "date": "2025-04-25",
+        "time": "10:30",
+        "sugar": 6.5,
+        "comment": "",
+        "breadUnits": 0
+      },
       {
         "date": "2025-04-25",
         "time": "09:30",
@@ -534,17 +541,10 @@
       },
       {
         "date": "2025-04-25",
-        "time": "10:30",
-        "sugar": 6.5,
+        "time": "13:25",
+        "sugar": 6.2,
         "comment": "",
         "breadUnits": 0
-      },
-      {
-        "date": "2025-04-25",
-        "time": "10:50",
-        "sugar": "",
-        "comment": "Яблоко 80 г",
-        "breadUnits": 1
       },
       {
         "date": "2025-04-25",
@@ -559,10 +559,10 @@
       },
       {
         "date": "2025-04-25",
-        "time": "13:25",
-        "sugar": 6.2,
-        "comment": "",
-        "breadUnits": 0
+        "time": "10:50",
+        "sugar": "",
+        "comment": "Яблоко 80 г",
+        "breadUnits": 1
       },
       {
         "date": "2025-04-25",
@@ -640,13 +640,6 @@
       },
       {
         "date": "2025-04-26",
-        "time": "10:20",
-        "sugar": 7.8,
-        "comment": "",
-        "breadUnits": 0
-      },
-      {
-        "date": "2025-04-26",
         "time": "11:30",
         "sugar": 6.9,
         "comment": "",
@@ -658,6 +651,13 @@
         "sugar": "",
         "comment": "Яблоко",
         "breadUnits": 1
+      },
+      {
+        "date": "2025-04-26",
+        "time": "10:20",
+        "sugar": 7.8,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-04-26",
@@ -704,13 +704,6 @@
       },
       {
         "date": "2025-04-26",
-        "time": "22:20",
-        "sugar": "",
-        "comment": "Яблоко, кефир",
-        "breadUnits": 2
-      },
-      {
-        "date": "2025-04-26",
         "time": "23:20",
         "sugar": 6.8,
         "comment": "",
@@ -719,6 +712,13 @@
           "units": 7
         },
         "breadUnits": 0
+      },
+      {
+        "date": "2025-04-26",
+        "time": "22:20",
+        "sugar": "",
+        "comment": "Яблоко, кефир",
+        "breadUnits": 2
       }
     ]
   },
@@ -727,15 +727,15 @@
     "entries": [
       {
         "date": "2025-04-27",
-        "time": "02:20",
-        "sugar": 5.3,
+        "time": "08:30",
+        "sugar": 4.8,
         "comment": "",
         "breadUnits": 0
       },
       {
         "date": "2025-04-27",
-        "time": "08:30",
-        "sugar": 4.8,
+        "time": "02:20",
+        "sugar": 5.3,
         "comment": "",
         "breadUnits": 0
       },
@@ -770,17 +770,6 @@
       },
       {
         "date": "2025-04-27",
-        "time": "14:40",
-        "sugar": 4.9,
-        "comment": "Шаурма (лаваш, курица, овощи, томатный соус)",
-        "insulin": {
-          "type": "novorapid",
-          "units": 7
-        },
-        "breadUnits": 2.5
-      },
-      {
-        "date": "2025-04-27",
         "time": "15:40",
         "sugar": 7.7,
         "comment": "",
@@ -789,6 +778,17 @@
           "units": 1
         },
         "breadUnits": 0
+      },
+      {
+        "date": "2025-04-27",
+        "time": "14:40",
+        "sugar": 4.9,
+        "comment": "Шаурма (лаваш, курица, овощи, томатный соус)",
+        "insulin": {
+          "type": "novorapid",
+          "units": 7
+        },
+        "breadUnits": 2.5
       },
       {
         "date": "2025-04-27",
@@ -821,6 +821,24 @@
         "sugar": 5.7,
         "comment": "",
         "breadUnits": 0
+      },
+      {
+        "date": "2025-04-27",
+        "time": "23:00",
+        "sugar": "",
+        "comment": "ряженка",
+        "insulin": {
+          "type": "levemir",
+          "units": 11
+        },
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-04-27",
+        "time": "23:55",
+        "sugar": 5.7,
+        "comment": "",
+        "breadUnits": 0
       }
     ]
   },
@@ -830,69 +848,92 @@
       {
         "date": "2025-04-28",
         "time": "00:30",
-        "breadUnits": 0,
-        "sugar": 5.4
+        "sugar": 5.4,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-04-28",
         "time": "09:30",
-        "breadUnits": 3,
         "sugar": 5,
         "comment": "Перловая каша на молоке 150 г, яйцо вареное, сыр, кофе со сливками",
         "insulin": {
           "type": "novorapid",
           "units": 7
-        }
-      },
-      {
-        "date": "2025-04-28",
-        "time": "10:30",
-        "breadUnits": 0,
-        "sugar": 6.8
+        },
+        "breadUnits": 3
       },
       {
         "date": "2025-04-28",
         "time": "13:40",
-        "breadUnits": 3,
-        "sugar": 6,
+        "sugar": 5,
         "comment": "Киноа 150 г, половина кабачка с фаршем из индейки, редис, черри",
         "insulin": {
           "type": "novorapid",
           "units": 7
-        }
+        },
+        "breadUnits": 3
+      },
+      {
+        "date": "2025-04-28",
+        "time": "10:30",
+        "sugar": 6.8,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-04-28",
         "time": "14:40",
-        "breadUnits": 0,
-        "sugar": 6
+        "sugar": 6,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-04-28",
         "time": "16:30",
-        "breadUnits": 1.5,
-        "comment": "Творожная запеканка, греческий йогурт, малина замороженная"
+        "sugar": "",
+        "comment": "Творожная запеканка, греческий йогурт, малина замороженная ",
+        "breadUnits": 1.5
       },
       {
         "date": "2025-04-28",
         "time": "19:30",
-        "breadUnits": 4,
         "sugar": 5.3,
         "comment": "Киноа 150 г, котлета из индейки, салат (краснокочанная капуста, сметана), яблоко",
         "insulin": {
           "type": "novorapid",
           "units": 7
-        }
+        },
+        "breadUnits": 4
       },
       {
         "date": "2025-04-28",
         "time": "20:30",
-        "breadUnits": 0,
         "sugar": 8.7,
+        "comment": "",
         "insulin": {
           "type": "novorapid",
           "units": 1
-        }
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-28",
+        "time": "23:00",
+        "sugar": "",
+        "comment": "Ряженка 1 стакан",
+        "insulin": {
+          "type": "levemir",
+          "units": 11
+        },
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-04-28",
+        "time": "23:55",
+        "sugar": 6.1,
+        "comment": "",
+        "breadUnits": 0
       }
     ]
   },
@@ -901,96 +942,104 @@
     "entries": [
       {
         "date": "2025-04-29",
+        "time": "11:00",
+        "sugar": 8.7,
+        "comment": "",
+        "insulin": {
+          "type": "novorapid",
+          "units": 1
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-29",
         "time": "10:00",
-        "breadUnits": 3.5,
         "sugar": 5,
         "comment": "Перловая каша на молоке 150 г, ежевика, сыр, кофе со сливками",
         "insulin": {
           "type": "novorapid",
           "units": 7
-        }
-      },
-      {
-        "date": "2025-04-29",
-        "time": "11:00",
-        "breadUnits": 0,
-        "sugar": 8.7,
-        "insulin": {
-          "type": "novorapid",
-          "units": 1
-        }
+        },
+        "breadUnits": 3.5
       },
       {
         "date": "2025-04-29",
         "time": "12:00",
-        "breadUnits": 1,
-        "comment": "яблоко"
+        "sugar": "",
+        "comment": "яблоко",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-04-29",
+        "time": "16:30",
+        "sugar": 10.9,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-29",
+        "time": "17:15",
+        "sugar": 9.8,
+        "comment": "",
+        "insulin": {
+          "type": "novorapid",
+          "units": 1
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-29",
+        "time": "19:00",
+        "sugar": 4.6,
+        "comment": "яблоко",
+        "breadUnits": 1.5
+      },
+      {
+        "date": "2025-04-29",
+        "time": "22:30",
+        "sugar": 5.4,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-04-29",
         "time": "15:30",
-        "breadUnits": 4,
         "sugar": 4.6,
         "comment": "Шашлык, 2 картофелины запеченных, помидоры, огурцы, лаваш толстый 1 кусок",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
-      },
-      {
-        "date": "2025-04-29",
-        "time": "16:30",
-        "breadUnits": 0,
-        "sugar": 10.9
-      },
-      {
-        "date": "2025-04-29",
-        "time": "17:15",
-        "breadUnits": 0,
-        "sugar": 9.8,
-        "insulin": {
-          "type": "novorapid",
-          "units": 1
-        }
-      },
-      {
-        "date": "2025-04-29",
-        "time": "19:00",
-        "breadUnits": 1.5,
-        "sugar": 4.6,
-        "comment": "яблоко"
+        },
+        "breadUnits": 4
       },
       {
         "date": "2025-04-29",
         "time": "21:30",
-        "breadUnits": 3.5,
         "sugar": 5.3,
-        "comment": "Киноа 150 г, 2 котлеты из индейки, 1 авокадо, лаваш толстый 0.5 куска",
+        "comment": "Киноа 150 г, 2 котлеты из индейки, 1 авокадо, лаваш толстый 0,5 куска",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
-      },
-      {
-        "date": "2025-04-29",
-        "time": "22:30",
-        "breadUnits": 0,
-        "sugar": 5.4
+        },
+        "breadUnits": 3.5
       },
       {
         "date": "2025-04-29",
         "time": "23:00",
-        "breadUnits": 0,
+        "sugar": "",
+        "comment": "",
         "insulin": {
           "type": "levemir",
           "units": 11
-        }
+        },
+        "breadUnits": 0
       },
       {
         "date": "2025-04-29",
         "time": "23:30",
-        "breadUnits": 1,
-        "comment": "Ряженка"
+        "sugar": "",
+        "comment": "ряженка",
+        "breadUnits": 1
       }
     ]
   },
@@ -1000,97 +1049,106 @@
       {
         "date": "2025-04-30",
         "time": "08:00",
-        "breadUnits": 2.5,
         "sugar": 5.4,
         "comment": "Бутерброд с маслом и сыром, яйцо вареное, кофе с молоком",
         "insulin": {
           "type": "novorapid",
           "units": 7
-        }
+        },
+        "breadUnits": 2.5
       },
       {
         "date": "2025-04-30",
         "time": "09:00",
-        "breadUnits": 0,
-        "sugar": 7
+        "sugar": 7,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-30",
+        "time": "13:35",
+        "sugar": 6.2,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-30",
+        "time": "14:30",
+        "sugar": "",
+        "comment": "Ряженка",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-04-30",
+        "time": "19:20",
+        "sugar": 8.8,
+        "comment": "",
+        "insulin": {
+          "type": "novorapid",
+          "units": 1
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-04-30",
+        "time": "16:30",
+        "sugar": "",
+        "comment": "яблоко",
+        "breadUnits": 2
+      },
+      {
+        "date": "2025-04-30",
+        "time": "20:30",
+        "sugar": "",
+        "comment": "яблоко",
+        "breadUnits": 2
+      },
+      {
+        "date": "2025-04-30",
+        "time": "18:20",
+        "sugar": 4.7,
+        "comment": "Киноа 150 г, 1,5 котлеты из индейки, салат (капуста, огурец, масло оливковое), лаваш толстый 0,5 куска, арахисовая паста 2 ч л",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 4
       },
       {
         "date": "2025-04-30",
         "time": "10:00",
-        "breadUnits": 0.5,
-        "comment": "кофе со сливками"
+        "sugar": "",
+        "comment": "кофе со сливками",
+        "breadUnits": 0.5
       },
       {
         "date": "2025-04-30",
         "time": "12:35",
-        "breadUnits": 3,
         "sugar": 6,
         "comment": "Киноа 150 г, 2 котлеты из индейки, салат (капуста, огурец, масло оливковое)",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
-      },
-      {
-        "date": "2025-04-30",
-        "time": "13:35",
-        "breadUnits": 0,
-        "sugar": 6.2
-      },
-      {
-        "date": "2025-04-30",
-        "time": "14:30",
-        "breadUnits": 1,
-        "comment": "Ряженка"
-      },
-      {
-        "date": "2025-04-30",
-        "time": "16:30",
-        "breadUnits": 2,
-        "comment": "яблоко"
-      },
-      {
-        "date": "2025-04-30",
-        "time": "18:20",
-        "breadUnits": 4,
-        "sugar": 4.7,
-        "comment": "Киноа 150 г, 1.5 котлеты из индейки, салат (капуста, огурец, масло оливковое), лаваш толстый 0.5 куска, арахисовая паста 2 ч л",
-        "insulin": {
-          "type": "novorapid",
-          "units": 8
-        }
-      },
-      {
-        "date": "2025-04-30",
-        "time": "19:20",
-        "breadUnits": 0,
-        "sugar": 8.8,
-        "insulin": {
-          "type": "novorapid",
-          "units": 1
-        }
-      },
-      {
-        "date": "2025-04-30",
-        "time": "20:30",
-        "breadUnits": 2,
-        "comment": "яблоко"
+        },
+        "breadUnits": 3
       },
       {
         "date": "2025-04-30",
         "time": "23:00",
-        "breadUnits": 1,
+        "sugar": "",
         "comment": "Кефир 1 стакан",
         "insulin": {
           "type": "levemir",
           "units": 12
-        }
+        },
+        "breadUnits": 1
       },
       {
         "date": "2025-04-30",
         "time": "23:30",
-        "breadUnits": 0,
-        "sugar": 5.7
+        "sugar": 5.7,
+        "comment": "",
+        "breadUnits": 0
       }
     ]
   },
@@ -1100,88 +1158,96 @@
       {
         "date": "2025-05-01",
         "time": "09:30",
-        "breadUnits": 3,
         "sugar": 5.1,
         "comment": "Перловая каша на молоке 150 г, сыр, кофе со сливками",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
+        },
+        "breadUnits": 3
       },
       {
         "date": "2025-05-01",
         "time": "10:30",
-        "breadUnits": 0,
         "sugar": 7.5,
+        "comment": "",
         "insulin": {
           "type": "novorapid",
           "units": 1
-        }
+        },
+        "breadUnits": 0
       },
       {
         "date": "2025-05-01",
         "time": "11:30",
-        "breadUnits": 2,
-        "comment": "яблоко"
+        "sugar": "",
+        "comment": "яблоко",
+        "breadUnits": 2
       },
       {
         "date": "2025-05-01",
         "time": "13:00",
-        "breadUnits": 3.5,
         "sugar": 5.4,
         "comment": "Киноа 150 г, тушеная индейка, шпинат, огурец, 6 черри, ржаной хлеб 0.5 куска с маслом",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
+        },
+        "breadUnits": 3.5
       },
       {
         "date": "2025-05-01",
         "time": "14:00",
-        "breadUnits": 0,
         "sugar": 8.7,
+        "comment": "",
         "insulin": {
           "type": "novorapid",
           "units": 1
-        }
+        },
+        "breadUnits": 0
       },
       {
         "date": "2025-05-01",
         "time": "15:30",
-        "breadUnits": 0.5,
-        "comment": "Кофе со сливками"
+        "sugar": "",
+        "comment": "Кофе со сливками",
+        "breadUnits": 0.5
       },
       {
         "date": "2025-05-01",
         "time": "19:15",
-        "breadUnits": 3,
         "sugar": 5.5,
         "comment": "3 вареные картофелины, индейка тушеная, шпинат, 3 редиски, 5 черри, греческий йогурт",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
+        },
+        "breadUnits": 3
       },
       {
         "date": "2025-05-01",
         "time": "20:15",
-        "breadUnits": 0,
-        "sugar": 6.7
-      },
-      {
-        "date": "2025-05-01",
-        "time": "23:00",
-        "breadUnits": 0,
-        "insulin": {
-          "type": "levemir",
-          "units": 12
-        }
+        "sugar": 6.7,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-05-01",
         "time": "23:30",
-        "breadUnits": 1,
-        "comment": "Творог мягкий из ВкусВилла, яблоко 0.5"
+        "sugar": "",
+        "comment": "Творог мягкий из ВкусВилла, яблоко 0.5",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-05-01",
+        "time": "23:00",
+        "sugar": "",
+        "comment": "",
+        "insulin": {
+          "type": "levemir",
+          "units": 12
+        },
+        "breadUnits": 0
       }
     ]
   },
@@ -1191,78 +1257,102 @@
       {
         "date": "2025-05-02",
         "time": "00:05",
-        "breadUnits": 0,
-        "sugar": 6
+        "sugar": 6,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-05-02",
         "time": "10:00",
-        "breadUnits": 2.5,
         "sugar": 5,
         "comment": "Перловая каша на молоке 100 г, сыр, кофе со сливками",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
+        },
+        "breadUnits": 2.5
       },
       {
         "date": "2025-05-02",
         "time": "11:00",
-        "breadUnits": 0,
-        "sugar": 6.9
+        "sugar": 6.9,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-05-02",
         "time": "11:40",
-        "breadUnits": 1,
-        "comment": "Киви, творог мягкий из BB"
-      },
-      {
-        "date": "2025-05-02",
-        "time": "13:00",
-        "breadUnits": 3.5,
-        "sugar": 5.5,
-        "comment": "Киноа 120 г, индейка, фриллис, огурец, хлеб Житный 1 кусок из BB (без муки и сахара), сулини",
-        "insulin": {
-          "type": "novorapid",
-          "units": 8
-        }
+        "sugar": "",
+        "comment": "Киви, творог мягкий из ВВ",
+        "breadUnits": 1
       },
       {
         "date": "2025-05-02",
         "time": "14:00",
-        "breadUnits": 0,
-        "sugar": 7
-      },
-      {
-        "date": "2025-05-02",
-        "time": "17:15",
-        "breadUnits": 1.5,
-        "sugar": 4.9,
-        "comment": "Индейка, запеченные овощи (помидоры, кабачок, грибы), греческий салат (Сицилия)",
-        "insulin": {
-          "type": "novorapid",
-          "units": 8
-        }
+        "sugar": 7,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-05-02",
         "time": "18:15",
-        "breadUnits": 0,
-        "sugar": 5.1
-      },
-      {
-        "date": "2025-05-02",
-        "time": "20:20",
-        "breadUnits": 1,
-        "sugar": 4.9,
-        "comment": "Сыр, индейка, фриллис, хлеб Житный 1 кусок из BB (без муки и сахара)"
+        "sugar": 5.1,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-05-02",
         "time": "21:20",
-        "breadUnits": 0,
-        "sugar": 6.2
+        "sugar": 6.2,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-02",
+        "time": "17:15",
+        "sugar": 4.9,
+        "comment": "Индейка, запеченные овощи (помидоры, кабачок, грибы), греческий салат \n(Сицилия)",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 1.5
+      },
+      {
+        "date": "2025-05-02",
+        "time": "20:20",
+        "sugar": 4.9,
+        "comment": "Сыр, индейка, фриллис, хлеб Житный 1 кусок из вв (без муки и сахара)",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-05-02",
+        "time": "13:00",
+        "sugar": 5.5,
+        "comment": "Киноа 120 г, индейка, фриллис, огурец, хлеб Житный 1 кусок из вв (без муки и сахара), сулини",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 3.5
+      },
+      {
+        "date": "2025-05-02",
+        "time": "23:00",
+        "sugar": "",
+        "comment": "Ряженка 1 стакан",
+        "insulin": {
+          "type": "levemir",
+          "units": 14
+        },
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-05-02",
+        "time": "23:55",
+        "sugar": 6.8,
+        "comment": "",
+        "breadUnits": 0
       }
     ]
   },
@@ -1271,81 +1361,89 @@
     "entries": [
       {
         "date": "2025-05-03",
-        "time": "02:00",
-        "breadUnits": 0,
-        "sugar": 5.1
-      },
-      {
-        "date": "2025-05-03",
         "time": "09:50",
-        "breadUnits": 2.5,
         "sugar": 5.4,
         "comment": "Греческий йогурт, 2 киви, кофе со сливками",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
+        },
+        "breadUnits": 2.5
       },
       {
         "date": "2025-05-03",
         "time": "10:50",
-        "breadUnits": 0,
-        "sugar": 6
+        "sugar": 6,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-05-03",
         "time": "12:10",
-        "breadUnits": 1.5,
-        "comment": "Хлеб Житный 1 кусок, буррата, фриллис, 0.5 яблока (40 г)"
+        "sugar": "",
+        "comment": "Хлеб Житный 1 кусок, буррата, фриллис, 0,5 яблока (40г)",
+        "breadUnits": 1.5
       },
       {
         "date": "2025-05-03",
         "time": "14:10",
-        "breadUnits": 3.5,
         "sugar": 5.5,
-        "comment": "Чечевица 150 г, 2 сосиски Суперсила из BB, 1 авокадо, зеленый салат, 0.5 яблока (40 г)",
+        "comment": "Чечевица 150 г, 2 сосиски Суперсила из вв, 1 авокадо, зеленый салат, 0.5 яблока (40 г)",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
+        },
+        "breadUnits": 3.5
       },
       {
         "date": "2025-05-03",
         "time": "15:10",
-        "breadUnits": 0,
-        "sugar": 6.7
+        "sugar": 6.7,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-05-03",
         "time": "18:40",
-        "breadUnits": 3,
         "sugar": 5.4,
         "comment": "2 бутерброда (хлеб Житный, индейка, сыр), 1 картофелина размером с яйцо, зеленый салат, авокадо",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
+        },
+        "breadUnits": 3
       },
       {
         "date": "2025-05-03",
         "time": "19:40",
-        "breadUnits": 0,
-        "sugar": 6.5
+        "sugar": 6.5,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-05-03",
         "time": "22:00",
-        "breadUnits": 2,
-        "comment": "Яблоко, творог мягкий из BB"
+        "sugar": "",
+        "comment": "Яблоко, творог мягкий из вв ",
+        "breadUnits": 2
       },
       {
         "date": "2025-05-03",
         "time": "23:00",
-        "breadUnits": 0,
+        "sugar": "",
+        "comment": "",
         "insulin": {
           "type": "levemir",
           "units": 14
-        }
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-03",
+        "time": "02:00",
+        "sugar": 5.1,
+        "comment": "",
+        "breadUnits": 0
       }
     ]
   },
@@ -1355,19 +1453,427 @@
       {
         "date": "2025-05-04",
         "time": "00:05",
-        "breadUnits": 0,
-        "sugar": 6.2
+        "sugar": 6.2,
+        "comment": "",
+        "breadUnits": 0
       },
       {
         "date": "2025-05-04",
         "time": "09:50",
-        "breadUnits": 1.5,
         "sugar": 5.8,
         "comment": "Яблоко 80 г, греческий йогурт, кофе со сливками",
         "insulin": {
           "type": "novorapid",
           "units": 8
-        }
+        },
+        "breadUnits": 1.5
+      },
+      {
+        "date": "2025-05-04",
+        "time": "10:50",
+        "sugar": 6.5,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-04",
+        "time": "13:00",
+        "sugar": "",
+        "comment": "Ряженка 1,5 стакана",
+        "breadUnits": 1.5
+      },
+      {
+        "date": "2025-05-04",
+        "time": "15:20",
+        "sugar": 6.3,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-04",
+        "time": "14:20",
+        "sugar": 6,
+        "comment": "Чечевица 150 г, 2 сосиски Суперсила из вв, 1 авокадо, зеленый салат",
+        "insulin": {
+          "type": "novorapid",
+          "units": 9
+        },
+        "breadUnits": 3
+      },
+      {
+        "date": "2025-05-04",
+        "time": "18:30",
+        "sugar": "",
+        "comment": "Яблоко 150 г",
+        "breadUnits": 2
+      },
+      {
+        "date": "2025-05-04",
+        "time": "20:10",
+        "sugar": 6.8,
+        "comment": "Чечевица 150г, индейка, салат (капуста, огурец, йогурт)",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 3
+      },
+      {
+        "date": "2025-05-04",
+        "time": "21:10",
+        "sugar": 6.5,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-04",
+        "time": "23:30",
+        "sugar": 5.9,
+        "comment": "",
+        "insulin": {
+          "type": "levemir",
+          "units": 16
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-04",
+        "time": "23:59",
+        "sugar": "",
+        "comment": "Яблоко 80 г",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-05-04",
+        "time": "23:59",
+        "sugar": 6,
+        "comment": "",
+        "breadUnits": 0
+      }
+    ]
+  },
+  {
+    "date": "2025-05-05",
+    "entries": [
+      {
+        "date": "2025-05-05",
+        "time": "09:40",
+        "sugar": 5,
+        "comment": "Перловая каша на молоке 100 г, сыр, кофе со сливками",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 3
+      },
+      {
+        "date": "2025-05-05",
+        "time": "10:40",
+        "sugar": 6.6,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-05",
+        "time": "11:40",
+        "sugar": "",
+        "comment": "Яблоко 80 г",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-05-05",
+        "time": "13:10",
+        "sugar": 4.8,
+        "comment": "Чечевица 150 г, 2 сосиски Суперсила из вв, салат (дайкон, огурец), сметана 2 ст л",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 3.5
+      },
+      {
+        "date": "2025-05-05",
+        "time": "17:00",
+        "sugar": "",
+        "comment": "Киви, творог зерненый из вв",
+        "breadUnits": 1.5
+      },
+      {
+        "date": "2025-05-05",
+        "time": "19:35",
+        "sugar": 5.6,
+        "comment": "Чечевица 150 г, 2 сосиски Суперсила из вв, салат ромэн, огурец",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 3
+      },
+      {
+        "date": "2025-05-05",
+        "time": "20:35",
+        "sugar": 6.3,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-05",
+        "time": "14:30",
+        "sugar": 5.3,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-05",
+        "time": "23:00",
+        "sugar": 5.8,
+        "comment": "",
+        "insulin": {
+          "type": "levemir",
+          "units": 16
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-05",
+        "time": "23:30",
+        "sugar": "",
+        "comment": "ряженка 1 стакан",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-05-05",
+        "time": "23:59",
+        "sugar": 6.1,
+        "comment": "",
+        "breadUnits": 0
+      }
+    ]
+  },
+  {
+    "date": "2025-05-06",
+    "entries": [
+      {
+        "date": "2025-05-06",
+        "time": "10:20",
+        "sugar": 7.8,
+        "comment": "",
+        "insulin": {
+          "type": "novorapid",
+          "units": 1
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-06",
+        "time": "11:20",
+        "sugar": 6.2,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-06",
+        "time": "12:30",
+        "sugar": "",
+        "comment": "яблоко",
+        "breadUnits": 1.5
+      },
+      {
+        "date": "2025-05-06",
+        "time": "14:50",
+        "sugar": 4.8,
+        "comment": "Киноа 150 г, тушеные сердечки индейки с шампиньонами, салат (огурец, авокадо, салат ромэн)",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 3.5
+      },
+      {
+        "date": "2025-05-06",
+        "time": "15:50",
+        "sugar": 7.4,
+        "comment": "",
+        "insulin": {
+          "type": "novorapid",
+          "units": 1
+        },
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-06",
+        "time": "09:20",
+        "sugar": 5.2,
+        "comment": "Хлеб Житный из вв 1.5 куска, ветчина из вв, огурец, салат ромэн, кофе со сливками",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 2.5
+      },
+      {
+        "date": "2025-05-06",
+        "time": "16:50",
+        "sugar": 5.7,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-06",
+        "time": "17:30",
+        "sugar": "",
+        "comment": "ряженка 0.5 стакана, яблоко 40 г",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-05-06",
+        "time": "21:30",
+        "sugar": 6.3,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-06",
+        "time": "20:30",
+        "sugar": 5.3,
+        "comment": "Киноа 70 г, тушеные сердечки индейки с шампиньонами, огурец, зеленый салат, вафля (льняная мука, кефир, яйцо) с творожным сыром ",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 3
+      },
+      {
+        "date": "2025-05-06",
+        "time": "23:45",
+        "sugar": 5.6,
+        "comment": "",
+        "insulin": {
+          "type": "levemir",
+          "units": 16
+        },
+        "breadUnits": 0
+      }
+    ]
+  },
+  {
+    "date": "2025-05-07",
+    "entries": [
+      {
+        "date": "2025-05-07",
+        "time": "11:10",
+        "sugar": 5.8,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-07",
+        "time": "12:30",
+        "sugar": "",
+        "comment": "Яблоко 120 г",
+        "breadUnits": 1.5
+      },
+      {
+        "date": "2025-05-07",
+        "time": "14:00",
+        "sugar": 5.1,
+        "comment": "Киноа 100г, сердечки с шампиньонами, вафля (льняная мука, кефир, яйцо), сулини из вв, салат (кабачок, огурец, авокадо, маш, зеленый салат)",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 3.5
+      },
+      {
+        "date": "2025-05-07",
+        "time": "16:40",
+        "sugar": "",
+        "comment": "Хлеб Житный из вв 1 кусок, масло, сыр, вареное яйцо, зеленый салат",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-05-07",
+        "time": "17:40",
+        "sugar": 5.6,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-07",
+        "time": "15:00",
+        "sugar": 6.3,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-07",
+        "time": "08:00",
+        "sugar": 5,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-07",
+        "time": "20:00",
+        "sugar": 5.3,
+        "comment": "Киноа 100г, тушенная говядина, вафля (льняная мука, кефир, яйцо), сулини из вв, огурец, помидоры черри, зеленый салат ",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 3.5
+      },
+      {
+        "date": "2025-05-07",
+        "time": "21:00",
+        "sugar": 6.2,
+        "comment": "",
+        "breadUnits": 0
+      },
+      {
+        "date": "2025-05-07",
+        "time": "22:00",
+        "sugar": "",
+        "comment": "ряженка 1 стакан",
+        "breadUnits": 1
+      },
+      {
+        "date": "2025-05-07",
+        "time": "09:50",
+        "sugar": "",
+        "comment": "Хлеб Житный 1 кусок, масло сливочное, сыр, яйцо вареное, зеленый салат, кофе со сливками",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 1.5
+      },
+      {
+        "date": "2025-05-07",
+        "time": "23:59",
+        "sugar": 6,
+        "comment": "",
+        "insulin": {
+          "type": "levemir",
+          "units": 16
+        },
+        "breadUnits": 0
+      }
+    ]
+  },
+  {
+    "date": "2025-05-08",
+    "entries": [
+      {
+        "date": "2025-05-08",
+        "time": "08:00",
+        "sugar": 5,
+        "comment": "Перловая каша на молоке 100 г, сыр, кофе со сливками, зеленый салат",
+        "insulin": {
+          "type": "novorapid",
+          "units": 8
+        },
+        "breadUnits": 3
       }
     ]
   }
