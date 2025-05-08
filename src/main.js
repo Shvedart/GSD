@@ -331,6 +331,9 @@ class GSDTracker {
             img.src = 'icons/flowers.svg';
             img.alt = 'День без превышения';
             img.className = 'flower-icon';
+            img.addEventListener('click', () => {
+                this.showRewardModal();
+            });
             flowersContainer.appendChild(img);
         }
     }

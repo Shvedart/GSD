@@ -526,7 +526,7 @@ span.modal-text {
 
 .banner-success {
     position: fixed;
-    top: 24px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
     background: #7cf17c7a;
