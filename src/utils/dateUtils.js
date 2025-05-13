@@ -59,9 +59,24 @@ function getSugarColor(sugar, time, dayEntries) {
     // Сортируем записи по времени
     const sortedEntries = sortDayEntriesByTime([...dayEntries]);
     
-    // Проверяем, является ли это первой записью за день
-    if (sortedEntries[0].time === time) {
-        return parseFloat(sugar) <= 5.0 ? 'normal' : 'high';
+    // Находим индекс записи с минимальным временем (реально первый замер дня)
+    let minTimeIdx = 0;
+    let minTime = 24 * 60;
+    for (let i = 0; i < sortedEntries.length; i++) {
+        const [h, m] = sortedEntries[i].time.split(':').map(Number);
+        const total = h * 60 + m;
+        if (total < minTime) {
+            minTime = total;
+            minTimeIdx = i;
+        }
+    }
+    if (sortedEntries[minTimeIdx].time === time) {
+        const [h, m] = time.split(':').map(Number);
+        if (h < 6) {
+            return parseFloat(sugar) <= 6.9 ? 'normal' : 'high';
+        } else {
+            return parseFloat(sugar) <= 5.0 ? 'normal' : 'high';
+        }
     }
 
     // Находим текущую запись и её индекс

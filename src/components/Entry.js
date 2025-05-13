@@ -19,20 +19,33 @@ class Entry {
 
     isHighSugar() {
         if (!this.sugar) return false;
-        
-        // Находим индекс текущей записи
-        const currentIndex = this.dayEntries.findIndex(entry => 
-            entry.time === this.time
-        );
-        if (currentIndex === -1) return false;
-
         const sugarValue = parseFloat(this.sugar);
-
-        // Первый замер за день
-        if (currentIndex === 0) {
+        const [h, m] = this.time.split(':').map(Number);
+        // 1. Все сахара с 00:00 до 05:59
+        if (h < 6) {
+            return sugarValue > 6.9;
+        }
+        // 2. Первый сахар после 06:00 — натощак
+        // Найдём среди всех записей с временем >= 06:00 минимальное время
+        let minIdx = -1;
+        let minTime = 24 * 60;
+        for (let i = 0; i < this.dayEntries.length; i++) {
+            const [hh, mm] = this.dayEntries[i].time.split(':').map(Number);
+            if (hh >= 6) {
+                const total = hh * 60 + mm;
+                if (total < minTime) {
+                    minTime = total;
+                    minIdx = i;
+                }
+            }
+        }
+        if (minIdx !== -1 && this.dayEntries[minIdx].time === this.time) {
             return sugarValue > 5.0;
         }
-
+        // 3. Остальные сахара — по обычной логике
+        // Находим индекс текущей записи
+        const currentIndex = this.dayEntries.findIndex(entry => entry.time === this.time);
+        if (currentIndex === -1) return false;
         // Ищем предыдущую запись с едой
         let prevFoodIndex = -1;
         for (let i = currentIndex - 1; i >= 0; i--) {
@@ -41,18 +54,15 @@ class Entry {
                 break;
             }
         }
-
         // Если предыдущей записи с едой нет — обычный порог
         if (prevFoodIndex === -1) {
             return sugarValue > 5.0;
         }
-
         // Считаем разницу во времени между предыдущей едой и текущим замером
         const prevTime = this.timeToMinutes(this.dayEntries[prevFoodIndex].time);
         const currentTime = this.timeToMinutes(this.time);
         let timeDiff = currentTime - prevTime;
         if (timeDiff < 0) timeDiff += 24 * 60;
-
         if (timeDiff <= 70) {
             return sugarValue > 6.9;
         } else if (timeDiff <= 135) {
