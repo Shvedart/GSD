@@ -148,54 +148,54 @@ class GSDTracker {
         }
         const submitBtn = document.querySelector('.submit-btn');
         if (validateEntry(entry)) {
-            // Проверка на новый календарный день
-            const entries = loadEntries();
-            const isNewDay = !entries.some(group => group.date === entry.date);
-            let yesterdayDate = null;
-            if (isNewDay) {
-                // Найти вчерашний день
-                const yesterday = new Date(entry.date);
-                yesterday.setDate(yesterday.getDate() - 1);
-                yesterdayDate = yesterday.toISOString().slice(0, 10);
-                const yesterdayGroup = entries.find(group => group.date === yesterdayDate);
-                if (yesterdayGroup && !this.wasRewardShownForDay(yesterdayDate)) {
-                    // Проверить, были ли красные сахара
-                    const hasRed = yesterdayGroup.entries.some(e => {
-                        if (e.sugar === undefined || e.sugar === null || e.sugar === '') return false;
-                        // Используем ту же логику, что и для бейджа
-                        const entryObj = new Entry(e, yesterdayGroup.entries);
-                        return entryObj.isHighSugar();
-                    });
-                    if (!hasRed) {
-                        // streak для уникальных/премиум
-                        let streak = 1;
-                        let d = new Date(yesterdayDate);
-                        while (true) {
-                            d.setDate(d.getDate() - 1);
-                            const prevDate = d.toISOString().slice(0, 10);
-                            const prevGroup = entries.find(group => group.date === prevDate);
-                            if (!prevGroup) break;
-                            const prevHasRed = prevGroup.entries.some(e => {
-                                if (e.sugar === undefined || e.sugar === null || e.sugar === '') return false;
-                                const entryObj = new Entry(e, prevGroup.entries);
-                                return entryObj.isHighSugar();
-                            });
-                            if (!prevHasRed && prevGroup.entries.length > 0) {
-                                streak++;
-                            } else {
-                                break;
-                            }
-                        }
-                        let rewardType = 'regular';
-                        if (streak % 10 === 0) rewardType = 'premium';
-                        else if (streak % 5 === 0) rewardType = 'unique';
-                        this.showRewardModal(rewardType);
-                        this.markRewardShownForDay(yesterdayDate);
-                    }
+            // Считаем streak до добавления записи
+            const entriesBefore = loadEntries();
+            const sortedBefore = [...entriesBefore].sort((a, b) => a.date.localeCompare(b.date));
+            let streakBefore = 0;
+            for (let i = 1; i < sortedBefore.length; i++) {
+                const prev = sortedBefore[i - 1];
+                const curr = sortedBefore[i];
+                const sortedDayEntries = [...prev.entries].sort((a, b) => a.time.localeCompare(b.time));
+                const prevHasRed = sortedDayEntries.some(e => {
+                    if (e.sugar === undefined || e.sugar === null || e.sugar === '') return false;
+                    const entryObj = new Entry(e, sortedDayEntries);
+                    return entryObj.isHighSugar();
+                });
+                if (!prevHasRed && curr.entries.length > 0) {
+                    streakBefore++;
+                } else {
+                    streakBefore = 0;
                 }
             }
             addEntry(entry);
             this.loadAndDisplayEntries();
+            // Считаем streak после добавления записи
+            const entriesAfter = loadEntries();
+            const sortedAfter = [...entriesAfter].sort((a, b) => a.date.localeCompare(b.date));
+            let streakAfter = 0;
+            for (let i = 1; i < sortedAfter.length; i++) {
+                const prev = sortedAfter[i - 1];
+                const curr = sortedAfter[i];
+                const sortedDayEntries = [...prev.entries].sort((a, b) => a.time.localeCompare(b.time));
+                const prevHasRed = sortedDayEntries.some(e => {
+                    if (e.sugar === undefined || e.sugar === null || e.sugar === '') return false;
+                    const entryObj = new Entry(e, sortedDayEntries);
+                    return entryObj.isHighSugar();
+                });
+                if (!prevHasRed && curr.entries.length > 0) {
+                    streakAfter++;
+                } else {
+                    streakAfter = 0;
+                }
+            }
+            // Если streak увеличился — эмулируем клик по последнему цветку
+            if (streakAfter > streakBefore) {
+                const flowersContainer = document.getElementById('flowersContainer');
+                if (flowersContainer && flowersContainer.children.length > 0) {
+                    const lastFlower = flowersContainer.children[flowersContainer.children.length - 1];
+                    lastFlower.click();
+                }
+            }
             
             // Сохраняем текущее значение инсулина
             const currentInsulin = this.insulinInput.value;
@@ -661,26 +661,6 @@ class GSDTracker {
         }
         video.load();
         this.rewardModal.style.display = 'flex';
-    }
-
-    wasRewardShownForDay(date) {
-        const shown = localStorage.getItem(this.rewardShownKey);
-        if (!shown) return false;
-        try {
-            const arr = JSON.parse(shown);
-            return arr.includes(date);
-        } catch {
-            return false;
-        }
-    }
-    markRewardShownForDay(date) {
-        let arr = [];
-        const shown = localStorage.getItem(this.rewardShownKey);
-        if (shown) {
-            try { arr = JSON.parse(shown); } catch {}
-        }
-        if (!arr.includes(date)) arr.push(date);
-        localStorage.setItem(this.rewardShownKey, JSON.stringify(arr));
     }
 
     renderChips(filter) {
