@@ -126,11 +126,19 @@ class GSDTracker {
     }
 
     handleFormSubmit() {
+        // Корректно обрабатываем пустое значение сахара
+        let sugarValue = this.sugarInput.value;
+        if (sugarValue === '' || sugarValue === null || sugarValue === undefined) {
+            sugarValue = '';
+        } else {
+            sugarValue = parseFloat(sugarValue);
+        }
         const entry = {
             date: this.dateInput.value,
             time: this.timeInput.value,
-            sugar: this.sugarInput.value ? parseFloat(this.sugarInput.value) : '',
-            comment: this.foodInput.value
+            sugar: sugarValue,
+            comment: this.foodInput.value,
+            breadUnits: this.foodInput.value.trim() ? parseFloat(this.breadUnitsValue.textContent) : 0
         };
         const submitBtn = document.querySelector('.submit-btn');
         if (validateEntry(entry)) {
@@ -202,10 +210,12 @@ class GSDTracker {
                 }, 3000);
             }
         } else {
-            // Вместо alert подсвечиваем input
-            this.sugarInput.classList.add('input-error');
-            this.sugarInput.value = '';
-            this.sugarInput.placeholder = 'Значение до 40 ед.';
+            // Проверяем ошибку только по сахару
+            if (!validateSugar(sugarValue)) {
+                this.sugarInput.classList.add('input-error');
+                this.sugarInput.value = '';
+                this.sugarInput.placeholder = 'Значение до 40 ед.';
+            }
             // --- Новое: меняем кнопку на красную ---
             if (submitBtn) {
                 submitBtn.classList.add('btn-error');
@@ -239,9 +249,20 @@ class GSDTracker {
                         const dayIndex = entries.findIndex(group => group.date === date);
                         entries.splice(dayIndex, 1);
                     }
-                    
                     saveEntries(entries);
                     this.loadAndDisplayEntries();
+                    // Показываем баннер удаления
+                    const deleteSuccessBanner = document.getElementById('deleteSuccessBanner');
+                    if (deleteSuccessBanner) {
+                        deleteSuccessBanner.style.display = 'block';
+                        deleteSuccessBanner.style.opacity = '1';
+                        setTimeout(() => {
+                            deleteSuccessBanner.style.opacity = '0';
+                            setTimeout(() => {
+                                deleteSuccessBanner.style.display = 'none';
+                            }, 300);
+                        }, 5000);
+                    }
                 }
                 this.hideDeleteModal();
             }
@@ -487,6 +508,18 @@ class GSDTracker {
                         }
                         localStorage.setItem('gsd-entries', JSON.stringify(entries));
                         this.loadAndDisplayEntries();
+                        // Показываем баннер удаления
+                        const deleteSuccessBanner = document.getElementById('deleteSuccessBanner');
+                        if (deleteSuccessBanner) {
+                            deleteSuccessBanner.style.display = 'block';
+                            deleteSuccessBanner.style.opacity = '1';
+                            setTimeout(() => {
+                                deleteSuccessBanner.style.opacity = '0';
+                                setTimeout(() => {
+                                    deleteSuccessBanner.style.display = 'none';
+                                }, 300);
+                            }, 5000);
+                        }
                     }
                 }
                 pendingEntry = null;
