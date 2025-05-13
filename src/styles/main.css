@@ -86,6 +86,15 @@ input:focus, select:focus, textarea:focus {
     outline: none;
 }
 
+input.input-error {
+    border-color: #FF5073 !important;
+    color: #FF5073;
+}
+input.input-error::placeholder {
+    color: #FF5073;
+    opacity: 1;
+}
+
 /* Units Controls */
 .insulin-units,
 .bread-units {
@@ -150,6 +159,16 @@ img.insulin-icon {
     font-weight: var(--font-weight-medium);
     cursor: pointer;
     height: 50px;
+}
+
+.submit-btn.btn-success {
+    background-color: var(--color-green) !important;
+    color: #fff !important;
+}
+
+.submit-btn.btn-error {
+    background-color: var(--color-red) !important;
+    color: #fff !important;
 }
 
 button.toggle-btn {

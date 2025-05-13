@@ -42,6 +42,11 @@ class GSDTracker {
         // Инициализируем начальное состояние контрола хлебных единиц
         this.updateBreadUnitsVisibility();
         this.isEditMode = false;
+
+        this.sugarInput.addEventListener('focus', () => {
+            this.sugarInput.classList.remove('input-error');
+            this.sugarInput.placeholder = 'Сахар';
+        });
     }
 
     initializeForm() {
@@ -127,20 +132,7 @@ class GSDTracker {
             sugar: this.sugarInput.value ? parseFloat(this.sugarInput.value) : '',
             comment: this.foodInput.value
         };
-
-        if (this.insulinInput.value && this.insulinInput.value !== 'Нет') {
-            entry.insulin = {
-                type: this.insulinInput.value,
-                units: parseInt(this.unitsValue.textContent)
-            };
-        }
-
-        if (this.foodInput.value.trim()) {
-            entry.breadUnits = parseFloat(this.breadUnitsValue.textContent);
-        } else {
-            entry.breadUnits = 0;
-        }
-
+        const submitBtn = document.querySelector('.submit-btn');
         if (validateEntry(entry)) {
             // Проверка на новый календарный день
             const entries = loadEntries();
@@ -200,8 +192,29 @@ class GSDTracker {
                 }
                 this.isEditMode = false;
             }
+            // --- Новое: меняем кнопку на зелёную ---
+            if (submitBtn) {
+                submitBtn.classList.add('btn-success');
+                submitBtn.textContent = 'Запись добавлена';
+                setTimeout(() => {
+                    submitBtn.classList.remove('btn-success');
+                    submitBtn.textContent = 'Добавить';
+                }, 3000);
+            }
         } else {
-            alert('Пожалуйста, проверьте введенные данные');
+            // Вместо alert подсвечиваем input
+            this.sugarInput.classList.add('input-error');
+            this.sugarInput.value = '';
+            this.sugarInput.placeholder = 'Значение до 40 ед.';
+            // --- Новое: меняем кнопку на красную ---
+            if (submitBtn) {
+                submitBtn.classList.add('btn-error');
+                submitBtn.textContent = 'Произошла ошибка';
+                setTimeout(() => {
+                    submitBtn.classList.remove('btn-error');
+                    submitBtn.textContent = 'Добавить';
+                }, 3000);
+            }
         }
     }
 
