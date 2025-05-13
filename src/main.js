@@ -140,6 +140,12 @@ class GSDTracker {
             comment: this.foodInput.value,
             breadUnits: this.foodInput.value.trim() ? parseFloat(this.breadUnitsValue.textContent) : 0
         };
+        if (this.insulinInput.value && this.insulinInput.value !== 'Нет') {
+            entry.insulin = {
+                type: this.insulinInput.value,
+                units: parseInt(this.unitsValue.textContent)
+            };
+        }
         const submitBtn = document.querySelector('.submit-btn');
         if (validateEntry(entry)) {
             // Проверка на новый календарный день
@@ -161,7 +167,29 @@ class GSDTracker {
                         return entryObj.isHighSugar();
                     });
                     if (!hasRed) {
-                        this.showRewardModal();
+                        // streak для уникальных/премиум
+                        let streak = 1;
+                        let d = new Date(yesterdayDate);
+                        while (true) {
+                            d.setDate(d.getDate() - 1);
+                            const prevDate = d.toISOString().slice(0, 10);
+                            const prevGroup = entries.find(group => group.date === prevDate);
+                            if (!prevGroup) break;
+                            const prevHasRed = prevGroup.entries.some(e => {
+                                if (e.sugar === undefined || e.sugar === null || e.sugar === '') return false;
+                                const entryObj = new Entry(e, prevGroup.entries);
+                                return entryObj.isHighSugar();
+                            });
+                            if (!prevHasRed && prevGroup.entries.length > 0) {
+                                streak++;
+                            } else {
+                                break;
+                            }
+                        }
+                        let rewardType = 'regular';
+                        if (streak % 10 === 0) rewardType = 'premium';
+                        else if (streak % 5 === 0) rewardType = 'unique';
+                        this.showRewardModal(rewardType);
                         this.markRewardShownForDay(yesterdayDate);
                     }
                 }
@@ -339,34 +367,54 @@ class GSDTracker {
     renderFlowers(entries) {
         const flowersContainer = document.getElementById('flowersContainer');
         if (!flowersContainer) return;
-        // Цветочек за каждый день, если предыдущий день был без превышения сахара и сегодня есть запись
         let count = 0;
-        // Сортируем по дате (на всякий случай)
+        let uniqueCount = 0;
+        let premiumCount = 0;
         const sorted = [...entries].sort((a, b) => a.date.localeCompare(b.date));
+        let streak = 0;
         for (let i = 1; i < sorted.length; i++) {
             const prev = sorted[i - 1];
             const curr = sorted[i];
-            // Сортируем записи предыдущего дня по времени
             const sortedDayEntries = [...prev.entries].sort((a, b) => a.time.localeCompare(b.time));
-            // В предыдущем дне не было превышения
             const prevHasRed = sortedDayEntries.some(e => {
                 if (e.sugar === undefined || e.sugar === null || e.sugar === '') return false;
                 const entryObj = new Entry(e, sortedDayEntries);
                 return entryObj.isHighSugar();
             });
-            // В текущем дне есть хотя бы одна запись
             if (!prevHasRed && curr.entries.length > 0) {
+                streak++;
                 count++;
+                if (streak % 10 === 0) {
+                    premiumCount++;
+                } else if (streak % 5 === 0) {
+                    uniqueCount++;
+                }
+            } else {
+                streak = 0;
             }
         }
         flowersContainer.innerHTML = '';
-        for (let i = 0; i < count; i++) {
-            const img = document.createElement('img');
-            img.src = 'icons/flowers.svg';
-            img.alt = 'День без превышения';
-            img.className = 'flower-icon';
+        let flowerIndex = 0;
+        for (let i = 1; i <= count; i++, flowerIndex++) {
+            let img = document.createElement('img');
+            let type = 'regular';
+            if (i % 10 === 0) {
+                img.src = 'icons/flowers-premium.svg';
+                img.alt = 'Премиум цветок';
+                img.className = 'flower-icon premium';
+                type = 'premium';
+            } else if (i % 5 === 0) {
+                img.src = 'icons/flowers-unique.svg';
+                img.alt = 'Уникальный цветок';
+                img.className = 'flower-icon unique';
+                type = 'unique';
+            } else {
+                img.src = 'icons/flowers.svg';
+                img.alt = 'День без превышения';
+                img.className = 'flower-icon';
+            }
             img.addEventListener('click', () => {
-                this.showRewardModal();
+                this.showRewardModal(type);
             });
             flowersContainer.appendChild(img);
         }
@@ -597,7 +645,21 @@ class GSDTracker {
         });
     }
 
-    showRewardModal() {
+    showRewardModal(type = 'regular') {
+        this.rewardModal = document.getElementById('rewardModal');
+        const video = this.rewardModal.querySelector('.reward-video');
+        const text = this.rewardModal.querySelector('.reward-text');
+        if (type === 'premium') {
+            video.src = 'mp4/congratulation-premium.mp4';
+            text.innerHTML = 'Ты супер крутая,<br> у тебя всё идёт как нужно!';
+        } else if (type === 'unique') {
+            video.src = 'mp4/congratulation-unique.mp4';
+            text.innerHTML = 'Вау, у тебя круто получается!<br> Так держать!';
+        } else {
+            video.src = 'mp4/congratulation.mp4';
+            text.innerHTML = 'Ура! За вчерашний день у тебя не было ни одного вылета!<br>Так держать!';
+        }
+        video.load();
         this.rewardModal.style.display = 'flex';
     }
 
