@@ -179,6 +179,7 @@ class GSDTracker {
             const entriesBefore = loadEntries();
             const sortedBefore = [...entriesBefore].sort((a, b) => a.date.localeCompare(b.date));
             let streakBefore = 0;
+            let spheroliaBefore = 0;
             for (let i = 1; i < sortedBefore.length; i++) {
                 const prev = sortedBefore[i - 1];
                 const curr = sortedBefore[i];
@@ -190,6 +191,7 @@ class GSDTracker {
                 });
                 if (!prevHasRed && curr.entries.length > 0) {
                     streakBefore++;
+                    spheroliaBefore++;
                 } else {
                     streakBefore = 0;
                 }
@@ -200,6 +202,7 @@ class GSDTracker {
             const entriesAfter = loadEntries();
             const sortedAfter = [...entriesAfter].sort((a, b) => a.date.localeCompare(b.date));
             let streakAfter = 0;
+            let spheroliaAfter = 0;
             for (let i = 1; i < sortedAfter.length; i++) {
                 const prev = sortedAfter[i - 1];
                 const curr = sortedAfter[i];
@@ -211,6 +214,7 @@ class GSDTracker {
                 });
                 if (!prevHasRed && curr.entries.length > 0) {
                     streakAfter++;
+                    spheroliaAfter++;
                 } else {
                     streakAfter = 0;
                 }
@@ -263,6 +267,26 @@ class GSDTracker {
                     submitBtn.classList.remove('btn-success');
                     submitBtn.textContent = 'Добавить';
                 }, 3000);
+            }
+
+            // Считаем награды
+            const luminaryBefore = Math.floor(spheroliaBefore / 5);
+            const astraBefore = Math.floor(spheroliaBefore / 10);
+            const luminaryAfter = Math.floor(spheroliaAfter / 5);
+            const astraAfter = Math.floor(spheroliaAfter / 10);
+            // Определяем, какой цветок новый
+            let newFlower = null;
+            if (astraAfter > astraBefore) {
+                newFlower = 'premium';
+            } else if (luminaryAfter > luminaryBefore) {
+                newFlower = 'unique';
+            } else if (spheroliaAfter > spheroliaBefore) {
+                newFlower = 'regular';
+            }
+            if (newFlower) {
+                setTimeout(() => {
+                    this.showRewardModal(newFlower);
+                }, 400); // небольшая задержка для плавности
             }
         } else {
             // Проверяем ошибку только по сахару
@@ -679,15 +703,15 @@ class GSDTracker {
         // Выбираем видео и подпись по типу цветка
         let videoSrc = 'mp4/spherolia.mp4';
         let flowerTitle = 'Сферолий';
-        let text = 'Ты справился без единого вылета — это маленькое чудо, которое ты создал сам.';
+        let text = 'Ты справился без единого<br> вылета — это маленькое чудо,<br> которое ты создал сам.';
         if (type === 'unique') {
             videoSrc = 'mp4/luminary.mp4';
             flowerTitle = 'Люминарий';
-            text = '5 дней — это уже серьёзный результат! Ты молодец!';
+            text = '5 дней без единого<br>вылета — это победа гармонии.<br>Ты сильнее, чем думаешь! ';
         } else if (type === 'premium') {
             videoSrc = 'mp4/astra-lyria.mp4';
             flowerTitle = 'Астра Лирия';
-            text = '10 дней, большая победа — большой шаг вперёд! Горжусь тобой!';
+            text = '10 дней, большая<br> победа — большой шаг вперёд!<br> Горжусь тобой!';
         }
         // Добавляем видео на фон
         const bgVideo = document.createElement('video');
