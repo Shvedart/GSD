@@ -676,14 +676,17 @@ class GSDTracker {
         // Удаляем старое видео, если есть
         const oldBg = modalContent.querySelector('.reward-bg-video');
         if (oldBg) oldBg.remove();
-        // Выбираем видео по типу цветка
+        // Выбираем видео и подпись по типу цветка
         let videoSrc = 'mp4/spherolia.mp4';
-        let text = 'Ты справился без единого<br>вылета — это маленькое чудо,<br> которое ты создал сам. ';
+        let flowerTitle = 'Сферолий';
+        let text = 'Ты справился без единого<br> вылета — это маленькое чудо,<br> которое ты создал сам.';
         if (type === 'unique') {
             videoSrc = 'mp4/luminary.mp4';
+            flowerTitle = 'Люминарий';
             text = '5 дней без единого<br>вылета — это победа гармонии.<br>Ты сильнее, чем думаешь! ';
         } else if (type === 'premium') {
             videoSrc = 'mp4/astra-lyria.mp4';
+            flowerTitle = 'Астра Лирия';
             text = '10 дней, большая<br>победа — большой шаг вперёд!<br> Горжусь тобой!';
         }
         // Добавляем видео на фон
@@ -704,9 +707,21 @@ class GSDTracker {
         bgVideo.style.borderRadius = '20px';
         modalContent.style.position = 'relative';
         modalContent.insertBefore(bgVideo, modalContent.firstChild);
-        // Текст поверх видео
-        const textDiv = modalContent.querySelector('.reward-text');
-        if (textDiv) textDiv.innerHTML = text;
+        // Подпись и текст поверх видео
+        let textDiv = modalContent.querySelector('.reward-text');
+        if (!textDiv) {
+            textDiv = document.createElement('div');
+            textDiv.className = 'reward-text';
+            modalContent.insertBefore(textDiv, modalContent.querySelector('#closeRewardBtn'));
+        }
+        let titleDiv = modalContent.querySelector('.reward-flower-title');
+        if (!titleDiv) {
+            titleDiv = document.createElement('div');
+            titleDiv.className = 'reward-flower-title';
+            modalContent.insertBefore(titleDiv, textDiv);
+        }
+        titleDiv.textContent = flowerTitle;
+        textDiv.innerHTML = text;
         this.rewardModal.style.display = 'flex';
     }
 
