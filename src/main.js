@@ -387,7 +387,7 @@ class GSDTracker {
             emptyStub.id = 'emptyEntriesStub';
             emptyStub.className = 'empty-entries-stub';
             emptyStub.innerHTML = `
-                <img src="img/first-note.png" alt="Первая запись" class="empty-entries-img">
+                <img src="img/first-note.png" alt="Первая запись" class="modal-img>
                 <div class="empty-entries-text">
                     <h2 class="empty-entries-title">Добавьте первую запись</h2>
                     <div class="text-descriptor empty-entries-desc">У вас пока нет ни одной записи.<br>Заполните форму, чтобы добавить первую.</div>
