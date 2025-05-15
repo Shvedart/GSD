@@ -35,6 +35,7 @@ body {
 }
 .form-edit {
     padding: 0px;
+    padding-top: 8px;
 }
 
 .form-row {
@@ -313,6 +314,11 @@ img.sugar-icon {
     color: var(--color-green);
 }
 
+.sugar-badge.black {
+    background-color: #000;
+    color: #fff;
+}
+
 .insulin-badge {
     display: flex;
     align-items: center;
@@ -479,7 +485,7 @@ select#insulin {
 .modal-content {
     background-color: var(--color-white);
     padding: var(--spacing-16);
-    border-radius: var(--border-radius-20);
+    border-radius: var(--border-radius-32);
     width: 90%;
     max-width: 400px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

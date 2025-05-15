@@ -836,7 +836,7 @@ class GSDTracker {
                 const updatedEntry = {
                     date: document.getElementById('editDate').value,
                     time: document.getElementById('editTime').value,
-                    sugar: document.getElementById('editSugar').value,
+                    sugar: parseFloat(document.getElementById('editSugar').value),
                     comment: editFoodInput.value,
                     breadUnits: parseFloat(editBreadUnitsValue.textContent)
                 };

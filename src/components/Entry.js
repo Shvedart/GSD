@@ -130,18 +130,26 @@ class Entry {
         if (hasBadges) {
             if (this.sugar !== undefined && this.sugar !== null && this.sugar !== '') {
                 const sugarBadge = document.createElement('div');
-                const isHigh = this.isHighSugar();
-                sugarBadge.classList.add('sugar-badge', isHigh ? 'high' : 'normal');
-                
-                const sugarIcon = document.createElement('img');
-                sugarIcon.src = `icons/sugar-14-${isHigh ? 'red' : 'green'}.svg`;
-                sugarIcon.classList.add('sugar-icon');
-                sugarBadge.appendChild(sugarIcon);
-                
+                // Новое условие: если сахар <= 3.8 — чёрный
+                const sugarValue = parseFloat(this.sugar);
+                let sugarClass = 'normal';
+                let sugarIcon = 'green';
+                if (sugarValue <= 3.8) {
+                    sugarClass = 'black';
+                    sugarIcon = 'red';
+                } else {
+                    const isHigh = this.isHighSugar();
+                    sugarClass = isHigh ? 'high' : 'normal';
+                    sugarIcon = isHigh ? 'red' : 'green';
+                }
+                sugarBadge.classList.add('sugar-badge', sugarClass);
+                const sugarIconImg = document.createElement('img');
+                sugarIconImg.src = `icons/sugar-14-${sugarIcon}.svg`;
+                sugarIconImg.classList.add('sugar-icon');
+                sugarBadge.appendChild(sugarIconImg);
                 const sugarText = document.createElement('span');
                 sugarText.textContent = this.sugar;
                 sugarBadge.appendChild(sugarText);
-                
                 dataRow.appendChild(sugarBadge);
             }
 
