@@ -251,7 +251,7 @@ class GSDTracker {
                         setTimeout(() => {
                             editSuccessBanner.style.display = 'none';
                         }, 300);
-                    }, 5000);
+                    }, 3000);
                 }
                 this.isEditMode = false;
             }
@@ -441,8 +441,8 @@ class GSDTracker {
             </div>
             <div class="flowers-block-list">
                 <div class="flower-item"><img src="img/spherolia.png" class="flower-img" data-type="regular"><div class="flower-caption"><b>${spherolia} ${flowerWord(spherolia)}</b><br>Сферолия</div></div>
-                <div class="flower-item"><img src="img/luminary.png" class="flower-img" data-type="unique"><div class="flower-caption"><b>${luminary} ${flowerWord(luminary)}</b><br>Люминарий</div></div>
-                <div class="flower-item"><img src="img/astra-lyria.png" class="flower-img" data-type="premium"><div class="flower-caption"><b>${astra} ${flowerWord(astra)}</b><br>Астра Лирия</div></div>
+                ${luminary > 0 ? `<div class="flower-item"><img src="img/luminary.png" class="flower-img" data-type="unique"><div class="flower-caption"><b>${luminary} ${flowerWord(luminary)}</b><br>Люминарий</div></div>` : `<div class='flower-item flower-placeholder'><div class='flower-placeholder-box'>Ещё не открытый<br>цветок</div></div>`}
+                ${astra > 0 ? `<div class="flower-item"><img src="img/astra-lyria.png" class="flower-img" data-type="premium"><div class="flower-caption"><b>${astra} ${flowerWord(astra)}</b><br>Астра Лирия</div></div>` : `<div class='flower-item flower-placeholder'><div class='flower-placeholder-box'>Ещё не открытый<br>цветок</div></div>`}
             </div>
         `;
         // Клик по картинке — показать попап награды
@@ -679,15 +679,15 @@ class GSDTracker {
         // Выбираем видео и подпись по типу цветка
         let videoSrc = 'mp4/spherolia.mp4';
         let flowerTitle = 'Сферолий';
-        let text = 'Ты справился без единого<br> вылета — это маленькое чудо,<br> которое ты создал сам.';
+        let text = 'Ты справился без единого вылета — это маленькое чудо, которое ты создал сам.';
         if (type === 'unique') {
             videoSrc = 'mp4/luminary.mp4';
             flowerTitle = 'Люминарий';
-            text = '5 дней без единого<br>вылета — это победа гармонии.<br>Ты сильнее, чем думаешь! ';
+            text = '5 дней — это уже серьёзный результат! Ты молодец!';
         } else if (type === 'premium') {
             videoSrc = 'mp4/astra-lyria.mp4';
             flowerTitle = 'Астра Лирия';
-            text = '10 дней, большая<br>победа — большой шаг вперёд!<br> Горжусь тобой!';
+            text = '10 дней, большая победа — большой шаг вперёд! Горжусь тобой!';
         }
         // Добавляем видео на фон
         const bgVideo = document.createElement('video');
