@@ -11,6 +11,7 @@ body {
     line-height: var(--line-height-normal);
     color: var(--color-black);
     background-color: var(--color-bg);
+    padding-bottom: 24px;
 }
 
 /* Container */
@@ -841,4 +842,23 @@ video.reward-video {
     box-sizing: border-box;
     font-weight: 500;
     line-height: 1.2;
+}
+.empty-entries-stub {
+    display: flex;
+    padding: var(--spacing-16);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: var(--color-white);
+    gap: 8px;
+    border-radius: var(--border-radius-32);
+}
+
+.empty-entries-img {
+    width: 100%;
+}
+.empty-entries-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }

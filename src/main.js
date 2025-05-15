@@ -380,6 +380,27 @@ class GSDTracker {
         
         // Очищаем контейнер и добавляем карточки дней
         this.entriesContainer.innerHTML = '';
+        // --- Заглушка, если нет записей ---
+        let emptyStub = document.getElementById('emptyEntriesStub');
+        if (!emptyStub) {
+            emptyStub = document.createElement('div');
+            emptyStub.id = 'emptyEntriesStub';
+            emptyStub.className = 'empty-entries-stub';
+            emptyStub.innerHTML = `
+                <img src="img/first-note.png" alt="Первая запись" class="empty-entries-img">
+                <div class="empty-entries-text">
+                    <h2 class="empty-entries-title">Добавьте первую запись</h2>
+                    <div class="text-descriptor empty-entries-desc">У вас пока нет ни одной записи.<br>Заполните форму, чтобы добавить первую.</div>
+                </div>
+            `;
+            this.entriesContainer.parentNode.insertBefore(emptyStub, this.entriesContainer);
+        }
+        if (sortedEntries.length === 0) {
+            emptyStub.style.display = 'block';
+        } else {
+            emptyStub.style.display = 'none';
+        }
+        // --- Конец заглушки ---
         sortedEntries.forEach(dayData => {
             const dayCard = new DayCard(dayData.date, dayData.entries);
             this.entriesContainer.appendChild(dayCard.createElement());
@@ -911,7 +932,26 @@ class GSDTracker {
                 if (insulinObj) {
                     updatedEntry.insulin = insulinObj;
                 }
-                dayGroup.entries[editingEntry.entryIndex] = updatedEntry;
+                const newDate = updatedEntry.date;
+                const oldDate = editingEntry.date;
+                // Если дата не изменилась — просто обновляем
+                if (newDate === oldDate) {
+                    dayGroup.entries[editingEntry.entryIndex] = updatedEntry;
+                } else {
+                    // Удаляем из старой группы
+                    dayGroup.entries.splice(editingEntry.entryIndex, 1);
+                    if (dayGroup.entries.length === 0) {
+                        const dayIndex = entries.findIndex(group => group.date === oldDate);
+                        entries.splice(dayIndex, 1);
+                    }
+                    // Добавляем в новую группу
+                    let newDayGroup = entries.find(group => group.date === newDate);
+                    if (!newDayGroup) {
+                        newDayGroup = { date: newDate, entries: [] };
+                        entries.push(newDayGroup);
+                    }
+                    newDayGroup.entries.push(updatedEntry);
+                }
                 saveEntries(entries);
                 this.loadAndDisplayEntries();
                 editEntryModal.style.display = 'none';
