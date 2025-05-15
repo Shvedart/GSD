@@ -77,11 +77,6 @@
 
         <div id="flowersContainer" class="flowers-container"></div>
         <div id="entries" class="entries"></div>
-
-        <div class="data-actions">
-            <button id="exportBtn" class="action-btn">Экспорт данных</button>
-            <button id="importBtn" class="action-btn">Импорт данных</button>
-        </div>
     </div>
 
     <!-- Модальное окно подтверждения удаления -->
@@ -98,13 +93,14 @@
 
     <!-- Модальное окно подтверждения импорта -->
     <div id="importConfirmModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="text-align:center;">
+            <img class="modal-img" src="img/working-with-data.png" alt="Импорт данных" >
             <h3>Импорт данных</h3>
-            <p>Импорт заменит все текущие записи. Продолжить?</p>
             <div class="modal-buttons">
-                <button id="cancelImport" class="modal-btn cancel">Отмена</button>
+                <button id="cancelImport" class="modal-btn cancel">Отменить</button>
                 <button id="confirmImport" class="modal-btn black">Импортировать</button>
             </div>
+            <div class="text-descriptor">Импорт заменит все текущие записи. Старые данные будут удалены без возможности восстановления. Продолжить?</div>
         </div>
     </div>
 
@@ -215,6 +211,19 @@
                 <button id="confirmDeleteEntryBtn" class="modal-btn confirm">Удалить</button>
             </div>
             <div class="text-descriptor">При удалении этой записи она будет<br>безвозвратно удалена</div>
+        </div>
+    </div>
+
+    <!-- Новая модалка настроек -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content" style="text-align:center;">
+            <img class="modal-img" src="img/working-with-data.png" alt="Работа с данными">
+            <h3>Работа с данными</h3>
+            <div class="modal-buttons">
+                <button id="exportBtn" class="modal-btn action-btn">Экспорт данных</button>
+                <button id="importBtn" class="modal-btn action-btn">Импорт данных</button>
+            </div>
+            <div class="text-descriptor">Хранение данных важно для сохранения ценной информации, обеспечения безопасности и возможности быстрого восстановления в случае сбоев.</div>
         </div>
     </div>
 

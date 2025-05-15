@@ -22,6 +22,10 @@ class GSDTracker {
         // Создаем instance приложения глобально доступным
         window.gsdTracker = this;
 
+        this.settingsModal = document.getElementById('settingsModal');
+        this.exportBtn = document.getElementById('exportBtn');
+        this.importBtn = document.getElementById('importBtn');
+
         this.initializeForm();
         this.initializeUnitsControls();
         this.initializeInsulinControl();
@@ -49,6 +53,27 @@ class GSDTracker {
         });
 
         this.initializeEditEntryModal();
+
+        // Открытие модалки по клику на иконку настроек
+        const settingsIcon = document.querySelector('.heading-block-form .input-icon[src="icons/settings.svg"]');
+        if (settingsIcon) {
+            settingsIcon.style.cursor = 'pointer';
+            settingsIcon.addEventListener('click', () => {
+                this.settingsModal.style.display = 'flex';
+            });
+        }
+        // Закрытие модалки по клику вне окна
+        this.settingsModal.addEventListener('click', (e) => {
+            if (e.target === this.settingsModal) {
+                this.settingsModal.style.display = 'none';
+            }
+        });
+        // Закрытие по Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.settingsModal.style.display === 'flex') {
+                this.settingsModal.style.display = 'none';
+            }
+        });
     }
 
     initializeForm() {
@@ -445,6 +470,7 @@ class GSDTracker {
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+            this.settingsModal.style.display = 'none';
         });
 
         // Импорт данных
@@ -466,6 +492,7 @@ class GSDTracker {
                         // Сохраняем данные для подтверждения
                         pendingImportData = imported;
                         importConfirmModal.style.display = 'flex';
+                        this.settingsModal.style.display = 'none';
                     } catch (err) {
                         alert('Ошибка чтения файла: ' + err.message);
                     }

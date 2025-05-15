@@ -591,8 +591,8 @@ span.modal-text {
 .action-btn {
     background: #fff;
     color: #222;
-    border: 1px solid #D1D1D6;
-    border-radius: 8px;
+    border: 1px solid var(--color-black-20);
+    border-radius: var(--border-radius-32);
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 500;
@@ -602,8 +602,7 @@ span.modal-text {
 }
 
 .action-btn:hover {
-    background: #F5F5F7;
-    border-color: #BDBDBD;
+    border: 1px solid var(--color-black-50);
 }
 
 .banner-success {
