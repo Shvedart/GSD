@@ -33,6 +33,9 @@ body {
     flex-direction: column;
     gap: 16px;
 }
+.form-edit {
+    padding: 0px;
+}
 
 .form-row {
     display: flex;
@@ -148,6 +151,18 @@ img.insulin-icon {
 
 #unitsValue,
 #breadUnitsValue {
+    min-width: 40px;
+    text-align: center;
+    font-weight: var(--font-weight-medium);
+    border-left: 1px solid var(--color-black-20);
+    border-right: 1px solid var(--color-black-20);
+    /* padding: var(--spacing-10); */
+    font-size: 16px;
+    display: flex; 
+    justify-content: center;
+}
+#editUnitsValue,
+#editBreadUnitsValue {
     min-width: 40px;
     text-align: center;
     font-weight: var(--font-weight-medium);
@@ -334,6 +349,7 @@ img.sugar-icon {
     opacity: 1;
 }
 
+
 .entry-food {
     display: flex;
     align-items: flex-start;
@@ -455,6 +471,10 @@ select#insulin {
     align-items: center;
     justify-content: center;
 }
+.modal-img {
+    width: 100%;
+    border-radius: var(--border-radius-20);
+}
 
 .modal-content {
     background-color: var(--color-white);
@@ -465,12 +485,13 @@ select#insulin {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 
 .modal-content h3 {
     font-size: var(--font-size-20);
     font-weight: var(--font-weight-semibold);
-    margin-bottom: var(--spacing-16);
+    /* margin-bottom: var(--spacing-16); */
 }
 
 .modal-content p {
@@ -483,9 +504,14 @@ span.modal-text {
     padding-bottom: 16px;
 }
 
+.text-descriptor {
+    font-size: 11px;
+    color: var(--color-black-50);
+}
+
 .modal-buttons {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: var(--spacing-8);
     justify-content: flex-end;
     gap: 8px;
@@ -493,26 +519,32 @@ span.modal-text {
 
 .modal-btn {
     padding: var(--spacing-8) var(--spacing-16);
-    border-radius: var(--border-radius-8);
+    border-radius: var(--border-radius-32);
     font-size: var(--font-size-13);
     font-weight: var(--font-weight-medium);
     cursor: pointer;
-    border: none;
-    height: 44px;
+    background-color: #ffffff00;
+    border: 1px solid var(--color-black-20);
+    height: 50px;
+    width: 100%;
+}
+.modal-btn:hover {
+    border: 1px solid var(--color-black-50);
 }
 
 .modal-btn.cancel {
-    background-color: var(--color-black-11);
+    /* background-color: var(--color-black-11); */
     color: var(--color-black);
 }
 
 .modal-btn.confirm {
     background-color: var(--color-red);
     color: var(--color-white);
+    border: none;
 }
 
 .modal-btn.cancel:hover {
-    background-color: var(--color-black-20);
+    border: 1px solid var(--color-black-50);
 }
 
 .modal-btn.confirm:hover {
@@ -527,6 +559,13 @@ span.modal-text {
 
 .modal-btn.black:hover {
     background-color: #222;
+}
+
+.delete {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .bread-badge {
@@ -572,19 +611,19 @@ span.modal-text {
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    background: #7cf17c7a;
-    color: #1B6B1B;
-    border: 1px solid #B6E2B6;
+    background: var(--color-green);
+    color: var(--color-white);
     backdrop-filter: blur(9px);
     border-radius: 8px;
-    padding: 14px 32px;
+    padding: 8px 16px;
     font-size: 15px;
-    font-weight: 500;
     z-index: 2000;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-    transition: opacity 0.3s;
-    max-width: 368px;
-    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.25);
 }
 
 .more-btn {

@@ -140,6 +140,84 @@
     <!-- Баннер для успешного удаления записи -->
     <div id="deleteSuccessBanner" class="banner-success" style="display:none;">Запись удалена успешно</div>
 
+    <!-- Модальное окно редактирования записи -->
+    <div id="editEntryModal" class="modal">
+        <div class="modal-content">
+            <form id="editEntryForm" class="form form-edit">
+                <div class="form-row">
+                    <div class="input-group">
+                        <img src="icons/calendar-24.svg" alt="Calendar" class="input-icon">
+                        <input type="date" id="editDate" required>
+                    </div>
+                    <div class="input-group">
+                        <img src="icons/timer-24.svg" alt="Timer" class="input-icon">
+                        <input type="time" id="editTime" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <img src="icons/sugar-24.svg" alt="Sugar" class="input-icon">
+                        <input type="number" id="editSugar" step="0.1" placeholder="Сахар">
+                    </div>
+                    <div class="input-group">
+                        <img src="icons/insulin-24.svg" alt="Insulin" class="input-icon">
+                        <select class="insulin-select" id="editInsulin">
+                            <option value="">Нет</option>
+                            <option value="novorapid">Новорапид</option>
+                            <option value="levemir">Левемир</option>
+                        </select>
+                        <div id="editInsulinUnits" class="insulin-units">
+                            <button type="button" class="units-btn units-btn-left" id="editDecreaseUnits">
+                                <img src="icons/minus-24.svg" alt="Decrease">
+                            </button>
+                            <span id="editUnitsValue">5</span>
+                            <button type="button" class="units-btn units-btn-right" id="editIncreaseUnits">
+                                <img src="icons/plus-24.svg" alt="Increase">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group food-group">
+                        <img src="icons/bread-units-24.svg" alt="Food" class="input-icon">
+                        <div class="food-row">
+                            <textarea id="editFood" placeholder="Еда"></textarea>
+                            <!-- <div id="editChipsContainer" class="chips-container"></div> -->
+                            <div id="editBreadUnits" class="bread-units">
+                                <button type="button" class="units-btn units-btn-left" id="editDecreaseBreadUnits">
+                                    <img src="icons/minus-24.svg" alt="Decrease">
+                                </button>
+                                <span id="editBreadUnitsValue">1.0</span>
+                                <button type="button" class="units-btn units-btn-right" id="editIncreaseBreadUnits">
+                                    <img src="icons/plus-24.svg" alt="Increase">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="editDeleteBtn" type="button" class="modal-btn delete">
+                        <img src="icons/delete.svg" alt="Удалить" style="width:24px;height:24px;vertical-align:middle;">
+                    </button>
+                    <button id="editSaveBtn" type="submit" class="modal-btn black">Редактировать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модалка подтверждения удаления записи (с картинкой) -->
+    <div id="confirmDeleteEntryModal" class="modal">
+        <div class="modal-content" style="text-align:center;">
+            <img src="img/delete-an-entry.png" alt="Удалить запись" class="modal-img">
+            <h3>Удалить запись?</h3>
+            <div class="modal-buttons" style="justify-content:center;">
+                <button id="cancelDeleteEntryBtn" class="modal-btn cancel">Отменить</button>
+                <button id="confirmDeleteEntryBtn" class="modal-btn confirm">Удалить</button>
+            </div>
+            <div class="text-descriptor">При удалении этой записи она будет<br>безвозвратно удалена</div>
+        </div>
+    </div>
+
     <!-- Утилиты -->
     <script src="src/utils/dateUtils.js"></script>
     <script src="src/utils/validation.js"></script>

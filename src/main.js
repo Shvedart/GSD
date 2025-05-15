@@ -47,6 +47,8 @@ class GSDTracker {
             this.sugarInput.classList.remove('input-error');
             this.sugarInput.placeholder = 'Сахар';
         });
+
+        this.initializeEditEntryModal();
     }
 
     initializeForm() {
@@ -523,19 +525,8 @@ class GSDTracker {
         this.entriesContainer.addEventListener('click', (e) => {
             const moreBtn = e.target.closest('.more-btn');
             if (moreBtn) {
-                const entryElement = moreBtn.closest('.entry');
-                const dayCard = entryElement.closest('.day-card');
-                const date = dayCard.querySelector('h2').textContent;
-                const time = entryElement.querySelector('.time-container span').textContent;
-                const entries = loadEntries();
-                const originalDate = entries.find(group => formatDate(group.date) === date)?.date;
-                if (originalDate) {
-                    // Находим индекс записи по времени
-                    const dayGroup = entries.find(group => group.date === originalDate);
-                    const entryIndex = dayGroup.entries.findIndex(entry => entry.time === time);
-                    pendingEntry = { date: originalDate, entryIndex, entryElement, time };
-                    entryActionsModal.style.display = 'flex';
-                }
+                // --- Больше не открываем старую модалку ---
+                return;
             }
         });
 
@@ -697,6 +688,208 @@ class GSDTracker {
                 this.renderChips(foodInput.value); // обновить фильтр после добавления
             });
             chipsContainer.appendChild(chip);
+        });
+    }
+
+    initializeEditEntryModal() {
+        const editEntryModal = document.getElementById('editEntryModal');
+        const editEntryForm = document.getElementById('editEntryForm');
+        const editDeleteBtn = document.getElementById('editDeleteBtn');
+        const editSaveBtn = document.getElementById('editSaveBtn');
+        const confirmDeleteEntryModal = document.getElementById('confirmDeleteEntryModal');
+        const cancelDeleteEntryBtn = document.getElementById('cancelDeleteEntryBtn');
+        const confirmDeleteEntryBtn = document.getElementById('confirmDeleteEntryBtn');
+        // --- Новое: элементы для управления ---
+        const editInsulinSelect = document.getElementById('editInsulin');
+        const editInsulinUnits = document.getElementById('editInsulinUnits');
+        const editUnitsValue = document.getElementById('editUnitsValue');
+        const editDecreaseUnits = document.getElementById('editDecreaseUnits');
+        const editIncreaseUnits = document.getElementById('editIncreaseUnits');
+        const editFoodInput = document.getElementById('editFood');
+        const editBreadUnits = document.getElementById('editBreadUnits');
+        const editBreadUnitsValue = document.getElementById('editBreadUnitsValue');
+        const editDecreaseBreadUnits = document.getElementById('editDecreaseBreadUnits');
+        const editIncreaseBreadUnits = document.getElementById('editIncreaseBreadUnits');
+        // ---
+        let editingEntry = null;
+
+        // --- Логика отображения единиц инсулина ---
+        function updateEditInsulinUnitsVisibility() {
+            const selectedValue = editInsulinSelect.value;
+            editInsulinUnits.style.display = selectedValue && selectedValue !== 'Нет' && selectedValue !== '' ? 'flex' : 'none';
+        }
+        editInsulinSelect.addEventListener('change', updateEditInsulinUnitsVisibility);
+
+        // --- Логика изменения количества единиц инсулина ---
+        editDecreaseUnits.addEventListener('click', () => {
+            const currentValue = parseInt(editUnitsValue.textContent);
+            if (currentValue > 0) {
+                editUnitsValue.textContent = currentValue - 1;
+            }
+        });
+        editIncreaseUnits.addEventListener('click', () => {
+            const currentValue = parseInt(editUnitsValue.textContent);
+            editUnitsValue.textContent = currentValue + 1;
+        });
+
+        // --- Логика хлебных единиц ---
+        function updateEditBreadUnitsVisibility() {
+            const hasFood = editFoodInput.value.trim() !== '';
+            editBreadUnits.style.display = hasFood ? 'flex' : 'none';
+            if (!hasFood) {
+                editBreadUnitsValue.textContent = '1.0';
+            }
+        }
+        editFoodInput.addEventListener('input', updateEditBreadUnitsVisibility);
+        editDecreaseBreadUnits.addEventListener('click', () => {
+            const currentValue = parseFloat(editBreadUnitsValue.textContent);
+            if (currentValue > 0) {
+                editBreadUnitsValue.textContent = (currentValue - 0.5).toFixed(1);
+            }
+        });
+        editIncreaseBreadUnits.addEventListener('click', () => {
+            const currentValue = parseFloat(editBreadUnitsValue.textContent);
+            editBreadUnitsValue.textContent = (currentValue + 0.5).toFixed(1);
+        });
+
+        // Открытие модалки по клику на more-btn
+        this.entriesContainer.addEventListener('click', (e) => {
+            const moreBtn = e.target.closest('.more-btn');
+            if (moreBtn) {
+                const entryElement = moreBtn.closest('.entry');
+                const dayCard = entryElement.closest('.day-card');
+                const date = dayCard.querySelector('h2').textContent;
+                const time = entryElement.querySelector('.time-container span').textContent;
+                const entries = loadEntries();
+                const originalDate = entries.find(group => formatDate(group.date) === date)?.date;
+                if (originalDate) {
+                    const dayGroup = entries.find(group => group.date === originalDate);
+                    const entryIndex = dayGroup.entries.findIndex(entry => entry.time === time);
+                    if (entryIndex !== -1) {
+                        const entry = dayGroup.entries[entryIndex];
+                        document.getElementById('editDate').value = entry.date;
+                        document.getElementById('editTime').value = entry.time;
+                        document.getElementById('editSugar').value = entry.sugar || '';
+                        // --- инсулин ---
+                        if (entry.insulin && typeof entry.insulin === 'object') {
+                            editInsulinSelect.value = entry.insulin.type;
+                            editUnitsValue.textContent = entry.insulin.units;
+                        } else {
+                            editInsulinSelect.value = '';
+                            editUnitsValue.textContent = '5';
+                        }
+                        updateEditInsulinUnitsVisibility();
+                        // --- еда ---
+                        editFoodInput.value = entry.comment || '';
+                        editBreadUnitsValue.textContent = entry.breadUnits !== undefined ? entry.breadUnits : '1.0';
+                        updateEditBreadUnitsVisibility();
+                        editingEntry = { date: originalDate, entryIndex };
+                        editEntryModal.style.display = 'flex';
+                    }
+                }
+            }
+        });
+
+        // Сохранить изменения (заменить запись)
+        editEntryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!editingEntry) return;
+            const entries = loadEntries();
+            const dayGroup = entries.find(group => group.date === editingEntry.date);
+            if (dayGroup && dayGroup.entries[editingEntry.entryIndex]) {
+                // Обновляем запись
+                const insulinType = editInsulinSelect.value;
+                let insulinObj = undefined;
+                if (insulinType && insulinType !== 'Нет') {
+                    insulinObj = {
+                        type: insulinType,
+                        units: parseInt(editUnitsValue.textContent)
+                    };
+                }
+                const updatedEntry = {
+                    date: document.getElementById('editDate').value,
+                    time: document.getElementById('editTime').value,
+                    sugar: document.getElementById('editSugar').value,
+                    comment: editFoodInput.value,
+                    breadUnits: parseFloat(editBreadUnitsValue.textContent)
+                };
+                if (insulinObj) {
+                    updatedEntry.insulin = insulinObj;
+                }
+                dayGroup.entries[editingEntry.entryIndex] = updatedEntry;
+                saveEntries(entries);
+                this.loadAndDisplayEntries();
+                editEntryModal.style.display = 'none';
+                // Показываем баннер
+                const editSuccessBanner = document.getElementById('editSuccessBanner');
+                if (editSuccessBanner) {
+                    editSuccessBanner.style.display = 'block';
+                    editSuccessBanner.style.opacity = '1';
+                    setTimeout(() => {
+                        editSuccessBanner.style.opacity = '0';
+                        setTimeout(() => {
+                            editSuccessBanner.style.display = 'none';
+                        }, 300);
+                    }, 3000);
+                }
+            }
+        });
+
+        // Кнопка удаления — открываем подтверждение
+        editDeleteBtn.addEventListener('click', () => {
+            editEntryModal.style.display = 'none';
+            confirmDeleteEntryModal.style.display = 'flex';
+        });
+        // Отмена удаления
+        cancelDeleteEntryBtn.addEventListener('click', () => {
+            confirmDeleteEntryModal.style.display = 'none';
+            editEntryModal.style.display = 'flex';
+        });
+        // Подтвердить удаление
+        confirmDeleteEntryBtn.addEventListener('click', () => {
+            if (!editingEntry) return;
+            const entries = loadEntries();
+            const dayGroup = entries.find(group => group.date === editingEntry.date);
+            if (dayGroup) {
+                dayGroup.entries.splice(editingEntry.entryIndex, 1);
+                if (dayGroup.entries.length === 0) {
+                    const dayIndex = entries.findIndex(group => group.date === editingEntry.date);
+                    entries.splice(dayIndex, 1);
+                }
+                saveEntries(entries);
+                this.loadAndDisplayEntries();
+                confirmDeleteEntryModal.style.display = 'none';
+                // Показываем баннер удаления
+                const deleteSuccessBanner = document.getElementById('deleteSuccessBanner');
+                if (deleteSuccessBanner) {
+                    deleteSuccessBanner.style.display = 'block';
+                    deleteSuccessBanner.style.opacity = '1';
+                    setTimeout(() => {
+                        deleteSuccessBanner.style.opacity = '0';
+                        setTimeout(() => {
+                            deleteSuccessBanner.style.display = 'none';
+                        }, 300);
+                    }, 3000);
+                }
+            }
+        });
+        // Закрытие модалки по клику вне области
+        editEntryModal.addEventListener('click', (e) => {
+            if (e.target === editEntryModal) {
+                editEntryModal.style.display = 'none';
+            }
+        });
+        confirmDeleteEntryModal.addEventListener('click', (e) => {
+            if (e.target === confirmDeleteEntryModal) {
+                confirmDeleteEntryModal.style.display = 'none';
+            }
+        });
+        // Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (editEntryModal.style.display === 'flex') editEntryModal.style.display = 'none';
+                if (confirmDeleteEntryModal.style.display === 'flex') confirmDeleteEntryModal.style.display = 'none';
+            }
         });
     }
 }
