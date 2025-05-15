@@ -388,15 +388,14 @@ class GSDTracker {
             });
         });
 
-        this.renderFlowers(entries);
+        this.renderFlowersBlock(entries);
     }
 
-    renderFlowers(entries) {
-        const flowersContainer = document.getElementById('flowersContainer');
-        if (!flowersContainer) return;
-        let count = 0;
-        let uniqueCount = 0;
-        let premiumCount = 0;
+    renderFlowersBlock(entries) {
+        const flowersBlock = document.getElementById('flowersBlock');
+        if (!flowersBlock) return;
+        // Считаем общее количество обычных цветков (Spherolia)
+        let spherolia = 0;
         const sorted = [...entries].sort((a, b) => a.date.localeCompare(b.date));
         let streak = 0;
         for (let i = 1; i < sorted.length; i++) {
@@ -410,41 +409,49 @@ class GSDTracker {
             });
             if (!prevHasRed && curr.entries.length > 0) {
                 streak++;
-                count++;
-                if (streak % 10 === 0) {
-                    premiumCount++;
-                } else if (streak % 5 === 0) {
-                    uniqueCount++;
-                }
+                spherolia++;
             } else {
                 streak = 0;
             }
         }
-        flowersContainer.innerHTML = '';
-        let flowerIndex = 0;
-        for (let i = 1; i <= count; i++, flowerIndex++) {
-            let img = document.createElement('img');
-            let type = 'regular';
-            if (i % 10 === 0) {
-                img.src = 'icons/flowers-premium.svg';
-                img.alt = 'Премиум цветок';
-                img.className = 'flower-icon premium';
-                type = 'premium';
-            } else if (i % 5 === 0) {
-                img.src = 'icons/flowers-unique.svg';
-                img.alt = 'Уникальный цветок';
-                img.className = 'flower-icon unique';
-                type = 'unique';
-            } else {
-                img.src = 'icons/flowers.svg';
-                img.alt = 'День без превышения';
-                img.className = 'flower-icon';
-            }
+        // Новая логика: Luminary и Astra Lyria считаются от общего числа Spherolia
+        const luminary = Math.floor(spherolia / 5);
+        const astra = Math.floor(spherolia / 10);
+        // Если нет ни одного цветка — скрываем блок
+        if (spherolia === 0) {
+            flowersBlock.style.display = 'none';
+            flowersBlock.innerHTML = '';
+            return;
+        }
+        flowersBlock.style.display = 'block';
+        // Склонение слова "цветок"
+        function flowerWord(n) {
+            n = Math.abs(n) % 100;
+            let n1 = n % 10;
+            if (n > 10 && n < 20) return 'цветков';
+            if (n1 > 1 && n1 < 5) return 'цветка';
+            if (n1 === 1) return 'цветок';
+            return 'цветков';
+        }
+        // Рендерим блок
+        flowersBlock.innerHTML = `
+            <div class="flowers-block-header">
+                <div class="flowers-block-title">Ваши цветочки</div>
+                <div class="flowers-block-desc">То, что ты делаешь, очень ценно — продолжай!</div>
+            </div>
+            <div class="flowers-block-list">
+                <div class="flower-item"><img src="img/spherolia.png" class="flower-img" data-type="regular"><div class="flower-caption"><b>${spherolia} ${flowerWord(spherolia)}</b><br>Сферолия</div></div>
+                <div class="flower-item"><img src="img/luminary.png" class="flower-img" data-type="unique"><div class="flower-caption"><b>${luminary} ${flowerWord(luminary)}</b><br>Люминарий</div></div>
+                <div class="flower-item"><img src="img/astra-lyria.png" class="flower-img" data-type="premium"><div class="flower-caption"><b>${astra} ${flowerWord(astra)}</b><br>Астра Лирия</div></div>
+            </div>
+        `;
+        // Клик по картинке — показать попап награды
+        flowersBlock.querySelectorAll('.flower-img').forEach(img => {
             img.addEventListener('click', () => {
+                const type = img.dataset.type;
                 this.showRewardModal(type);
             });
-            flowersContainer.appendChild(img);
-        }
+        });
     }
 
     initializeExportImport() {
@@ -665,19 +672,41 @@ class GSDTracker {
 
     showRewardModal(type = 'regular') {
         this.rewardModal = document.getElementById('rewardModal');
-        const video = this.rewardModal.querySelector('.reward-video');
-        const text = this.rewardModal.querySelector('.reward-text');
-        if (type === 'premium') {
-            video.src = 'mp4/congratulation-premium.mp4';
-            text.innerHTML = 'Ты супер крутая,<br> у тебя всё идёт как нужно!';
-        } else if (type === 'unique') {
-            video.src = 'mp4/congratulation-unique.mp4';
-            text.innerHTML = 'Вау, у тебя круто получается!<br> Так держать!';
-        } else {
-            video.src = 'mp4/congratulation.mp4';
-            text.innerHTML = 'Ура! За вчерашний день у тебя не было ни одного вылета!<br>Так держать!';
+        const modalContent = this.rewardModal.querySelector('.reward-modal-content');
+        // Удаляем старое видео, если есть
+        const oldBg = modalContent.querySelector('.reward-bg-video');
+        if (oldBg) oldBg.remove();
+        // Выбираем видео по типу цветка
+        let videoSrc = 'mp4/spherolia.mp4';
+        let text = 'Ты справился без единого<br>вылета — это маленькое чудо,<br> которое ты создал сам. ';
+        if (type === 'unique') {
+            videoSrc = 'mp4/luminary.mp4';
+            text = '5 дней без единого<br>вылета — это победа гармонии.<br>Ты сильнее, чем думаешь! ';
+        } else if (type === 'premium') {
+            videoSrc = 'mp4/astra-lyria.mp4';
+            text = '10 дней, большая<br>победа — большой шаг вперёд!<br> Горжусь тобой!';
         }
-        video.load();
+        // Добавляем видео на фон
+        const bgVideo = document.createElement('video');
+        bgVideo.src = videoSrc;
+        bgVideo.className = 'reward-bg-video';
+        bgVideo.autoplay = true;
+        bgVideo.loop = false;
+        bgVideo.muted = true;
+        bgVideo.playsInline = true;
+        bgVideo.style.position = 'absolute';
+        bgVideo.style.top = 0;
+        bgVideo.style.left = 0;
+        bgVideo.style.width = '100%';
+        bgVideo.style.height = '100%';
+        bgVideo.style.objectFit = 'cover';
+        bgVideo.style.zIndex = 0;
+        bgVideo.style.borderRadius = '20px';
+        modalContent.style.position = 'relative';
+        modalContent.insertBefore(bgVideo, modalContent.firstChild);
+        // Текст поверх видео
+        const textDiv = modalContent.querySelector('.reward-text');
+        if (textDiv) textDiv.innerHTML = text;
         this.rewardModal.style.display = 'flex';
     }
 
