@@ -11,6 +11,13 @@
 <body>
     <div class="container">
         <form id="gsdForm" class="form">
+            <div class="heading-block-form">
+                <div class="heading-form">
+                    <h1>Дневник сахара</h1>
+                    <p>Анна Шведюк</p>                    
+                </div>
+                <img src="icons/settings.svg" alt="Calendar" class="input-icon">
+            </div>
             <div class="form-row">
                 <div class="input-group">
                     <img src="icons/calendar-24.svg" alt="Calendar" class="input-icon">
@@ -35,11 +42,11 @@
                         <option value="levemir">Левемир</option>
                     </select>
                     <div id="insulinUnits" class="insulin-units">
-                        <button type="button" class="units-btn" id="decreaseUnits">
+                        <button type="button" class="units-btn units-btn-left" id="decreaseUnits">
                             <img src="icons/minus-24.svg" alt="Decrease">
                         </button>
                         <span id="unitsValue">5</span>
-                        <button type="button" class="units-btn" id="increaseUnits">
+                        <button type="button" class="units-btn units-btn-right" id="increaseUnits">
                             <img src="icons/plus-24.svg" alt="Increase">
                         </button>
                     </div>
@@ -53,11 +60,11 @@
                         <textarea id="food" placeholder="Еда"></textarea>
                         <div id="chipsContainer" class="chips-container"></div>
                         <div id="breadUnits" class="bread-units">
-                            <button type="button" class="units-btn" id="decreaseBreadUnits">
+                            <button type="button" class="units-btn units-btn-left" id="decreaseBreadUnits">
                                 <img src="icons/minus-24.svg" alt="Decrease">
                             </button>
                             <span id="breadUnitsValue">1.0</span>
-                            <button type="button" class="units-btn" id="increaseBreadUnits">
+                            <button type="button" class="units-btn units-btn-right" id="increaseBreadUnits">
                                 <img src="icons/plus-24.svg" alt="Increase">
                             </button>
                         </div>                        
@@ -66,9 +73,9 @@
             </div>
 
             <button type="submit" class="submit-btn">Добавить</button>
-            <div id="flowersContainer" class="flowers-container"></div>
         </form>
 
+        <div id="flowersContainer" class="flowers-container"></div>
         <div id="entries" class="entries"></div>
 
         <div class="data-actions">

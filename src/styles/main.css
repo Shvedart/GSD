@@ -10,27 +10,33 @@ body {
     font-size: var(--font-size-13);
     line-height: var(--line-height-normal);
     color: var(--color-black);
-    background-color: var(--color-white);
+    background-color: var(--color-bg);
 }
 
 /* Container */
 .container {
     max-width: 400px;
     margin: 0 auto;
-    padding: var(--spacing-16);
+    padding: var(--spacing-4);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 /* Form Styles */
 .form {
     background-color: var(--color-white);
-    border-radius: var(--border-radius-20);
-    margin-bottom: var(--spacing-16);
+    border-radius: var(--border-radius-32);
+    /* margin-bottom: var(--spacing-16); */
+    padding: 8px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .form-row {
     display: flex;
     gap: var(--spacing-16);
-    margin-bottom: var(--spacing-16);
     flex-direction: column;
     width: 100%;
 }
@@ -122,7 +128,13 @@ img.insulin-icon {
     padding: var(--spacing-10);
     font-size: 16px;
     touch-action: manipulation;
-    border-radius: 8px;
+    /* border-radius: 8px; */
+}
+.units-btn-left {
+    border-radius: 8px 0px 0px 8px;
+}
+.units-btn-right {
+    border-radius: 0px 8px 8px 0px;
 }
 
 .units-btn:hover {
@@ -154,11 +166,17 @@ img.insulin-icon {
     background-color: var(--color-black);
     color: var(--color-white);
     border: none;
-    border-radius: var(--border-radius-8);
+    border-radius: var(--border-radius-32);
     font-size: var(--font-size-15);
     font-weight: var(--font-weight-medium);
     cursor: pointer;
     height: 50px;
+}
+
+.heading-block-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .submit-btn.btn-success {
@@ -186,7 +204,13 @@ button.toggle-btn {
 .entries {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-10);
+    gap: var(--spacing-4);
+}
+
+.day-card-wrapper {
+    padding: 16px;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-32);
 }
 
 .day-card {
@@ -586,7 +610,7 @@ input[type="time"] {
   width: 100%;                  /* растягиваем по ширине */
   background-color: white;     /* белый фон */
   border: 1px solid var(--color-black-20);      /* рамка */
-  border-radius: 12px;         /* скругление */
+  border-radius: 8px;         /* скругление */
   color: black;                /* цвет текста */
   padding: 8px 12px; 
 }
@@ -636,7 +660,7 @@ video.reward-video {
 .flowers-container {
     display: flex;
     gap: 4px;
-    margin: 12px 0 0 0;
+    /* margin: 12px 0 0 0; */
     min-height: 32px;
     align-items: center;
     justify-content: flex-start;

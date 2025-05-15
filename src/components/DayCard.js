@@ -18,6 +18,8 @@ class DayCard {
     }
 
     createElement() {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('day-card-wrapper');
         const card = document.createElement('div');
         card.classList.add('day-card');
 
@@ -108,6 +110,7 @@ class DayCard {
             toggleButton.innerHTML = `<img src="icons/${this.isExpanded ? 'arrow_up' : 'arrow_down'}.svg" alt="${this.isExpanded ? 'Свернуть' : 'Развернуть'}">`;
         });
 
-        return card;
+        wrapper.appendChild(card);
+        return wrapper;
     }
 } 
