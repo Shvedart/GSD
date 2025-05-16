@@ -485,9 +485,9 @@ class GSDTracker {
                 <div class="flowers-block-desc">То, что ты делаешь, очень ценно — продолжай!</div>
             </div>
             <div class="flowers-block-list">
-                <div class="flower-item"><img src="img/spherolia.png" class="flower-img" data-type="regular"><div class="flower-caption"><b>${spherolia} ${flowerWord(spherolia)}</b><br>Сферолия</div></div>
-                ${luminary > 0 ? `<div class="flower-item"><img src="img/luminary.png" class="flower-img" data-type="unique"><div class="flower-caption"><b>${luminary} ${flowerWord(luminary)}</b><br>Люминарий</div></div>` : `<div class='flower-item flower-placeholder'><div class='flower-placeholder-box'>Ещё не открытый<br>цветок</div></div>`}
-                ${astra > 0 ? `<div class="flower-item"><img src="img/astra-lyria.png" class="flower-img" data-type="premium"><div class="flower-caption"><b>${astra} ${flowerWord(astra)}</b><br>Астра Лирия</div></div>` : `<div class='flower-item flower-placeholder'><div class='flower-placeholder-box'>Ещё не открытый<br>цветок</div></div>`}
+                <div class="flower-item"><img src="img/spherolia.png" class="flower-img" data-type="regular"><div class="flower-caption"><b>${spherolia} ${flowerWord(spherolia)}</b><br>Ромашка</div></div>
+                ${luminary > 0 ? `<div class="flower-item"><img src="img/luminary.png" class="flower-img" data-type="unique"><div class="flower-caption"><b>${luminary} ${flowerWord(luminary)}</b><br>Пиона</div></div>` : `<div class='flower-item flower-placeholder'><div class='flower-placeholder-box'>Ещё не открытый<br>цветок</div></div>`}
+                ${astra > 0 ? `<div class="flower-item"><img src="img/astra-lyria.png" class="flower-img" data-type="premium"><div class="flower-caption"><b>${astra} ${flowerWord(astra)}</b><br>Астра Роза</div></div>` : `<div class='flower-item flower-placeholder'><div class='flower-placeholder-box'>Ещё не открытый<br>цветок</div></div>`}
             </div>
         `;
         // Клик по картинке — показать попап награды
@@ -723,15 +723,15 @@ class GSDTracker {
         if (oldBg) oldBg.remove();
         // Выбираем видео и подпись по типу цветка
         let videoSrc = 'mp4/spherolia.mp4';
-        let flowerTitle = 'Сферолий';
+        let flowerTitle = 'Ромашка';
         let text = 'Ты справился без единого<br> вылета — это маленькое чудо,<br> которое ты создал сам.';
         if (type === 'unique') {
             videoSrc = 'mp4/luminary.mp4';
-            flowerTitle = 'Люминарий';
+            flowerTitle = 'Пиона';
             text = '5 дней без единого<br>вылета — это победа гармонии.<br>Ты сильнее, чем думаешь! ';
         } else if (type === 'premium') {
             videoSrc = 'mp4/astra-lyria.mp4';
-            flowerTitle = 'Астра Лирия';
+            flowerTitle = 'Астра Роза';
             text = '10 дней, большая<br> победа — большой шаг вперёд!<br> Горжусь тобой!';
         }
         // Добавляем видео на фон
