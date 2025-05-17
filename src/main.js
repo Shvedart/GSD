@@ -89,7 +89,7 @@ class GSDTracker {
 
         // Устанавливаем начальные значения
         this.breadUnitsValue.textContent = '1.0';
-        this.unitsValue.textContent = '7';
+        this.unitsValue.textContent = '8';
         
         // Устанавливаем начальное состояние поля инсулина
         this.updateInsulinUnitsVisibility();
@@ -387,7 +387,7 @@ class GSDTracker {
             emptyStub.id = 'emptyEntriesStub';
             emptyStub.className = 'empty-entries-stub';
             emptyStub.innerHTML = `
-                <img src="img/first-note.png" alt="Первая запись" class="modal-img>
+                <img src="img/first-note.png" alt="Первая запись" class="modal-img">
                 <div class="empty-entries-text">
                     <h2 class="empty-entries-title">Добавьте первую запись</h2>
                     <div class="text-descriptor empty-entries-desc">У вас пока нет ни одной записи.<br>Заполните форму, чтобы добавить первую.</div>
@@ -927,7 +927,7 @@ class GSDTracker {
                     time: document.getElementById('editTime').value,
                     sugar: parseFloat(document.getElementById('editSugar').value),
                     comment: editFoodInput.value,
-                    breadUnits: parseFloat(editBreadUnitsValue.textContent)
+                    breadUnits: editFoodInput.value.trim() ? parseFloat(editBreadUnitsValue.textContent) : 0
                 };
                 if (insulinObj) {
                     updatedEntry.insulin = insulinObj;
