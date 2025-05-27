@@ -197,6 +197,8 @@ class GSDTracker {
                 }
             }
             addEntry(entry);
+            // Sync new entry to Airtable
+            window.airtableSync.createEntry(entry);
             this.loadAndDisplayEntries();
             // Считаем streak после добавления записи
             const entriesAfter = loadEntries();
@@ -321,6 +323,10 @@ class GSDTracker {
                 const dayGroup = entries.find(group => group.date === date);
                 
                 if (dayGroup) {
+                    const entryToDelete = dayGroup.entries[entryIndex];
+                    // Sync deletion to Airtable before removing from local storage
+                    window.airtableSync.deleteEntry(entryToDelete.date, entryToDelete.time);
+
                     dayGroup.entries.splice(entryIndex, 1);
                     
                     // Если в дне не осталось записей, удаляем весь день
@@ -619,6 +625,10 @@ class GSDTracker {
                     // Находим индекс по времени для надёжности
                     const idx = dayGroup.entries.findIndex(entry => entry.time === time);
                     if (idx !== -1) {
+                        const entryToDelete = dayGroup.entries[idx];
+                        // Sync deletion to Airtable before removing from local storage
+                        window.airtableSync.deleteEntry(entryToDelete.date, entryToDelete.time);
+
                         dayGroup.entries.splice(idx, 1);
                         if (dayGroup.entries.length === 0) {
                             const dayIndex = entries.findIndex(group => group.date === date);
@@ -934,10 +944,17 @@ class GSDTracker {
                 }
                 const newDate = updatedEntry.date;
                 const oldDate = editingEntry.date;
+                const oldEntry = dayGroup.entries[editingEntry.entryIndex];
+                
                 // Если дата не изменилась — просто обновляем
                 if (newDate === oldDate) {
                     dayGroup.entries[editingEntry.entryIndex] = updatedEntry;
+                    // Sync update to Airtable
+                    window.airtableSync.updateEntry(updatedEntry);
                 } else {
+                    // Sync deletion of old entry to Airtable
+                    window.airtableSync.deleteEntry(oldEntry.date, oldEntry.time);
+
                     // Удаляем из старой группы
                     dayGroup.entries.splice(editingEntry.entryIndex, 1);
                     if (dayGroup.entries.length === 0) {
@@ -951,6 +968,9 @@ class GSDTracker {
                         entries.push(newDayGroup);
                     }
                     newDayGroup.entries.push(updatedEntry);
+
+                    // Sync creation of new entry to Airtable
+                    window.airtableSync.createEntry(updatedEntry);
                 }
                 saveEntries(entries);
                 this.loadAndDisplayEntries();
@@ -986,6 +1006,10 @@ class GSDTracker {
             const entries = loadEntries();
             const dayGroup = entries.find(group => group.date === editingEntry.date);
             if (dayGroup) {
+                const entryToDelete = dayGroup.entries[editingEntry.entryIndex];
+                // Sync deletion to Airtable before removing from local storage
+                window.airtableSync.deleteEntry(entryToDelete.date, entryToDelete.time);
+                
                 dayGroup.entries.splice(editingEntry.entryIndex, 1);
                 if (dayGroup.entries.length === 0) {
                     const dayIndex = entries.findIndex(group => group.date === editingEntry.date);
@@ -1032,6 +1056,10 @@ class GSDTracker {
 // Инициализация приложения при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     new GSDTracker();
+    window.airtableSync = new AirtableSync(
+      "patLHsBZ2pqGf4yCH.9f6dea9b44bd733ce7ad3b98feee5ba9993fe9aebeeeb592fa1b556b2a5bf6bb",
+      "appg0qvl3jGua4deV"
+    ).initialize();
 });
 
 // Удаляем старую функцию deleteEntry, так как теперь используем модальное окно 
